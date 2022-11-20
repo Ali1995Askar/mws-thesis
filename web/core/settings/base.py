@@ -54,16 +54,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -93,7 +83,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DJANGO_LOG_FILE = env.str("DJANGO_LOG_FILE", "logs/django.log")
+DJANGO_LOG_FILE = env.str("DJANGO_LOG_FILE", "../logs/server.log")
 os.makedirs(os.path.dirname(DJANGO_LOG_FILE), exist_ok=True)
 
 logging.config.dictConfig(
