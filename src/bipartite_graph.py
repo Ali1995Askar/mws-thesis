@@ -1,2 +1,0 @@
-class BipartiteGraph:
-    pass
