@@ -1,7 +1,7 @@
 from typing import Dict
 from networkx import Graph
 from abc import ABC, abstractmethod
-from src.algorithm.graph_traversal.graph_search import AbstractGraphTraversal
+from src.algorithm.graph_search.graph_search import AbstractGraphTraversal
 
 
 class MaxFlowAlgorithm(ABC):

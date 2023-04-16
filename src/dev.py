@@ -1,18 +1,22 @@
 import networkx as nx
-
-from src.algorithm.graph_traversal.bfs import BFS
-from src.algorithm.graph_traversal.dfs import DFS
+import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
-    G = nx.Graph()
-    G.add_edges_from([(0, 1), (0, 2), (1, 3), (3, 4), (1, 4)])
+    graph = nx.DiGraph()
+    graph.add_nodes_from(['src', 1, 2, 3, 4, 5, 6])
+    graph.add_edges_from([
+        (1, 2),
+        (2, 1),
+        (1, 3),
+        (1, 4),
+        (1, 6),
+        (3, 6),
+        (4, 5),
 
-    bfs = DFS(G)
-    path = bfs.traverse(0, 4)
-    print("DFS traversal:", bfs.visited)
-    print("DFS path:", path)
+    ])
 
-    bfs = BFS(G)
-    path = bfs.traverse(0, 4)
-    print("BFS traversal:", bfs.visited)
-    print("BFS path:", path)
+    print(graph.nodes)
+    print(graph.edges)
+    print(graph.degree(1))
+    print(list(graph.successors(1)))
+    print(list(graph.neighbors(1)))
