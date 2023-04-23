@@ -28,7 +28,7 @@ class AbstractHeuristic:
 
         for u, v, d in residual_network.edges(data=True):
             d["flow"] = 0
-
+       
         for u, v in self.matching_edges:
             residual_network[u][v]['flow'] = 1
             residual_network['source'][u]['flow'] = 1

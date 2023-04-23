@@ -1,4 +1,8 @@
+from src.algorithm.max_matching.heuristics.dynamic_min_degree import DynamicMinDegree
 from src.algorithm.max_matching.heuristics.monte_carlo import MonteCarlo
+from src.algorithm.max_matching.heuristics.randomized_rounding import RandomizedRounding
+from src.algorithm.max_matching.heuristics.simple_greedy import SimpleGreedy
+from src.algorithm.max_matching.heuristics.static_min_degree import StaticMinDegree
 from src.graph.bipartite_graph import BipartiteGraph
 from src.algorithm.max_matching.max_matching import MaxMatching
 from src.algorithm.max_flow.dinitz_algorithm import DinitzAlgorithm
@@ -14,13 +18,16 @@ if __name__ == '__main__':
         (0, 8),
         (0, 11),  #
         (1, 7),  #
+        (1, 8),  #
         (2, 8),  #
-        (3, 6),  #
-        (3, 7),
+        (3, 8),  #
+        (3, 9),
         (3, 11),
+        (3, 10),
         (4, 9),  #
         (5, 10),  #
         (5, 11),
+        (5, 7),
     ]
 
     un_direct_edges = bipartite.build_un_directed_edges(edges=edges)
@@ -30,7 +37,7 @@ if __name__ == '__main__':
     max_matching = MaxMatching()
     max_matching.set_bipartite_graph(bipartite_graph=bipartite)
     max_matching.reduce_to_max_flow()
-    max_matching.set_initial_flow(heuristic_algorithm=MonteCarlo)
+    max_matching.set_initial_flow(heuristic_algorithm=DynamicMinDegree)
 
     max_matching.set_algorithm(algorithm=DinitzAlgorithm)
     max_matching.find_max_matching()
