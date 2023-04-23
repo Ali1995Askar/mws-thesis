@@ -1,22 +1,26 @@
-import networkx as nx
-import matplotlib.pyplot as plt
+from src.algorithm.max_flow.dinitz_algorithm import DinitzAlgorithm
+from src.algorithm.max_flow.edmond_karp_algorithm import EdmondsKarpAlgorithm
+from src.algorithm.max_flow.preflow_push_algorithm import PreFlowPushAlgorithm
 
 if __name__ == '__main__':
+    import networkx as nx
+
     graph = nx.DiGraph()
-    graph.add_nodes_from(['src', 1, 2, 3, 4, 5, 6])
-    graph.add_edges_from([
-        (1, 2),
-        (2, 1),
-        (1, 3),
-        (1, 4),
-        (1, 6),
-        (3, 6),
-        (4, 5),
+    graph.add_nodes_from([i for i in range(10)])
 
-    ])
+    graph.add_edges_from([(1, 6, {'capacity': 50}),
+                          (1, 2, {'capacity': 5}),
+                          (2, 4, {'capacity': 4}),
+                          (4, 6, {'capacity': 3}), ])
 
-    print(graph.nodes)
-    print(graph.edges)
-    print(graph.degree(1))
-    print(list(graph.successors(1)))
-    print(list(graph.neighbors(1)))
+    inst = EdmondsKarpAlgorithm(graph, source=1, sink=6)
+    value, _ = inst.find_max_flow()
+    print('EdmondsKarpAlgorithm', value)
+
+    inst = DinitzAlgorithm(graph, source=1, sink=6)
+    value, _ = inst.find_max_flow()
+    print('DinitzAlgorithm', value)
+
+    inst = PreFlowPushAlgorithm(graph, source=1, sink=6)
+    value, _ = inst.find_max_flow()
+    print('PreFlowPushAlgorithm', value)

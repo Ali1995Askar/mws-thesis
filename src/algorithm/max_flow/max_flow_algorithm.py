@@ -1,32 +1,18 @@
-from typing import Dict
 from networkx import Graph
+from typing import Tuple, Dict, Any
 from abc import ABC, abstractmethod
-from src.algorithm.graph_search.graph_search import AbstractGraphTraversal
 
 
 class MaxFlowAlgorithm(ABC):
     graph: Graph
-    init_solution: Dict = None
-    path_finder: AbstractGraphTraversal
+    source: Any
+    sink: Any
 
-    def get_graph(self):
-        return self.graph
-
-    def set_graph(self, graph: Graph):
+    def __init__(self, graph: Graph, source: Any = 'source', sink: Any = 'sink'):
         self.graph = graph
-
-    def get_path_finder(self):
-        return self.path_finder
-
-    def set_path_finder(self, path_finder: AbstractGraphTraversal):
-        self.path_finder = path_finder
-
-    def set_init_solution(self, init_solution: Dict):
-        self.init_solution = init_solution
-
-    def get_init_solution(self):
-        return self.init_solution
+        self.source = source
+        self.sink = sink
 
     @abstractmethod
-    def find_max_flow(self, source: int, sink: int) -> tuple[int, Dict]:
+    def find_max_flow(self, initial_solution=None) -> Tuple[int, Dict]:
         pass
