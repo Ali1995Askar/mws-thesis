@@ -1,4 +1,5 @@
 from src.algorithm.max_matching.heuristics.dynamic_min_degree import DynamicMinDegree
+from src.algorithm.max_matching.heuristics.limit_min_degree import LimitMinDegree
 from src.algorithm.max_matching.heuristics.monte_carlo import MonteCarlo
 from src.algorithm.max_matching.heuristics.randomized_rounding import RandomizedRounding
 from src.algorithm.max_matching.heuristics.simple_greedy import SimpleGreedy
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     max_matching = MaxMatching()
     max_matching.set_bipartite_graph(bipartite_graph=bipartite)
     max_matching.reduce_to_max_flow()
-    max_matching.set_initial_flow(heuristic_algorithm=DynamicMinDegree)
+    max_matching.set_initial_flow(heuristic_algorithm=LimitMinDegree)
 
     max_matching.set_algorithm(algorithm=DinitzAlgorithm)
     max_matching.find_max_matching()
