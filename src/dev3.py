@@ -7,7 +7,25 @@ from src.algorithm.max_flow.preflow_push_algorithm import PreFlowPushAlgorithm
 
 if __name__ == '__main__':
     bipartite = BipartiteGraph()
-    bipartite.random_build(1000, density=0.003)
+    # bipartite.random_build(100, density=0.3)
+    nodes = [node for node in range(12)]
+    edges = [
+        (0, 6),
+        (0, 8),
+        (0, 11),  #
+        (1, 7),  #
+        (2, 8),  #
+        (3, 6),  #
+        (3, 7),
+        (3, 11),
+        (4, 9),  #
+        (5, 10),  #
+        (5, 11),
+    ]
+
+    un_direct_edges = bipartite.build_un_directed_edges(edges=edges)
+
+    bipartite.build_manually(nodes=nodes, edges=un_direct_edges)
 
     max_matching = MaxMatching()
     max_matching.set_bipartite_graph(bipartite_graph=bipartite)
@@ -17,4 +35,4 @@ if __name__ == '__main__':
     max_matching.set_algorithm(algorithm=DinitzAlgorithm)
     max_matching.find_max_matching()
     max_matching.print_result()
-    # max_matching.print_matching_edges()
+    max_matching.print_matching_edges()

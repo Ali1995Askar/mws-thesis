@@ -16,9 +16,11 @@ class MaxMatching:
     temp_bipartite_graph: BipartiteGraph
     max_matching_edges: List[Tuple[Any, Any]]
     initial_flow: Union[DiGraph, None]
+    heuristic_algorithm: Union[AbstractHeuristic, None]
 
     def __init__(self):
         self.initial_flow = None
+        self.heuristic_algorithm = None
 
     def reduce_to_max_flow(self):
         if not self.bipartite_graph.is_bipartite():
@@ -33,8 +35,8 @@ class MaxMatching:
         self.temp_bipartite_graph = deepcopy(bipartite_graph)
 
     def set_initial_flow(self, heuristic_algorithm: Type[AbstractHeuristic]):
-        inst = heuristic_algorithm(bipartite_graph=self.temp_bipartite_graph)
-        initial_flow = inst.execute()
+        self.heuristic_algorithm = heuristic_algorithm(bipartite_graph=self.temp_bipartite_graph)
+        initial_flow = self.heuristic_algorithm.execute()
         self.initial_flow = initial_flow
 
     def set_algorithm(self, algorithm: Type[MaxFlowAlgorithm]):
@@ -83,7 +85,11 @@ class MaxMatching:
 
     def print_result(self):
         algo_name = camel_case_to_readable(camel_case_string=type(self.algorithm).__name__)
-        print(f"Max Matching using '{algo_name}' is: {self.max_matching_value}.")
+        msg = f"Max Matching using '{algo_name}' is: {self.max_matching_value}"
+        if self.heuristic_algorithm:
+            init_match = len(self.heuristic_algorithm.matching_edges)
+            msg = f"{msg} (using {type(self.heuristic_algorithm).__name__} as a heuristic with result: {init_match})"
+        print(msg)
 
     def print_matching_edges(self):
         print(f'Match edges:')

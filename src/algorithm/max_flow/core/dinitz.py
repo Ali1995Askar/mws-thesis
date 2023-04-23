@@ -29,10 +29,11 @@ def dinitz_impl(G, s, t, capacity, residual, cutoff):
     else:
         R = residual
 
-    # Initialize/reset the residual network.
-    # for u in R:
-    #     for e in R[u].values():
-    #         e["flow"] = 0
+    for u in R:
+
+        for e in R[u].values():
+            if not e.get('flow'):
+                e["flow"] = 0
 
     # Use an arbitrary high value as infinite. It is computed
     # when building the residual network.
