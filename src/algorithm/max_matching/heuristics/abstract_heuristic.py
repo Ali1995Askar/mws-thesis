@@ -1,7 +1,7 @@
 import copy
 from abc import abstractmethod
 from typing import Tuple, List
-
+from utils.decorators import time_it
 from src.graph.bipartite_graph import BipartiteGraph
 
 
@@ -17,6 +17,7 @@ class AbstractHeuristic:
     def find_matching_edges(self) -> List[Tuple]:
         pass
 
+    @time_it
     def execute(self):
         self.matching_edges = self.find_matching_edges()
         initial_flow_network = self.build_initial_flow()
@@ -28,7 +29,7 @@ class AbstractHeuristic:
 
         for u, v, d in residual_network.edges(data=True):
             d["flow"] = 0
-       
+
         for u, v in self.matching_edges:
             residual_network[u][v]['flow'] = 1
             residual_network['source'][u]['flow'] = 1
