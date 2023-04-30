@@ -1,4 +1,5 @@
 import csv
+import time
 
 
 def create_csv(filename, columns, data):
@@ -19,3 +20,11 @@ def camel_case_to_readable(camel_case_string):
         else:
             result += char
     return result.title()
+
+
+def timed_execution(func, *args, **kwargs):
+    start_time = time.time()
+    result = func(*args, **kwargs)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    return result, execution_time

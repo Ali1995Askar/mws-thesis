@@ -38,3 +38,10 @@ class Graph:
             temp.append((edge[1], edge[0], {'capacity': 1}))
 
         return temp
+
+    def print_graph(self):
+        # Draw the graph using ASCII art
+
+        for node in self.graph.nodes():
+            neighbors = list(self.graph.neighbors(node))
+            print(f"Node {node}: ==> {neighbors}")

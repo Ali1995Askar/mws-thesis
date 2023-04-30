@@ -39,7 +39,7 @@ def edmonds_karp_core(R, s, t, cutoff):
         return flow
 
     def bidirectional_bfs():
-        print('Bidirectional breadth-first search for an augmenting path.')
+        # print('Bidirectional breadth-first search for an augmenting path.')
         """Bidirectional breadth-first search for an augmenting path."""
         pred = {s: None}
         q_s = [s]

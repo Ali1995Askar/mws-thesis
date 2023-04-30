@@ -32,16 +32,16 @@ if __name__ == '__main__':
         (5, 7),
     ]
 
-    # un_direct_edges = bipartite.build_un_directed_edges(edges=edges)
-    # bipartite.build_manually(nodes=nodes, edges=un_direct_edges)
-    # max_matching = MaxMatching()
-    # max_matching.set_bipartite_graph(bipartite_graph=bipartite)
-    # max_matching.reduce_to_max_flow()
-    # max_matching.set_initial_flow(heuristic_algorithm=LimitMinDegree)
-    # max_matching.set_algorithm(algorithm=DinitzAlgorithm)
-    # max_matching.find_max_matching()
-    # max_matching.print_result()
-    # max_matching.print_matching_edges()
+    un_direct_edges = bipartite.build_un_directed_edges(edges=edges)
+    bipartite.build_manually(nodes=nodes, edges=un_direct_edges)
+    max_matching = MaxMatching()
+    max_matching.set_bipartite_graph(bipartite_graph=bipartite)
+    max_matching.reduce_to_max_flow()
+    max_matching.set_initial_flow(heuristic_algorithm=LimitMinDegree)
+    max_matching.set_algorithm(algorithm=DinitzAlgorithm)
+    max_matching.find_max_matching()
+    max_matching.print_result()
+    max_matching.print_matching_edges()
     import csv
 
     filename = 'example.csv'
@@ -56,7 +56,7 @@ if __name__ == '__main__':
         ['John', 25, 'Male'],
         ['John', 25, 'Male'],
         ['Jane', 32, 'Female'],
-       
+
     ]
 
     # Call the create_csv function to write the data to the CSV file

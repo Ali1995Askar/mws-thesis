@@ -2,7 +2,6 @@ import copy
 import math
 import random
 from typing import List, Tuple
-
 from src.graph.graph import Graph
 from networkx.algorithms import bipartite
 
@@ -48,5 +47,39 @@ class BipartiteGraph(Graph):
             edges.append((source, target, {'capacity': 1}))
             edges.append((target, source, {'capacity': 1}))
             edges_count += 1
-            print(f'edge number {edges_count} added successfully')
+            # print(f'edge number {edges_count} added successfully')
         self.build_manually(nodes=nodes, edges=edges)
+
+    def fast_way(self, num_of_nodes, density):
+        self.graph.clear()
+        red_nodes = set(range(0, math.ceil(num_of_nodes / 2)))
+        blue_nodes = set(range(len(red_nodes), num_of_nodes))
+
+        nodes = red_nodes | blue_nodes
+
+        num_of_edges = math.ceil((len(red_nodes) * len(blue_nodes)) * density)
+        # Create a list of all possible edges between red and blue nodes
+
+        possible_edges = []
+        for red_node in red_nodes:
+            for blue_node in blue_nodes:
+                possible_edges.append((red_node, blue_node))
+
+        # Shuffle the list of edges and select the desired number
+        random.shuffle(possible_edges)
+        selected_edges = possible_edges[:num_of_edges]
+
+        edges = []
+        # Create the edges with capacity 1
+        for i, j in selected_edges:
+            edges.append((i, j, {'capacity': 1}))
+            edges.append((j, i, {'capacity': 1}))
+
+        self.build_manually(nodes=list(nodes), edges=edges)
+        # Create the graph and add the nodes and edges
+        import networkx
+        if networkx.is_bipartite(self.graph):
+            print(f'build random bipartite graph with {num_of_nodes} nodes and {len(selected_edges)} edges')
+        else:
+            print(num_of_nodes, num_of_edges)
+            print("Error: graph is not bipartite")

@@ -60,7 +60,7 @@ def dinitz_impl(G, s, t, capacity, residual, cutoff):
         return parents
 
     def depth_first_search(parents):
-        print('--------Find Augmenting Path run--------')
+        # print('--------Find Augmenting Path run--------')
         """Build a path using DFS starting from the sink"""
         path = []
         u = t

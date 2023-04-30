@@ -10,17 +10,29 @@ from src.algorithm.max_flow.max_flow_algorithm import MaxFlowAlgorithm
 
 
 class MaxMatching:
-    max_matching_value: int
-    algorithm: MaxFlowAlgorithm
-    bipartite_graph: BipartiteGraph
-    temp_bipartite_graph: BipartiteGraph
-    max_matching_edges: List[Tuple[Any, Any]]
+    max_matching_value: Union[int, None]
+    algorithm: Union[MaxFlowAlgorithm, None]
+    bipartite_graph: Union[BipartiteGraph, None]
+    temp_bipartite_graph: Union[BipartiteGraph, None]
+    max_matching_edges: Union[List[Tuple[Any, Any]], None]
     initial_flow: Union[DiGraph, None]
     heuristic_algorithm: Union[AbstractHeuristic, None]
 
     def __init__(self):
         self.initial_flow = None
         self.heuristic_algorithm = None
+
+    def reset(self):
+        self.initial_flow = None
+        self.heuristic_algorithm = None
+        self.max_matching_value = None
+        self.algorithm = None
+        self.temp_bipartite_graph = deepcopy(self.bipartite_graph)
+        self.max_matching_edges = None
+        self.max_matching_edges = None
+
+    def get_temp_graph(self):
+        return self.temp_bipartite_graph.graph
 
     def reduce_to_max_flow(self):
         if not self.bipartite_graph.is_bipartite():
