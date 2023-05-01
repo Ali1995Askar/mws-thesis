@@ -21,15 +21,11 @@ class LimitMinDegree(AbstractHeuristic):
                      self.bipartite_graph.red_nodes and node[1] < limit]
 
         ss = sorted(red_nodes, key=self.sort_by_degree)
-        print('bye', red_nodes)
         red_nodes_big_degree = [node for node in self.bipartite_graph.red_nodes if
                                 not any(n[0] == node for n in red_nodes)]
 
-        print('hello', red_nodes_big_degree)
-
         while ss:
             red_node = ss.pop(0)[0]
-            print('red_node', red_node)
             if red_node in matched_nodes or red_node in source_sink:
                 continue
 
@@ -38,7 +34,6 @@ class LimitMinDegree(AbstractHeuristic):
                 if blue_neighbor in matching_edges:
                     continue
                 edge = (red_node, blue_neighbor)
-                print('delete node', red_node, blue_neighbor)
                 temp_graph.remove_node(red_node)
                 temp_graph.remove_node(blue_neighbor)
                 matching_edges.add(edge)
