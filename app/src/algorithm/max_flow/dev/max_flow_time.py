@@ -1,11 +1,11 @@
 import time
 
-from app.src.algorithm.max_flow.ford_fulkerson import FordFulkersonAlgorithm
+from app.src.algorithm.max_flow.ford_fulkerson_algorithm import FordFulkersonAlgorithm
 from app.src.graph.bipartite_graph import BipartiteGraph
 from app.src.algorithm.max_matching.max_matching import MaxMatching
 # from src.algorithm.max_flow.core.edmonds_karp import edmonds_karp
 from app.src.algorithm.max_flow.dinitz_algorithm import DinitzAlgorithm
-from app.src.algorithm.max_flow.edmond_karp_algorithm import EdmondsKarpAlgorithm
+from app.src.algorithm.max_flow.edmond_karp_algorithm import EdmondKarpAlgorithm
 
 from networkx.algorithms.flow import edmonds_karp
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
             ford_fulkerson_algorithm_execution_time = end_time - start_time
             ford_fulkerson_algorithm_value = max_matching.max_matching_value
 
-            max_matching.set_algorithm(algorithm=EdmondsKarpAlgorithm)
+            max_matching.set_algorithm(algorithm=EdmondKarpAlgorithm)
             max_matching.reduce_to_max_flow()
             start_time = time.time()
             max_matching.find_max_matching()

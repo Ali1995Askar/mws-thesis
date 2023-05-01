@@ -1,14 +1,9 @@
 from typing import Tuple, Dict
-
 from app.src.algorithm.max_flow.core.edmonds_karp import edmonds_karp
-# from networkx.algorithms.flow import edmonds_karp
 from app.src.algorithm.max_flow.max_flow_algorithm import MaxFlowAlgorithm
 
 
-#
-
-
-class EdmondsKarpAlgorithm(MaxFlowAlgorithm):
+class EdmondKarpAlgorithm(MaxFlowAlgorithm):
     def find_max_flow(self, initial_solution=None) -> Tuple[float, Dict]:
         kwargs = {'G': self.graph, 's': self.source, 't': self.sink}
         if initial_solution:

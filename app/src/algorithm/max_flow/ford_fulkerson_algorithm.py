@@ -1,11 +1,6 @@
 from typing import Tuple, Dict
-
 from app.src.algorithm.max_flow.core.ford_fulkerson import ford_fulkerson
-# from networkx.algorithms.flow import edmonds_karp
 from app.src.algorithm.max_flow.max_flow_algorithm import MaxFlowAlgorithm
-
-
-#
 
 
 class FordFulkersonAlgorithm(MaxFlowAlgorithm):
