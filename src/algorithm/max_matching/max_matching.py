@@ -44,6 +44,7 @@ class MaxMatching:
 
     def set_bipartite_graph(self, bipartite_graph: BipartiteGraph):
         self.bipartite_graph = bipartite_graph
+        self.temp_bipartite_graph = deepcopy(self.bipartite_graph)
 
     def set_initial_flow(self, heuristic_algorithm: Type[AbstractHeuristic]):
         self.heuristic_algorithm = heuristic_algorithm(bipartite_graph=self.temp_bipartite_graph)

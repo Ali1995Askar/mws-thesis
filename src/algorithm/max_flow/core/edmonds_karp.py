@@ -38,8 +38,8 @@ def edmonds_karp_core(R, s, t, cutoff):
             u = v
         return flow
 
-    def bidirectional_bfs():
-        # print('Bidirectional breadth-first search for an augmenting path.')
+    def bidiressctional_bfs():
+        print('Bidirectional breadth-first search for an augmenting path.')
         """Bidirectional breadth-first search for an augmenting path."""
         pred = {s: None}
         q_s = [s]
@@ -70,10 +70,25 @@ def edmonds_karp_core(R, s, t, cutoff):
                     return None, None, None
                 q_t = q
 
+    def bidirectional_bfs():
+        # print('Regular breadth-first search for an augmenting path.')
+        """Regular breadth-first search for an augmenting path."""
+        pred = {s: None}
+        q = [s]
+        while q:
+            u = q.pop(0)
+            for v, attr in R_succ[u].items():
+                if v not in pred and attr["flow"] < attr["capacity"]:
+                    pred[v] = u
+                    if v == t:
+                        return v, pred
+                    q.append(v)
+        return None, None
+
     # Look for shortest augmenting paths using breadth-first search.
     flow_value = 0
     while flow_value < cutoff:
-        v, pred, succ = bidirectional_bfs()
+        v, pred = bidirectional_bfs()
         if pred is None:
             break
         path = [v]
@@ -84,10 +99,10 @@ def edmonds_karp_core(R, s, t, cutoff):
             path.append(u)
         path.reverse()
         # Trace a path from v to t.
-        u = v
-        while u != t:
-            u = succ[u]
-            path.append(u)
+        # u = v
+        # while u != t:
+        #     u = succ[u]
+        #     path.append(u)
         flow_value += augment(path)
 
     return flow_value

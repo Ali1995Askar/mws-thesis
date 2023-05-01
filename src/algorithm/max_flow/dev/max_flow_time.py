@@ -52,7 +52,7 @@ if __name__ == '__main__':
     for node in nodes_range:
         rows = []
         for density in density_range:
-            bipartite_graph.random_build(num_of_nodes=node, density=density)
+            bipartite_graph.random_build(num_of_nodes=node // 100, density=density)
             max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
 
             max_matching.set_algorithm(algorithm=EdmondsKarpAlgorithm)
