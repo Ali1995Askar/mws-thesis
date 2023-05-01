@@ -2,6 +2,8 @@ import random
 import time
 
 import networkx
+
+from src.algorithm.max_flow.ford_fulkerson import FordFulkersonAlgorithm
 from src.graph.bipartite_graph import BipartiteGraph
 from src.algorithm.max_matching.max_matching import MaxMatching
 # from src.algorithm.max_flow.core.edmonds_karp import edmonds_karp
@@ -15,6 +17,8 @@ from utils.utils import create_csv
 columns_name = [
     'NUM OF NODES',
     'Density',
+    'Ford-Fulkerson Result',
+    'Ford-Fulkerson Execution Time',
     'Edmond-Karp Result',
     'Edmond-Karp Execution Time',
     'Dinitz Result',
@@ -52,8 +56,16 @@ if __name__ == '__main__':
     for node in nodes_range:
         rows = []
         for density in density_range:
-            bipartite_graph.random_build(num_of_nodes=node // 100, density=density)
+            bipartite_graph.random_build(num_of_nodes=node, density=density)
             max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
+
+            max_matching.set_algorithm(algorithm=FordFulkersonAlgorithm)
+            max_matching.reduce_to_max_flow()
+            start_time = time.time()
+            max_matching.find_max_matching()
+            end_time = time.time()
+            ford_fulkerson_algorithm_execution_time = end_time - start_time
+            ford_fulkerson_algorithm_value = max_matching.max_matching_value
 
             max_matching.set_algorithm(algorithm=EdmondsKarpAlgorithm)
             max_matching.reduce_to_max_flow()
@@ -74,11 +86,14 @@ if __name__ == '__main__':
             row = [
                 node,
                 density,
+                ford_fulkerson_algorithm_value,
+                ford_fulkerson_algorithm_execution_time,
                 edmond_algorithm_value,
                 edmond_algorithm_execution_time,
                 dinitz_algorithm_value,
                 dinitz_algorithm_execution_time,
                 R.graph['flow_value']
             ]
+            print(row)
             rows.append(row)
         create_csv(f'{node}.csv', columns=columns_name, data=rows)
