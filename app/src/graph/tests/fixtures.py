@@ -1,6 +1,8 @@
 import pytest
 import networkx as nx
 
+from app.src.graph.bipartite_graph import BipartiteGraph
+
 
 @pytest.fixture()
 def ex_graph_1() -> nx.Graph:
@@ -164,3 +166,75 @@ def ex_graph_12():
     graph.add_nodes_from(nodes)
     graph.add_edges_from(edges)
     return graph
+
+
+@pytest.fixture()
+def ex_bipartite_graph_1():
+    bipartite_graph = BipartiteGraph()
+    bipartite_graph.build_manually(
+        nodes=[1, 2, 3, 4, 5, 6, 7],
+        edges=[(1, 5), (2, 5), (2, 6), (3, 6), (4, 7)]
+    )
+    bipartite_graph.split_nodes()
+    return bipartite_graph
+
+
+@pytest.fixture()
+def ex_bipartite_graph_2():
+    bipartite_graph = BipartiteGraph()
+    bipartite_graph.build_manually(
+        nodes=[1, 2, 3, 4, 5, 6],
+        edges=[(1, 4), (2, 5), (3, 6)]
+    )
+    bipartite_graph.split_nodes()
+    return bipartite_graph
+
+
+@pytest.fixture()
+def ex_bipartite_graph_3():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_4():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_5():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_6():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_7():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_8():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_9():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_10():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_11():
+    pass
+
+
+@pytest.fixture()
+def ex_bipartite_graph_12():
+    pass
