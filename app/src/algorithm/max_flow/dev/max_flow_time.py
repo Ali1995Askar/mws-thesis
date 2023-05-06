@@ -92,6 +92,6 @@ if __name__ == '__main__':
             ]
             print(row)
             rows.append(row)
-        create_csv(f'edmond_{num_of_nodes}.csv', columns=columns_name, data=rows)
+        create_csv(f'{num_of_nodes}_max_flow.csv', columns=columns_name, data=rows)
 
 

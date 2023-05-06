@@ -16,7 +16,6 @@ class DynamicMinDegree(AbstractHeuristic):
         red_nodes = sorted(red_nodes, key=self.sort_by_degree)
 
         while red_nodes:
-            print('red_nodes: ', red_nodes)
             red_node = red_nodes.pop(0)[0]
             if red_node in matched_nodes or red_node in source_sink:
                 continue

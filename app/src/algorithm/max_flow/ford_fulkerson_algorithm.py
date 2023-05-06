@@ -5,7 +5,6 @@ from app.src.algorithm.max_flow.max_flow_algorithm import MaxFlowAlgorithm
 
 class FordFulkersonAlgorithm(MaxFlowAlgorithm):
     def find_max_flow(self, initial_solution=None) -> Tuple[float, Dict]:
-        print('FordFulkersonAlgorithm')
         kwargs = {'G': self.graph, 's': self.source, 't': self.sink}
         if initial_solution:
             kwargs.update({'residual': initial_solution})
