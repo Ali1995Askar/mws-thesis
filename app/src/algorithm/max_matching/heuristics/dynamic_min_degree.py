@@ -27,7 +27,6 @@ class DynamicMinDegree(AbstractHeuristic):
                 if blue_neighbor in matching_edges:
                     continue
                 edge = (red_node, blue_neighbor)
-                # print('out degree', temp_graph.out_degree, type(temp_graph.out_degree))
                 temp_graph.remove_node(red_node)
                 temp_graph.remove_node(blue_neighbor)
                 matching_edges.add(edge)
@@ -35,8 +34,7 @@ class DynamicMinDegree(AbstractHeuristic):
                 node_degree = list(temp_graph.out_degree)
                 red_nodes = [node for node in node_degree if node[0] in self.bipartite_graph.red_nodes]
                 red_nodes = sorted(red_nodes, key=self.sort_by_degree)
-                print(edge)
-                print('after:', red_nodes)
+
                 break
 
         return list(matching_edges)

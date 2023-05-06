@@ -2,7 +2,7 @@ import random
 
 from app.src.algorithm.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
-NUM_OF_ITERATION = 1
+NUM_OF_ITERATION = 5
 
 
 class MonteCarlo(AbstractHeuristic):
