@@ -54,6 +54,7 @@ if __name__ == '__main__':
             bipartite_graph.random_build(num_of_nodes=num_of_nodes, density=density)
             max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
 
+            # FordFulkerson Algorithm
             max_matching.set_algorithm(algorithm=FordFulkersonAlgorithm)
             max_matching.reduce_to_max_flow()
             start_time = time.time()
@@ -62,6 +63,7 @@ if __name__ == '__main__':
             ford_fulkerson_algorithm_execution_time = end_time - start_time
             ford_fulkerson_algorithm_value = max_matching.max_matching_value
 
+            # EdmondKarp Algorithm
             max_matching.set_algorithm(algorithm=EdmondKarpAlgorithm)
             max_matching.reduce_to_max_flow()
             start_time = time.time()
@@ -70,6 +72,7 @@ if __name__ == '__main__':
             edmond_algorithm_execution_time = end_time - start_time
             edmond_algorithm_value = max_matching.max_matching_value
 
+            # Dinitz Algorithm
             max_matching.set_algorithm(algorithm=DinitzAlgorithm)
             max_matching.reduce_to_max_flow()
             start_time = time.time()
