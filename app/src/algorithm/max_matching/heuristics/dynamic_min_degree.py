@@ -25,6 +25,7 @@ class DynamicMinDegree(AbstractHeuristic):
             for blue_neighbor in blue_neighbors:
                 if blue_neighbor in matching_edges:
                     continue
+
                 edge = (red_node, blue_neighbor)
                 temp_graph.remove_node(red_node)
                 temp_graph.remove_node(blue_neighbor)

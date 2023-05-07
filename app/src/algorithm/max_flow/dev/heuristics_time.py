@@ -164,4 +164,4 @@ if __name__ == '__main__':
             ]
             print(row)
             rows.append(row)
-        create_csv(f'{num_of_nodes}_matching.csv', columns=columns_name, data=rows)
+        create_csv(f'{num_of_nodes}_heuristic_matching.csv', columns=columns_name, data=rows)

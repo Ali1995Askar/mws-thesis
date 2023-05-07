@@ -28,6 +28,7 @@ class BipartiteGraph(Graph):
         self.graph.clear()
         red_nodes = set(range(0, math.ceil(num_of_nodes / 2)))
         blue_nodes = set(range(len(red_nodes), num_of_nodes))
+
         self.red_nodes = list(red_nodes)
         self.blue_nodes = list(blue_nodes)
 
