@@ -1,45 +1,36 @@
-import random
 import time
-import networkx as nx
-from networkx.algorithms.flow import edmonds_karp
 
-# A --- B --- C --- D --- E
-#  \   /     |           /
-#    F      G --- H --- I
-
+from app.src.algorithm.max_matching.heuristics.my_algo import MyAlgo
+from app.src.graph.bipartite_graph import BipartiteGraph
+from app.src.algorithm.max_matching.max_matching import MaxMatching
+from app.src.algorithm.max_flow.ford_fulkerson_algorithm import FordFulkersonAlgorithm
 
 if __name__ == '__main__':
-    import networkx as nx
-    import random
-    import time
+    nodes = [1, 2, 3, 4, 5, 6]
+    edges = [
+        (1, 4),
+        (1, 6),
+        (2, 4),
+        (3, 4),
+    ]
+    bipartite_graph = BipartiteGraph()
+    max_matching = MaxMatching()
 
-    # Generate a random graph with 100 nodes and 500 edges
-    G = nx.gnm_random_graph(500, 20000)
+    bipartite_graph.build_manually(nodes=nodes, edges=edges)
+    bipartite_graph.split_nodes()
+    max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
+    max_matching.set_algorithm(algorithm=FordFulkersonAlgorithm)
+    max_matching.reduce_to_max_flow()
+    # start_time = time.time()
+    max_matching.find_max_matching()
+    # end_time = time.time()
+    # ford_fulkerson_algorithm_execution_time = end_time - start_time
+    ford_fulkerson_algorithm_value = max_matching.max_matching_value
+    print(ford_fulkerson_algorithm_value)
 
-    # Add random capacities to the edges
-    capacities = {}
-    for u, v in G.edges():
-        capacities[(u, v)] = random.randint(1, 10)
-
-    # Add a source node and a sink node to the graph
-    source = -1
-    sink = -2
-    for u in list(G.nodes()):
-        if u % 2 == 0:
-            G.add_edge(source, u, capacity=random.randint(1, 10))
-        else:
-            G.add_edge(u, sink, capacity=random.randint(1, 10))
-
-    # Compute the maximum flow using Dinic's algorithm
-    start_time = time.time()
-    max_flow_value = nx.maximum_flow(G, source, sink, flow_func=nx.algorithms.flow.dinitz)
-    end_time = time.time()
-    print("Dinic's algorithm runtime: ", end_time - start_time)
-    print("Maximum flow value: ", max_flow_value[0])
-
-    # Compute the maximum flow using Edmonds-Karp algorithm
-    start_time = time.time()
-    max_flow_value = nx.maximum_flow(G, source, sink, flow_func=nx.algorithms.flow.edmonds_karp)
-    end_time = time.time()
-    print("Edmonds-Karp algorithm runtime: ", end_time - start_time)
-    print("Maximum flow value: ", max_flow_value[0])
+    my_algo = MyAlgo(bipartite_graph=bipartite_graph)
+    # start_time = time.time()
+    my_algo_result = my_algo.find_matching_edges()
+    # end_time = time.time()
+    # my_algo_time = end_time - start_time
+    print(my_algo_result)
