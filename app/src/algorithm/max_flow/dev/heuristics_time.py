@@ -3,7 +3,7 @@ import time
 from app.src.algorithm.max_matching.heuristics.dynamic_min_degree import DynamicMinDegree
 from app.src.algorithm.max_matching.heuristics.limit_min_degree import LimitMinDegree
 from app.src.algorithm.max_matching.heuristics.monte_carlo import MonteCarlo
-from app.src.algorithm.max_matching.heuristics.my_algo import MyAlgo
+from app.src.algorithm.max_matching.heuristics.modified_algorithm import ModifiedAlgorithm
 from app.src.algorithm.max_matching.heuristics.randomized_rounding import RandomizedRounding
 from app.src.algorithm.max_matching.heuristics.simple_greedy import SimpleGreedy
 from app.src.algorithm.max_matching.heuristics.static_min_degree import StaticMinDegree
@@ -92,12 +92,14 @@ if __name__ == '__main__':
             max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
 
             # My Algo
-            my_algo = MyAlgo(bipartite_graph=bipartite_graph)
+            my_algo = ModifiedAlgorithm(bipartite_graph=bipartite_graph)
             start_time = time.time()
             my_algo_result = my_algo.find_matching_edges()
             end_time = time.time()
             my_algo_time = end_time - start_time
 
+            print(end_time - start_time)
+            print(my_algo_result)
 
             # # Dynamic Min Degree
             # static = StaticMinDegree(bipartite_graph=bipartite_graph)

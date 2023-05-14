@@ -1,6 +1,6 @@
 import time
 
-from app.src.algorithm.max_matching.heuristics.my_algo import MyAlgo
+from app.src.algorithm.max_matching.heuristics.modified_algorithm import ModifiedAlgorithm
 from app.src.graph.bipartite_graph import BipartiteGraph
 from app.src.algorithm.max_matching.max_matching import MaxMatching
 from app.src.algorithm.max_flow.ford_fulkerson_algorithm import FordFulkersonAlgorithm
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     ford_fulkerson_algorithm_value = max_matching.max_matching_value
     print(ford_fulkerson_algorithm_value)
 
-    my_algo = MyAlgo(bipartite_graph=bipartite_graph)
+    my_algo = ModifiedAlgorithm(bipartite_graph=bipartite_graph)
     # start_time = time.time()
     my_algo_result = my_algo.find_matching_edges()
     # end_time = time.time()
