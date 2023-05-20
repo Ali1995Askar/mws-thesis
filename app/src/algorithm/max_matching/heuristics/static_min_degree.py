@@ -14,8 +14,10 @@ class StaticMinDegree(AbstractHeuristic):
             blue_neighbors = self.get_node_neighbors(red_node)
 
             for blue_node in blue_neighbors:
+
                 if self.check_if_node_matched(blue_node, matched_nodes):
                     continue
+
                 edge = (red_node, blue_node)
                 matching_edges.add(edge)
                 matched_nodes.extend([red_node, blue_node])

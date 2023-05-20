@@ -1,14 +1,9 @@
-import random
-import time
 from typing import Any, Set
-
 from app.src.algorithm.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
-class ModifiedAlgorithm(AbstractHeuristic):
-
+class BacktrackingAlgorithm(AbstractHeuristic):
     def find_matching_edges(self):
-
         matched_nodes = set()
         matched_edges = set()
         un_matched_edges = set(self.bipartite_graph.edges())
@@ -41,10 +36,12 @@ class ModifiedAlgorithm(AbstractHeuristic):
             un_matched_edges.remove(choice)
 
             neighbor = next((tup[1] for tup in matched_edges if tup[0] == choice[0]), None)
-            matched_edges.remove((choice[0], neighbor))
-            matched_edges.add((node, neighbor))
-            un_matched_edges.add((choice[0], neighbor))
 
+            matched_edges.remove((choice[0], neighbor))
+
+            matched_edges.add((node, neighbor))
+
+            un_matched_edges.add((choice[0], neighbor))
             matched_nodes |= {node, neighbor, choice[1]}
 
             cm += 1
@@ -54,7 +51,6 @@ class ModifiedAlgorithm(AbstractHeuristic):
     def find_best_choice(nodes, match_nodes, un_matched_edges):
         for un_matched_edge in un_matched_edges:
             if un_matched_edge[0] in nodes and un_matched_edge[1] not in match_nodes:
-                end_date = time.time()
                 return un_matched_edge
 
     def find_un_matched_neighbor(self, node: Any, matched_nodes: Set):

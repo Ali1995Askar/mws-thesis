@@ -3,7 +3,7 @@ import time
 from app.src.algorithm.max_matching.heuristics.dynamic_min_degree import DynamicMinDegree
 from app.src.algorithm.max_matching.heuristics.limit_min_degree import LimitMinDegree
 from app.src.algorithm.max_matching.heuristics.monte_carlo import MonteCarlo
-from app.src.algorithm.max_matching.heuristics.modified_algorithm import ModifiedAlgorithm
+from app.src.algorithm.max_matching.heuristics.backtracking_algorithm import BacktrackingAlgorithm
 from app.src.algorithm.max_matching.heuristics.randomized_rounding import RandomizedRounding
 from app.src.algorithm.max_matching.heuristics.simple_greedy import SimpleGreedy
 from app.src.algorithm.max_matching.heuristics.static_min_degree import StaticMinDegree
@@ -26,6 +26,9 @@ simple_greedy = 1
 columns_name = [
     'NUM OF NODES',
     'Density',
+
+    'Backtracking Algorithm Time',
+    'Backtracking Algorithm Result',
 
     'Static Min Degree Time',
     'Static Min Degree Result',
@@ -91,57 +94,54 @@ if __name__ == '__main__':
             bipartite_graph.random_build(num_of_nodes=num_of_nodes, density=density)
             max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
 
-            # My Algo
-            my_algo = ModifiedAlgorithm(bipartite_graph=bipartite_graph)
+            # Backtracking Algorithm
+            backtracking_algo = BacktrackingAlgorithm(bipartite_graph=bipartite_graph)
             start_time = time.time()
-            my_algo_result = my_algo.find_matching_edges()
+            backtracking_algo_result = backtracking_algo.find_matching_edges()
             end_time = time.time()
-            my_algo_time = end_time - start_time
+            backtracking_algo_time = end_time - start_time
 
-            print(end_time - start_time)
-            print(my_algo_result)
+            # Dynamic Min Degree
+            static = StaticMinDegree(bipartite_graph=bipartite_graph)
+            start_time = time.time()
+            static_min_degree_result = static.find_matching_edges()
+            end_time = time.time()
+            static_min_degree_time = end_time - start_time
 
-            # # Dynamic Min Degree
-            # static = StaticMinDegree(bipartite_graph=bipartite_graph)
-            # start_time = time.time()
-            # static_min_degree_result = static.find_matching_edges()
-            # end_time = time.time()
-            # static_min_degree_time = end_time - start_time
-            #
-            # # Dynamic Min Degree
-            # dynamic = DynamicMinDegree(bipartite_graph=bipartite_graph)
-            # start_time = time.time()
-            # dynamic_min_degree_result = dynamic.find_matching_edges()
-            # end_time = time.time()
-            # dynamic_min_degree_time = end_time - start_time
-            #
-            # # Limit Min Degree
-            # limit = LimitMinDegree(bipartite_graph=bipartite_graph)
-            # start_time = time.time()
-            # limit_min_degree_result = limit.find_matching_edges()
-            # end_time = time.time()
-            # limit_min_degree_time = end_time - start_time
-            #
-            # # Monte Carlo
-            # monte_carlo = MonteCarlo(bipartite_graph=bipartite_graph)
-            # start_time = time.time()
-            # monte_carlo_result = monte_carlo.find_matching_edges()
-            # end_time = time.time()
-            # monte_carlo_time = end_time - start_time
-            #
-            # # Randomized Rounding
-            # randomized_rounding = RandomizedRounding(bipartite_graph=bipartite_graph)
-            # start_time = time.time()
-            # randomized_rounding_result = randomized_rounding.find_matching_edges()
-            # end_time = time.time()
-            # randomized_rounding_time = end_time - start_time
-            #
-            # # Randomized Rounding
-            # simple_greedy = SimpleGreedy(bipartite_graph=bipartite_graph)
-            # start_time = time.time()
-            # simple_greedy_result = simple_greedy.find_matching_edges()
-            # end_time = time.time()
-            # simple_greedy_time = end_time - start_time
+            # Dynamic Min Degree
+            dynamic = DynamicMinDegree(bipartite_graph=bipartite_graph)
+            start_time = time.time()
+            dynamic_min_degree_result = dynamic.find_matching_edges()
+            end_time = time.time()
+            dynamic_min_degree_time = end_time - start_time
+
+            # Limit Min Degree
+            limit = LimitMinDegree(bipartite_graph=bipartite_graph)
+            start_time = time.time()
+            limit_min_degree_result = limit.find_matching_edges()
+            end_time = time.time()
+            limit_min_degree_time = end_time - start_time
+
+            # Monte Carlo
+            monte_carlo = MonteCarlo(bipartite_graph=bipartite_graph)
+            start_time = time.time()
+            monte_carlo_result = monte_carlo.find_matching_edges()
+            end_time = time.time()
+            monte_carlo_time = end_time - start_time
+
+            # Randomized Rounding
+            randomized_rounding = RandomizedRounding(bipartite_graph=bipartite_graph)
+            start_time = time.time()
+            randomized_rounding_result = randomized_rounding.find_matching_edges()
+            end_time = time.time()
+            randomized_rounding_time = end_time - start_time
+
+            # Randomized Rounding
+            simple_greedy = SimpleGreedy(bipartite_graph=bipartite_graph)
+            start_time = time.time()
+            simple_greedy_result = simple_greedy.find_matching_edges()
+            end_time = time.time()
+            simple_greedy_time = end_time - start_time
 
             max_matching = MaxMatching()
             max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
@@ -152,26 +152,26 @@ if __name__ == '__main__':
             row = [
                 num_of_nodes,
                 density,
-                len(my_algo_result),
-                my_algo_time,
+                len(backtracking_algo_result),
+                backtracking_algo_time,
 
-                # len(static_min_degree_result),
-                # static_min_degree_time,
-                #
-                # len(dynamic_min_degree_result),
-                # dynamic_min_degree_time,
-                #
-                # len(limit_min_degree_result),
-                # limit_min_degree_time,
-                #
-                # len(monte_carlo_result),
-                # monte_carlo_time,
-                #
-                # len(randomized_rounding_result),
-                # randomized_rounding_time,
-                #
-                # len(simple_greedy_result),
-                # simple_greedy_time,
+                len(static_min_degree_result),
+                static_min_degree_time,
+
+                len(dynamic_min_degree_result),
+                dynamic_min_degree_time,
+
+                len(limit_min_degree_result),
+                limit_min_degree_time,
+
+                len(monte_carlo_result),
+                monte_carlo_time,
+
+                len(randomized_rounding_result),
+                randomized_rounding_time,
+
+                len(simple_greedy_result),
+                simple_greedy_time,
 
                 max_matching.max_matching_value
             ]

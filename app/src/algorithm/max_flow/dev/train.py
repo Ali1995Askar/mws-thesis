@@ -1,6 +1,6 @@
 import time
 
-from app.src.algorithm.max_matching.heuristics.modified_algorithm import ModifiedAlgorithm
+from app.src.algorithm.max_matching.heuristics.backtracking_algorithm import ModifiedAlgorithm
 from app.src.graph.bipartite_graph import BipartiteGraph
 from app.src.algorithm.max_matching.max_matching import MaxMatching
 from app.src.algorithm.max_flow.ford_fulkerson_algorithm import FordFulkersonAlgorithm
