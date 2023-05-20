@@ -3,6 +3,10 @@ from app.src.algorithm.max_matching.heuristics.abstract_heuristic import Abstrac
 
 
 class BacktrackingAlgorithm(AbstractHeuristic):
+    @staticmethod
+    def sort_by_degree(node_degree):
+        return node_degree[1]
+
     def find_matching_edges(self):
         matched_nodes = set()
         matched_edges = set()
@@ -11,7 +15,13 @@ class BacktrackingAlgorithm(AbstractHeuristic):
         bmm = self.get_best_case_matching_num()
         cm = 0
 
-        for node in self.bipartite_graph.red_nodes:
+        node_degree = list(self.bipartite_graph.graph.out_degree)
+        red_nodes = [node for node in node_degree if node[0] in self.bipartite_graph.red_nodes]
+
+        sorted_red_nodes = sorted(red_nodes, key=self.sort_by_degree)
+      
+        # for node in self.bipartite_graph.red_nodes:
+        for node, _ in sorted_red_nodes:
             if cm == bmm:
                 break
 
