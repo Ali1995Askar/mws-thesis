@@ -7,11 +7,22 @@ from app.src.graph.bipartite_graph import BipartiteGraph
 
 class AbstractHeuristic:
     bipartite_graph: BipartiteGraph
-    matching_edges = List
+    matching_edges: List
+    source_sink = ['source', 'sink']
 
     def __init__(self, bipartite_graph: BipartiteGraph):
         self.bipartite_graph = bipartite_graph
         self.matching_edges = []
+
+    def get_node_neighbors(self, node):
+        blue_neighbors = list(self.bipartite_graph.graph.neighbors(node))
+        return blue_neighbors
+
+    @staticmethod
+    def check_if_node_matched(node, matched_nodes):
+        if node in AbstractHeuristic.source_sink or node in matched_nodes:
+            return True
+        return False
 
     @abstractmethod
     def find_matching_edges(self) -> List[Tuple]:

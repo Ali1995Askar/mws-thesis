@@ -8,7 +8,6 @@ class DynamicMinDegree(AbstractHeuristic):
 
     def find_matching_edges(self):
         temp_graph = self.bipartite_graph.graph.copy()
-        source_sink = ['source', 'sink']
         matching_edges = set()
         matched_nodes = []
         node_degree = list(temp_graph.out_degree)
@@ -17,24 +16,29 @@ class DynamicMinDegree(AbstractHeuristic):
 
         while red_nodes:
             red_node = red_nodes.pop(0)[0]
-            if red_node in matched_nodes or red_node in source_sink:
+
+            if self.check_if_node_matched(red_node, matched_nodes):
                 continue
 
-            blue_neighbors = list(temp_graph.neighbors(red_node))
+            blue_neighbors = self.get_node_neighbors(red_node)
 
             for blue_neighbor in blue_neighbors:
-                if blue_neighbor in matching_edges:
+                if self.check_if_node_matched(blue_neighbor, matched_nodes):
                     continue
 
                 edge = (red_node, blue_neighbor)
+
                 temp_graph.remove_node(red_node)
                 temp_graph.remove_node(blue_neighbor)
+
                 matching_edges.add(edge)
-                matched_nodes.extend([red_node, blue_neighbor])
+
+                matched_nodes.append(red_node)
+                matched_nodes.append(blue_neighbor)
+
                 node_degree = list(temp_graph.out_degree)
                 red_nodes = [node for node in node_degree if node[0] in self.bipartite_graph.red_nodes]
                 red_nodes = sorted(red_nodes, key=self.sort_by_degree)
-
                 break
 
         return list(matching_edges)
