@@ -1,6 +1,9 @@
 import math
 import random
 from typing import List, Tuple
+
+from networkx import DiGraph
+
 from app.src_2.graph.graph import Graph
 from networkx.algorithms import bipartite
 
@@ -25,8 +28,7 @@ class BipartiteGraph(Graph):
                 self.blue_nodes.append(k)
 
     def random_build(self, num_of_nodes, density):
-
-        self.graph.clear()
+        self.graph = DiGraph()
         red_nodes = set(range(0, math.ceil(num_of_nodes / 2)))
         blue_nodes = set(range(len(red_nodes), num_of_nodes))
 
@@ -36,7 +38,7 @@ class BipartiteGraph(Graph):
         nodes = red_nodes | blue_nodes
 
         num_of_edges = math.ceil((len(red_nodes) * len(blue_nodes)) * density)
-      
+
         possible_edges = []
         for red_node in red_nodes:
             for blue_node in blue_nodes:

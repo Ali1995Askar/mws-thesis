@@ -65,3 +65,7 @@ class TestBipartiteGraph:
         assert len(inst.nodes()) == 6
         assert len(inst.edges()) == 2
         assert inst.is_bipartite() is True
+
+        for i in range(100):
+            inst.random_build(num_of_nodes=i * 5, density=i // 75)
+            assert inst.is_bipartite()

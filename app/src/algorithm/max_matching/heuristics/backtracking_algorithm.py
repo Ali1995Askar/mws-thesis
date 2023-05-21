@@ -54,7 +54,7 @@ class BacktrackingAlgorithm(AbstractHeuristic):
             matched_nodes |= {node, neighbor, choice[1]}
 
             cm += 1
-       
+
         return list(matched_edges)
 
     @staticmethod
@@ -76,6 +76,10 @@ class BacktrackingAlgorithm(AbstractHeuristic):
             result = next((tup[0] for tup in matched_edges if tup[1] == node_neighbor), None)
             if result:
                 res.append(result)
+        print('--------------------------------')
+        print(res)
+        print('--------------------------------')
+
         return res
 
     def get_best_case_matching_num(self):
