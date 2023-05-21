@@ -51,3 +51,7 @@ class AbstractHeuristic:
             residual_network['sink'][v]['flow'] = -1
 
         return residual_network
+
+    @staticmethod
+    def sort_by_degree(node_degree):
+        return node_degree[1]

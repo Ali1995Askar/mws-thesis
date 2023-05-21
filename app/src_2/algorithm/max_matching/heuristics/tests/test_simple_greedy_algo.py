@@ -1,0 +1,2 @@
+class TestSimpleGreedyAlgo:
+    pass
