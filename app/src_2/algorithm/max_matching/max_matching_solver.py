@@ -1,10 +1,9 @@
 from networkx import DiGraph
-from typing import List, Tuple, Any, Union
-
-from app.src.algorithm.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
-from app.src_2.algorithm.max_flow.abstract_max_flow_solver import AbstractMaxFlowSolver
-from app.src_2.graph.bipartite_graph import BipartiteGraph
+from typing import List, Tuple, Any, Union, Type
 from app.utils.utils import camel_case_to_readable
+from app.src_2.graph.bipartite_graph import BipartiteGraph
+from app.src_2.algorithm.max_flow.abstract_max_flow_solver import AbstractMaxFlowSolver
+from app.src.algorithm.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
 class MaxMatchingSolver:
@@ -19,6 +18,14 @@ class MaxMatchingSolver:
         self.initial_flow = None
         self.heuristic_algorithm = None
 
+    def set_bipartite_graph(self, bipartite_graph: BipartiteGraph):
+        self.bipartite_graph = bipartite_graph
+
+    def set_algorithm(self, algorithm: Type[AbstractMaxFlowSolver]):
+        self.max_matching_value = 0
+        self.max_matching_edges = []
+        self.algorithm = algorithm(graph=self.bipartite_graph.graph)
+
     def add_source(self):
         self.bipartite_graph.graph.add_node('source')
         for red_node in self.bipartite_graph.red_nodes:
@@ -30,7 +37,7 @@ class MaxMatchingSolver:
             self.bipartite_graph.add_edge(blue_node, 'sink')
 
     def direct_bipartite_graph(self):
-        for u, v, d in self.bipartite_graph.edges():
+        for u, v in self.bipartite_graph.edges():
             self.bipartite_graph.has_edge_with_positive_capacity(v, u)
             self.bipartite_graph.graph.remove_edge(v, u)
 
@@ -42,7 +49,7 @@ class MaxMatchingSolver:
         self.add_source()
         self.add_sink()
 
-    def solve(self):
+    def find_max_matching(self):
         kwargs = {}
         if self.initial_flow:
             kwargs.update({'initial_solution': self.initial_flow})
