@@ -25,6 +25,7 @@ class BipartiteGraph(Graph):
         return self.red_nodes, self.blue_nodes
 
     def random_build(self, num_of_nodes, density):
+
         self.graph.clear()
         red_nodes = set(range(0, math.ceil(num_of_nodes / 2)))
         blue_nodes = set(range(len(red_nodes), num_of_nodes))
@@ -35,7 +36,7 @@ class BipartiteGraph(Graph):
         nodes = red_nodes | blue_nodes
 
         num_of_edges = math.ceil((len(red_nodes) * len(blue_nodes)) * density)
-
+        print(num_of_edges)
         possible_edges = []
         for red_node in red_nodes:
             for blue_node in blue_nodes:

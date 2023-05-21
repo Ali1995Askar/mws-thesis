@@ -69,16 +69,16 @@ density_range = [
     0.36,
     0.42,
     0.48,
-    # 0.56,
-    # 0.62,
-    # 0.68,
-    # 0.72,
-    # 0.78,
-    # 0.82,
-    # 0.88,
-    # 0.92,
-    # 0.98,
-    # 1
+    0.56,
+    0.62,
+    0.68,
+    0.72,
+    0.78,
+    0.82,
+    0.88,
+    0.92,
+    0.98,
+    1
 ]
 
 if __name__ == '__main__':
@@ -177,4 +177,4 @@ if __name__ == '__main__':
             ]
             print(row)
             rows.append(row)
-        # create_csv(f'{num_of_nodes}_heuristic_matching.csv', columns=columns_name, data=rows)
+        create_csv(f'{num_of_nodes}_heuristic_matching.csv', columns=columns_name, data=rows)

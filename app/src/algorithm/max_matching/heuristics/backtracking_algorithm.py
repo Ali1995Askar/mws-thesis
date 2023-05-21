@@ -1,4 +1,4 @@
-from typing import Any, Set
+from typing import Set, List
 from app.src.algorithm.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
@@ -19,25 +19,24 @@ class BacktrackingAlgorithm(AbstractHeuristic):
         red_nodes = [node for node in node_degree if node[0] in self.bipartite_graph.red_nodes]
 
         sorted_red_nodes = sorted(red_nodes, key=self.sort_by_degree)
-      
-        # for node in self.bipartite_graph.red_nodes:
+
         for node, _ in sorted_red_nodes:
             if cm == bmm:
                 break
 
-            neighbor = self.find_un_matched_neighbor(node, matched_nodes)
+            neighbors = self.bipartite_graph.graph.neighbors(node)
+            free_neighbor = self.find_un_matched_neighbor(neighbors, matched_nodes)
 
-            if neighbor:
+            if free_neighbor:
                 matched_nodes.add(node)
-                matched_nodes.add(neighbor)
-                matched_edges.add((node, neighbor))
-                un_matched_edges.remove((node, neighbor))
+                matched_nodes.add(free_neighbor)
+                matched_edges.add((node, free_neighbor))
+                un_matched_edges.remove((node, free_neighbor))
                 cm += 1
                 continue
 
-            nn = list(self.bipartite_graph.graph.neighbors(node))
-            mn = self.find_matched_nodes(nn, matched_edges)
-            choice = self.find_best_choice(mn, matched_nodes, un_matched_edges)
+            mn = self.find_matched_nodes(neighbors, matched_edges)
+            choice = self.find_other_choice(mn, matched_nodes, un_matched_edges)
 
             if not choice:
                 continue
@@ -55,17 +54,18 @@ class BacktrackingAlgorithm(AbstractHeuristic):
             matched_nodes |= {node, neighbor, choice[1]}
 
             cm += 1
+       
         return list(matched_edges)
 
     @staticmethod
-    def find_best_choice(nodes, match_nodes, un_matched_edges):
+    def find_other_choice(nodes, match_nodes, un_matched_edges):
         for un_matched_edge in un_matched_edges:
             if un_matched_edge[0] in nodes and un_matched_edge[1] not in match_nodes:
                 return un_matched_edge
 
-    def find_un_matched_neighbor(self, node: Any, matched_nodes: Set):
-        for neighbor in self.bipartite_graph.graph.neighbors(node):
-            if neighbor not in matched_nodes:
+    def find_un_matched_neighbor(self, neighbors: List, matched_nodes: Set):
+        for neighbor in neighbors:
+            if neighbor not in matched_nodes and neighbor not in self.source_sink:
                 return neighbor
         return None
 

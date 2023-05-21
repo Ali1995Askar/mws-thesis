@@ -1,0 +1,2 @@
+class TestEdmondKarp:
+    pass

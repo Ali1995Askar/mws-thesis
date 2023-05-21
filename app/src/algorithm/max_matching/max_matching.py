@@ -93,7 +93,9 @@ class MaxMatching:
             for kk, vv in v.items():
                 if self.bipartite_graph.graph.has_edge(k, kk) and vv['flow'] == 1:
                     self.max_matching_edges.append((k, kk))
-
+        print('--------------------------------')
+        print(self.max_matching_edges)
+        print('---------------------------------')
         self.max_matching_value = len(self.max_matching_edges)
 
     def print_result(self):

@@ -1,6 +1,5 @@
 import time
 
-from app.src.algorithm.max_matching.heuristics.backtracking_algorithm import ModifiedAlgorithm
 from app.src.graph.bipartite_graph import BipartiteGraph
 from app.src.algorithm.max_matching.max_matching import MaxMatching
 from app.src.algorithm.max_flow.ford_fulkerson_algorithm import FordFulkersonAlgorithm
@@ -17,20 +16,26 @@ if __name__ == '__main__':
     max_matching = MaxMatching()
 
     bipartite_graph.build_manually(nodes=nodes, edges=edges)
-    bipartite_graph.split_nodes()
-    max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
-    max_matching.set_algorithm(algorithm=FordFulkersonAlgorithm)
-    max_matching.reduce_to_max_flow()
-    # start_time = time.time()
-    max_matching.find_max_matching()
-    # end_time = time.time()
-    # ford_fulkerson_algorithm_execution_time = end_time - start_time
-    ford_fulkerson_algorithm_value = max_matching.max_matching_value
-    print(ford_fulkerson_algorithm_value)
 
-    my_algo = ModifiedAlgorithm(bipartite_graph=bipartite_graph)
-    # start_time = time.time()
-    my_algo_result = my_algo.find_matching_edges()
-    # end_time = time.time()
-    # my_algo_time = end_time - start_time
-    print(my_algo_result)
+    print(bipartite_graph.graph.has_edge(1, 4))
+    bipartite_graph.graph.remove_edge(1, 4)
+    print(bipartite_graph.graph.has_edge(1, 4))
+    # bipartite_graph.graph.graph[4][4] = -1
+    # print(bipartite_graph.graph.has_edge(1, 4))
+    # bipartite_graph.split_nodes()
+    # max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
+    # max_matching.set_algorithm(algorithm=FordFulkersonAlgorithm)
+    # max_matching.reduce_to_max_flow()
+    # # start_time = time.time()
+    # max_matching.find_max_matching()
+    # # end_time = time.time()
+    # # ford_fulkerson_algorithm_execution_time = end_time - start_time
+    # ford_fulkerson_algorithm_value = max_matching.max_matching_value
+    # print(ford_fulkerson_algorithm_value)
+    #
+    # my_algo = ModifiedAlgorithm(bipartite_graph=bipartite_graph)
+    # # start_time = time.time()
+    # my_algo_result = my_algo.find_matching_edges()
+    # # end_time = time.time()
+    # # my_algo_time = end_time - start_time
+    # print(my_algo_result)

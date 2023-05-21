@@ -41,7 +41,6 @@ class Graph:
 
     def print_graph(self):
         # Draw the graph using ASCII art
-
         for node in self.graph.nodes():
             neighbors = list(self.graph.neighbors(node))
             print(f"Node {node}: ==> {neighbors}")

@@ -28,7 +28,7 @@ class AbstractHeuristic:
     def find_matching_edges(self) -> List[Tuple]:
         pass
 
-    @time_it
+    # @time_it
     def execute(self):
         self.matching_edges = self.find_matching_edges()
         initial_flow_network = self.build_initial_flow()
