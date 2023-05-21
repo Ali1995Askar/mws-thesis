@@ -30,11 +30,11 @@ class Graph:
         self.graph.add_nodes_from(nodes)
 
     def build_manually(self, nodes: List, edges: List):
+        self.graph.clear()
         self.add_nodes(nodes=nodes)
         self.add_edges(edges=edges)
 
     def build_un_directed_edges(self, edges):
-        self.graph.clear()
         temp = []
         for edge in edges:
             temp.append((edge[0], edge[1], {'capacity': 1}))

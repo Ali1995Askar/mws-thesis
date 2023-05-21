@@ -13,16 +13,16 @@ class BipartiteGraph(Graph):
         res = bipartite.is_bipartite(self.graph)
         return res
 
-    @property
-    def density_rate(self):
-        density_rate = self.graph.number_of_edges() / (len(self.red_nodes) * len(self.blue_nodes))
-        return density_rate
-
-    def split_nodes(self) -> Tuple[List, List]:
+    def split_nodes(self) -> None:
         color_map = bipartite.color(self.graph)
-        self.red_nodes = [k for k, v in color_map.items() if v == 1]
-        self.blue_nodes = [k for k, v in color_map.items() if v == 0]
-        return self.red_nodes, self.blue_nodes
+        self.red_nodes = []
+        self.blue_nodes = []
+
+        for k, v in color_map.items():
+            if v == 1:
+                self.red_nodes.append(k)
+            else:
+                self.blue_nodes.append(k)
 
     def random_build(self, num_of_nodes, density):
 
@@ -36,7 +36,7 @@ class BipartiteGraph(Graph):
         nodes = red_nodes | blue_nodes
 
         num_of_edges = math.ceil((len(red_nodes) * len(blue_nodes)) * density)
-
+      
         possible_edges = []
         for red_node in red_nodes:
             for blue_node in blue_nodes:
