@@ -2,6 +2,7 @@ import pytest
 
 from app.src_2.algorithm.max_flow.abstract_max_flow_solver import AbstractMaxFlowSolver
 from app.src_2.algorithm.max_flow.ford_fulkerson_solver import FordFulkersonSolver
+from app.src_2.algorithm.max_matching.heuristics.backtracking_algo import BackTrackingAlgo
 from app.src_2.graph.bipartite_graph import BipartiteGraph
 from app.src_2.algorithm.max_matching.max_matching_solver import MaxMatchingSolver
 
@@ -27,7 +28,15 @@ class TestMaxMatchingSolver:
         assert isinstance(inst.solver, AbstractMaxFlowSolver)
 
     def test_set_initial_flow(self):
-        pass
+        graph = BipartiteGraph()
+        inst = MaxMatchingSolver()
+
+        assert inst.solver is None
+        inst.set_bipartite_graph(bipartite_graph=graph)
+        inst.set_solver(solver=FordFulkersonSolver)
+        inst.reduce_to_max_flow()
+        inst.set_initial_flow(heuristic_algorithm=BackTrackingAlgo)
+        print(inst.initial_flow)
 
     def test_add_source(self):
         pass

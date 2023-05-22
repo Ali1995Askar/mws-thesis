@@ -79,7 +79,7 @@ class MaxMatchingSolver:
         if not self.bipartite_graph.is_bipartite():
             raise Exception('Graph is not Bipartite')
 
-        self.bipartite_graph.split_nodes()
+        self.temp_graph.split_nodes()
         self.add_source()
         self.add_sink()
         self.direct_bipartite_graph()
