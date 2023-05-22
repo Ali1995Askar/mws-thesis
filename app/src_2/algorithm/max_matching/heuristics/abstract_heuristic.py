@@ -39,12 +39,12 @@ class AbstractHeuristic:
             d["flow"] = 0
 
         for u, v in self.matching_edges:
-            residual_network[u][v]['flow'] = 1
-            residual_network['source'][u]['flow'] = 1
-            residual_network[v]['sink']['flow'] = 1
+            residual_network[u][v]['flow'] += 1
+            residual_network['source'][u]['flow'] += 1
+            residual_network[v]['sink']['flow'] += 1
 
-            residual_network[v][u]['flow'] = 0
-            residual_network[u]['source']['flow'] = 0
-            residual_network['sink'][v]['flow'] = 0
+            residual_network[v][u]['flow'] -= 1
+            residual_network[u]['source']['flow'] -= 1
+            residual_network['sink'][v]['flow'] -= 1
 
         return residual_network
