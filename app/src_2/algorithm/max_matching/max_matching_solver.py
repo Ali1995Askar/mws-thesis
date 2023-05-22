@@ -13,22 +13,27 @@ class MaxMatchingSolver:
     max_matching_value: Union[int, None]
     bipartite_graph: Union[BipartiteGraph, None]
     temp_graph: Union[BipartiteGraph, None]
-    algorithm: Union[AbstractMaxFlowSolver, None]
+    solver: Union[AbstractMaxFlowSolver, None]
     heuristic_algorithm: Union[AbstractHeuristic, None]
     max_matching_edges: Union[List[Tuple[Any, Any]], None]
 
     def __init__(self):
         self.initial_flow = None
+        self.max_matching_value = None
+        self.bipartite_graph = None
+        self.temp_graph = None
+        self.solver = None
         self.heuristic_algorithm = None
+        self.max_matching_edges = None
 
     def set_bipartite_graph(self, bipartite_graph: BipartiteGraph):
         self.bipartite_graph = bipartite_graph
         self.temp_graph = deepcopy(self.bipartite_graph)
 
-    def set_algorithm(self, algorithm: Type[AbstractMaxFlowSolver]):
+    def set_solver(self, solver: Type[AbstractMaxFlowSolver]):
         self.max_matching_value = 0
         self.max_matching_edges = []
-        self.algorithm = algorithm(graph=self.temp_graph.graph)
+        self.solver = solver(graph=self.temp_graph.graph)
 
     def set_initial_flow(self, heuristic_algorithm: Type[AbstractHeuristic]):
         self.heuristic_algorithm = heuristic_algorithm(bipartite_graph=self.temp_graph)
@@ -37,28 +42,38 @@ class MaxMatchingSolver:
 
     def add_source(self):
         self.temp_graph.graph.add_node('source')
-        for red_node in self.temp_graph.red_nodes:
-            self.temp_graph.add_edge('source', red_node)
-            self.temp_graph.add_edge(red_node, 'source')
+        # for red_node in self.temp_graph.red_nodes:
+        #     self.temp_graph.add_edge('source', red_node)
+        #     self.temp_graph.add_edge(red_node, 'source')
 
     def add_sink(self):
         self.temp_graph.graph.add_node('sink')
-        for blue_node in self.temp_graph.blue_nodes:
-            self.temp_graph.add_edge(blue_node, 'sink')
-            self.temp_graph.add_edge('sink', blue_node)
+        # for blue_node in self.temp_graph.blue_nodes:
+        #     self.temp_graph.add_edge(blue_node, 'sink')
+        #     self.temp_graph.add_edge('sink', blue_node)
 
     def direct_bipartite_graph(self):
         edges = self.temp_graph.graph.edges(data=True)
+
+        red_nodes = self.temp_graph.red_nodes
+        blue_nodes = self.temp_graph.blue_nodes
+
         for u, v, d in edges:
 
-            if v in self.temp_graph.red_nodes and u in self.temp_graph.blue_nodes:
+            if v in red_nodes and u in blue_nodes:
                 d['capacity'] = 0
 
-            if u == 'sink':
-                d['capacity'] = 0
+            if u in red_nodes:
+                self.temp_graph.add_edge('source', u)
 
-            if v == 'source':
-                d['capacity'] = 0
+            if v in blue_nodes:
+                self.temp_graph.add_edge('source', v)
+
+            if u in blue_nodes:
+                self.temp_graph.add_edge(u, 'sink')
+
+            if v in blue_nodes:
+                self.temp_graph.add_edge(v, 'sink')
 
     def reduce_to_max_flow(self):
         if not self.bipartite_graph.is_bipartite():
