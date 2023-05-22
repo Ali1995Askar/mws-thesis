@@ -46,13 +46,5 @@ class AbstractHeuristic:
             residual_network[v][u]['flow'] = 0
             residual_network[u]['source']['flow'] = 0
             residual_network['sink'][v]['flow'] = 0
-        print('3333333333333333333333333333333333333333333333333333333333333333333333333333333333')
-        print(self.matching_edges)
-        print('3333333333333333333333333333333333333333333333333333333333333333333333333333333333')
-        print(len(self.matching_edges))
-        print('------------------------------------------------')
-        for u, v in residual_network.edges:
-            print(u, '-->', v, 'flow:', residual_network[u][v]['flow'], 'capacity', residual_network[u][v]['capacity'])
-        print('------------------------------------------------')
 
         return residual_network

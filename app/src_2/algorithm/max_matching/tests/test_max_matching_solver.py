@@ -36,13 +36,40 @@ class TestMaxMatchingSolver:
         inst.set_solver(solver=FordFulkersonSolver)
         inst.reduce_to_max_flow()
         inst.set_initial_flow(heuristic_algorithm=BackTrackingAlgo)
-        print(inst.initial_flow)
+        assert {*list(inst.temp_graph.graph.nodes)} == {'source', 'sink'}
+        assert len({*list(inst.temp_graph.graph.edges)}) == 0
 
     def test_add_source(self):
-        pass
+        graph = BipartiteGraph()
+        inst = MaxMatchingSolver()
+
+        inst.set_bipartite_graph(bipartite_graph=graph)
+        assert inst.bipartite_graph.graph.has_node('source') is False
+        assert inst.temp_graph.graph.has_node('source') is False
+        inst.set_solver(solver=FordFulkersonSolver)
+        inst.add_source()
+        assert inst.bipartite_graph.graph.has_node('source') is False
+        assert inst.temp_graph.graph.has_node('source') is True
+
+        for u, v in inst.temp_graph.graph.edges:
+            assert u != 'source'
+            assert v != 'source'
 
     def test_add_sink(self):
-        pass
+        graph = BipartiteGraph()
+        inst = MaxMatchingSolver()
+        inst.set_bipartite_graph(bipartite_graph=graph)
+
+        assert inst.bipartite_graph.graph.has_node('sink') is False
+        assert inst.temp_graph.graph.has_node('sink') is False
+        inst.set_solver(solver=FordFulkersonSolver)
+        inst.add_sink()
+        assert inst.bipartite_graph.graph.has_node('sink') is False
+        assert inst.temp_graph.graph.has_node('sink') is True
+
+        for u, v in inst.temp_graph.graph.edges:
+            assert u != 'sink'
+            assert v != 'sink'
 
     def test_direct_bipartite_graph(self):
         pass
