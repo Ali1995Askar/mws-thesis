@@ -1,7 +1,6 @@
 import copy
 from typing import Tuple, List
 from abc import abstractmethod
-
 from app.src_2.graph.bipartite_graph import BipartiteGraph
 
 

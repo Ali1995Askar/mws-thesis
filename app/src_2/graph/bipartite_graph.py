@@ -38,7 +38,9 @@ class BipartiteGraph(Graph):
         nodes = red_nodes | blue_nodes
 
         num_of_edges = math.ceil((len(red_nodes) * len(blue_nodes)) * density)
-
+        print('---------------')
+        print(num_of_edges)
+        print('---------------')
         possible_edges = []
         for red_node in red_nodes:
             for blue_node in blue_nodes:

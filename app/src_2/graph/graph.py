@@ -23,7 +23,9 @@ class Graph:
     def add_edge(self, src, dist, capacity=1):
         self.graph.add_edge(src, dist, capacity=capacity)
 
-    def add_edges(self, edges: List):
+    def add_edges(self, edges: List, directed: bool = False):
+        if not directed:
+            edges = self.build_un_directed_edges(edges)
         self.graph.add_edges_from(edges)
 
     def add_nodes(self, nodes):

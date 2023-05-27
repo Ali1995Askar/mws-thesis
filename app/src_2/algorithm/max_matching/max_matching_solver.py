@@ -53,7 +53,7 @@ class MaxMatchingSolver:
         #     self.temp_graph.add_edge('sink', blue_node)
 
     def direct_bipartite_graph(self):
-        edges = self.temp_graph.graph.edges(data=True)
+        edges = self.bipartite_graph.graph.edges(data=True)
 
         red_nodes = self.temp_graph.red_nodes
         blue_nodes = self.temp_graph.blue_nodes
@@ -61,25 +61,29 @@ class MaxMatchingSolver:
         for u, v, d in edges:
 
             if v in red_nodes and u in blue_nodes:
-                d['capacity'] = 0
+                self.temp_graph.graph[u][v]['capacity'] = 0
 
             if u in red_nodes:
                 self.temp_graph.add_edge('source', u)
-
-            if v in blue_nodes:
-                self.temp_graph.add_edge('source', v)
-
-            if u in blue_nodes:
-                self.temp_graph.add_edge(u, 'sink')
+                self.temp_graph.add_edge(u, 'source', capacity=0)
 
             if v in blue_nodes:
                 self.temp_graph.add_edge(v, 'sink')
+                self.temp_graph.add_edge('sink', v, capacity=0)
+
+            if u in blue_nodes:
+                self.temp_graph.add_edge(u, 'sink')
+                self.temp_graph.add_edge('sink', u, capacity=0)
+
+            if v in blue_nodes:
+                self.temp_graph.add_edge(v, 'sink')
+                self.temp_graph.add_edge('sink', v, capacity=0)
 
     def reduce_to_max_flow(self):
         if not self.bipartite_graph.is_bipartite():
             raise Exception('Graph is not Bipartite')
 
-        self.temp_graph.split_nodes()
+        self.bipartite_graph.split_nodes()
         self.add_source()
         self.add_sink()
         self.direct_bipartite_graph()
@@ -89,7 +93,7 @@ class MaxMatchingSolver:
         if self.initial_flow:
             kwargs.update({'initial_solution': self.initial_flow})
 
-        _, flow_network = self.algorithm.find_max_flow(**kwargs)
+        _, flow_network = self.solver.find_max_flow(**kwargs)
         for k, v in flow_network.items():
             for kk, vv in v.items():
                 if self.bipartite_graph.has_edge_with_positive_capacity(k, kk) and vv['flow'] == 1:
@@ -97,7 +101,7 @@ class MaxMatchingSolver:
         self.max_matching_value = len(self.max_matching_edges)
 
     def print_result(self):
-        algo_name = camel_case_to_readable(camel_case_string=type(self.algorithm).__name__)
+        algo_name = camel_case_to_readable(camel_case_string=type(self.solver).__name__)
         msg = f"Max Matching using '{algo_name}' is: {self.max_matching_value}"
         if self.heuristic_algorithm:
             init_match = len(self.heuristic_algorithm.matching_edges)

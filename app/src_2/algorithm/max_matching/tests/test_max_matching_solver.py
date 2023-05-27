@@ -1,10 +1,9 @@
 import pytest
-
-from app.src_2.algorithm.max_flow.abstract_max_flow_solver import AbstractMaxFlowSolver
-from app.src_2.algorithm.max_flow.ford_fulkerson_solver import FordFulkersonSolver
-from app.src_2.algorithm.max_matching.heuristics.backtracking_algo import BackTrackingAlgo
 from app.src_2.graph.bipartite_graph import BipartiteGraph
+from app.src_2.algorithm.max_flow.ford_fulkerson_solver import FordFulkersonSolver
 from app.src_2.algorithm.max_matching.max_matching_solver import MaxMatchingSolver
+from app.src_2.algorithm.max_flow.abstract_max_flow_solver import AbstractMaxFlowSolver
+from app.src_2.algorithm.max_matching.heuristics.backtracking_algo import BackTrackingAlgo
 
 
 class TestMaxMatchingSolver:
@@ -72,7 +71,44 @@ class TestMaxMatchingSolver:
             assert v != 'sink'
 
     def test_direct_bipartite_graph(self):
-        pass
+        graph = BipartiteGraph()
+        inst = MaxMatchingSolver()
+        graph.build_manually(
+            nodes=[1, 2, 3, 4, 5, 6],
+            edges=[(1, 4), (2, 5), (3, 6), ])
+
+        inst.set_bipartite_graph(bipartite_graph=graph)
+        inst.set_solver(solver=FordFulkersonSolver)
+        inst.temp_graph.print_graph()
+        print('---------------------------------------------------')
+        inst.temp_graph.split_nodes()
+        inst.direct_bipartite_graph()
+        inst.temp_graph.print_graph()
+        # print(inst.temp_graph.red_nodes)
+        # print(inst.temp_graph.blue_nodes)
+        # for edge in inst.temp_graph.edges(data=True):
+        #     print(edge)
+        inst.find_max_matching()
+      
+        s = {
+            1: {4: {'capacity': 1, 'flow': 0}, 'source': {'capacity': 0, 'flow': 0}},
+            2: {5: {'capacity': 1, 'flow': 0}, 'source': {'capacity': 0, 'flow': 0}},
+            3: {6: {'capacity': 1, 'flow': 0}, 'source': {'capacity': 0, 'flow': 0}},
+            4: {1: {'capacity': 0, 'flow': 0}, 'sink': {'capacity': 1, 'flow': 0}},
+            5: {2: {'capacity': 0, 'flow': 0}, 'sink': {'capacity': 1, 'flow': 0}},
+            6: {3: {'capacity': 0, 'flow': 0}, 'sink': {'capacity': 1, 'flow': 0}},
+            'source': {1: {'capacity': 1, 'flow': 0}, 2: {'capacity': 1, 'flow': 0}, 3: {'capacity': 1, 'flow': 0}},
+            'sink': {4: {'capacity': 0, 'flow': 0}, 5: {'capacity': 0, 'flow': 0}, 6: {'capacity': 0, 'flow': 0}}
+        }
+
+        s = {1: {4: {'capacity': 1, 'flow': 0}, 'source': {'capacity': 0, 'flow': 0}},
+             2: {5: {'capacity': 1, 'flow': 0}, 'source': {'capacity': 0, 'flow': 0}},
+             3: {6: {'capacity': 1, 'flow': 1}, 'source': {'capacity': 0, 'flow': -1}},
+             4: {1: {'capacity': 0, 'flow': 0}, 'sink': {'capacity': 1, 'flow': 0}},
+             5: {2: {'capacity': 0, 'flow': 0}, 'sink': {'capacity': 1, 'flow': 0}},
+             6: {3: {'capacity': 0, 'flow': -1}, 'sink': {'capacity': 1, 'flow': 1}},
+             'source': {1: {'capacity': 1, 'flow': 0}, 2: {'capacity': 1, 'flow': 0}, 3: {'capacity': 1, 'flow': 1}},
+             'sink': {4: {'capacity': 0, 'flow': 0}, 5: {'capacity': 0, 'flow': 0}, 6: {'capacity': 0, 'flow': -1}}}
 
     def test_reduce_to_max_flow(self):
         pass
