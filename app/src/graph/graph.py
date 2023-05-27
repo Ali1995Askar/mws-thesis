@@ -14,24 +14,29 @@ class Graph:
     def nodes(self):
         return list(self.graph.nodes())
 
-    def remove_edge(self, src, dest):
-        self.graph.remove_edge(src, dest)
+    def has_edge_with_positive_capacity(self, u, v):
+        return self.graph.has_edge(u, v) and self.graph[u][v]['capacity'] > 0
 
-    def add_edge(self, src, dest, capacity=1):
-        self.graph.add_edge(src, dest, capacity=capacity)
+    def remove_edge(self, src, dist):
+        self.graph.remove_edge(src, dist)
 
-    def add_edges(self, edges: List):
+    def add_edge(self, src, dist, capacity=1):
+        self.graph.add_edge(src, dist, capacity=capacity)
+
+    def add_edges(self, edges: List, directed: bool = False):
+        if not directed:
+            edges = self.build_un_directed_edges(edges)
         self.graph.add_edges_from(edges)
 
     def add_nodes(self, nodes):
         self.graph.add_nodes_from(nodes)
 
-    def build_manually(self, nodes: List, edges: List):
+    def build_manually(self, nodes: List, edges: List, directed: bool = False):
+        self.graph.clear()
         self.add_nodes(nodes=nodes)
-        self.add_edges(edges=edges)
+        self.add_edges(edges=edges, directed=directed)
 
     def build_un_directed_edges(self, edges):
-        self.graph.clear()
         temp = []
         for edge in edges:
             temp.append((edge[0], edge[1], {'capacity': 1}))

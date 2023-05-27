@@ -1,42 +1,47 @@
 import math
 import random
-from typing import List, Tuple
+from typing import List, Tuple, Set
+
+from networkx import DiGraph
+
 from app.src.graph.graph import Graph
 from networkx.algorithms import bipartite
 
 
 class BipartiteGraph(Graph):
-    red_nodes: List
-    blue_nodes: List
+    red_nodes: Set
+    blue_nodes: Set
+
+    def __init__(self):
+        super().__init__()
+        self.red_nodes = set()
+        self.blue_nodes = set()
 
     def is_bipartite(self) -> bool:
         res = bipartite.is_bipartite(self.graph)
         return res
 
-    @property
-    def density_rate(self):
-        density_rate = self.graph.number_of_edges() / (len(self.red_nodes) * len(self.blue_nodes))
-        return density_rate
-
-    def split_nodes(self) -> Tuple[List, List]:
+    def split_nodes(self) -> None:
         color_map = bipartite.color(self.graph)
-        self.red_nodes = [k for k, v in color_map.items() if v == 1]
-        self.blue_nodes = [k for k, v in color_map.items() if v == 0]
-        return self.red_nodes, self.blue_nodes
+
+        for k, v in color_map.items():
+            if v == 1:
+                self.red_nodes.add(k)
+            if v == 0:
+                self.blue_nodes.add(k)
 
     def random_build(self, num_of_nodes, density):
-
-        self.graph.clear()
+        self.graph = DiGraph()
         red_nodes = set(range(0, math.ceil(num_of_nodes / 2)))
         blue_nodes = set(range(len(red_nodes), num_of_nodes))
 
-        self.red_nodes = list(red_nodes)
-        self.blue_nodes = list(blue_nodes)
+        self.red_nodes = red_nodes
+        self.blue_nodes = blue_nodes
 
         nodes = red_nodes | blue_nodes
 
         num_of_edges = math.ceil((len(red_nodes) * len(blue_nodes)) * density)
-        print(num_of_edges)
+
         possible_edges = []
         for red_node in red_nodes:
             for blue_node in blue_nodes:
@@ -46,7 +51,7 @@ class BipartiteGraph(Graph):
         selected_edges = possible_edges[:num_of_edges]
 
         edges = []
-        # Create the edges with capacity 1
+        # Create edges with capacity 1
         for i, j in selected_edges:
             edges.append((i, j, {'capacity': 1}))
             edges.append((j, i, {'capacity': 1}))

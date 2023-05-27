@@ -1,7 +1,3 @@
-"""
-Edmonds-Karp algorithm for maximum flow problems.
-"""
-
 import networkx as nx
 from networkx.algorithms.flow.utils import build_residual_network
 
@@ -10,8 +6,6 @@ __all__ = ["edmonds_karp"]
 
 def edmonds_karp_core(R, s, t, cutoff):
     """Implementation of the Edmonds-Karp algorithm."""
-    R_nodes = R.nodes
-    R_pred = R.pred
     R_succ = R.succ
 
     inf = R.graph["inf"]
@@ -38,39 +32,7 @@ def edmonds_karp_core(R, s, t, cutoff):
             u = v
         return flow
 
-    def bidiressctional_bfs():
-        print('Bidirectional breadth-first search for an augmenting path.')
-        """Bidirectional breadth-first search for an augmenting path."""
-        pred = {s: None}
-        q_s = [s]
-        succ = {t: None}
-        q_t = [t]
-        while True:
-            q = []
-            if len(q_s) <= len(q_t):
-                for u in q_s:
-                    for v, attr in R_succ[u].items():
-                        if v not in pred and attr["flow"] < attr["capacity"]:
-                            pred[v] = u
-                            if v in succ:
-                                return v, pred, succ
-                            q.append(v)
-                if not q:
-                    return None, None, None
-                q_s = q
-            else:
-                for u in q_t:
-                    for v, attr in R_pred[u].items():
-                        if v not in succ and attr["flow"] < attr["capacity"]:
-                            succ[v] = u
-                            if v in pred:
-                                return v, pred, succ
-                            q.append(v)
-                if not q:
-                    return None, None, None
-                q_t = q
-
-    def bidirectional_bfs():
+    def bfs():
         # print('Regular breadth-first search for an augmenting path.')
         """Regular breadth-first search for an augmenting path."""
         pred = {s: None}
@@ -88,7 +50,7 @@ def edmonds_karp_core(R, s, t, cutoff):
     # Look for shortest augmenting paths using breadth-first search.
     flow_value = 0
     while flow_value < cutoff:
-        v, pred = bidirectional_bfs()
+        v, pred = bfs()
         if pred is None:
             break
         path = [v]

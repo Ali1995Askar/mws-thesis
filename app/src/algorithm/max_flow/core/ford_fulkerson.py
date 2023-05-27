@@ -1,7 +1,3 @@
-"""
-Ford-Fulkerson algorithm for maximum flow problems.
-"""
-
 import networkx as nx
 from networkx.algorithms.flow.utils import build_residual_network
 
@@ -17,6 +13,7 @@ def ford_fulkerson_core(R, s, t, cutoff):
     inf = R.graph["inf"]
 
     def augment(path):
+      
         """Augment flow along a path from s to t."""
         # Determine the path residual capacity.
         flow = inf

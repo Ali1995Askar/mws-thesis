@@ -1,6 +1,5 @@
 import pytest
 import networkx as nx
-
 from app.src.graph.bipartite_graph import BipartiteGraph
 
 
@@ -192,7 +191,51 @@ def ex_bipartite_graph_2():
 
 @pytest.fixture()
 def ex_bipartite_graph_3():
-    pass
+    bipartite_graph = BipartiteGraph()
+    bipartite_graph.build_manually(
+        nodes=[i for i in range(0, 16)],
+        edges=[
+            (1, 8),
+            (1, 14),
+            (1, 10),
+            (1, 11),
+            (1, 9),
+            (1, 13),
+            (1, 15),
+            (1, 12),
+
+            (1, 8),
+            (1, 14),
+            (1, 10),
+            (1, 11),
+            (1, 9),
+            (1, 13),
+            (1, 15),
+            (1, 12),
+
+            (2, 13),
+            (2, 9),
+            (2, 12),
+            (2, 15),
+            (2, 10),
+            (2, 14),
+            (2, 8),
+            (2, 11),
+
+            (3, 13),
+            (3, 14),
+            (3, 8),
+            (3, 15),
+            (3, 12),
+            (3, 11),
+            (3, 10),
+            (3, 9),
+
+        ]
+    )
+
+    bipartite_graph.split_nodes()
+    return bipartite_graph
 
 
 @pytest.fixture()
