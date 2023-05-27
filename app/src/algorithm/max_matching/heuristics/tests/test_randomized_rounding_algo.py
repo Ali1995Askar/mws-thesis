@@ -42,5 +42,7 @@ class TestRandomizedRoundingAlgo:
                 assert bipartite_graph.has_edge_with_positive_capacity(u, v)
                 ex.append(u)
                 ex.append(v)
+                assert u not in ['source', 'sink']
+                assert v not in ['source', 'sink']
 
             assert len(ex) == len(set(ex))

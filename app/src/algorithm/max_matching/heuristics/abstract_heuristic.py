@@ -1,4 +1,4 @@
-import copy
+from copy import deepcopy
 from typing import Tuple, List
 from abc import abstractmethod
 from app.src.graph.bipartite_graph import BipartiteGraph
@@ -10,7 +10,7 @@ class AbstractHeuristic:
     source_sink = ['source', 'sink']
 
     def __init__(self, bipartite_graph: BipartiteGraph):
-        self.bipartite_graph = bipartite_graph
+        self.bipartite_graph = deepcopy(bipartite_graph)
         self.matching_edges = []
 
     def execute(self):
@@ -31,7 +31,7 @@ class AbstractHeuristic:
         return node in matched_nodes
 
     def build_initial_flow(self):
-        residual_network = copy.deepcopy(self.bipartite_graph.graph)
+        residual_network = deepcopy(self.bipartite_graph.graph)
         residual_network.graph["inf"] = float("inf")
 
         for u, v, d in residual_network.edges(data=True):

@@ -13,8 +13,13 @@ class StaticMinDegreeAlgo(AbstractHeuristic):
                 continue
 
             blue_neighbors = self.get_node_neighbors(red_node)
+            if red_node in self.source_sink:
+                continue
 
             for blue_node in blue_neighbors:
+
+                if blue_node in self.source_sink:
+                    continue
 
                 if self.check_if_node_matched(blue_node, matched_nodes):
                     continue

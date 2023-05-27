@@ -27,6 +27,9 @@ class DynamicMinDegreeAlgo(AbstractHeuristic):
                 if self.check_if_node_matched(blue_neighbor, matched_nodes):
                     continue
 
+                if blue_neighbor in self.source_sink or red_node in self.source_sink:
+                    continue
+
                 edge = (red_node, blue_neighbor)
 
                 temp_graph.remove_node(red_node)

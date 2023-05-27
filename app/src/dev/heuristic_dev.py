@@ -54,7 +54,9 @@ density_range = [
     0.005,
     0.008,
     0.01,
+    0.02,
     0.05,
+    0.07,
     0.1,
     0.18,
     0.25,
@@ -143,15 +145,16 @@ if __name__ == '__main__':
             max_matching.find_max_matching()
 
             bipartite_graph.split_nodes()
-
+            #
             s1 = []
             s2 = []
             s3 = []
             s4 = []
             s5 = []
             s6 = []
-
+            assert len(backtracking_algo_result) == len(set(backtracking_algo_result))
             for u, v in backtracking_algo_result:
+                assert bipartite_graph.has_edge_with_positive_capacity(u, v)
                 assert u in bipartite_graph.red_nodes
                 assert v in bipartite_graph.blue_nodes
                 assert u not in ['source', 'sink']
@@ -160,8 +163,9 @@ if __name__ == '__main__':
                 s1.append(u)
                 s1.append(v)
             assert len(s1) == len(set(s1))
-
+            #
             for u, v in static_min_degree_result:
+                assert bipartite_graph.has_edge_with_positive_capacity(u, v)
                 assert u in bipartite_graph.red_nodes
                 assert v in bipartite_graph.blue_nodes
                 assert u not in ['source', 'sink']
@@ -173,6 +177,7 @@ if __name__ == '__main__':
             assert len(s2) == len(set(s2))
 
             for u, v in dynamic_min_degree_result:
+                assert bipartite_graph.has_edge_with_positive_capacity(u, v)
                 assert u in bipartite_graph.red_nodes
                 assert v in bipartite_graph.blue_nodes
                 assert u not in ['source', 'sink']
@@ -183,6 +188,7 @@ if __name__ == '__main__':
             assert len(s2) == len(set(s2))
 
             for u, v in limit_min_degree_result:
+                assert bipartite_graph.has_edge_with_positive_capacity(u, v)
                 assert u in bipartite_graph.red_nodes
                 assert v in bipartite_graph.blue_nodes
                 assert u not in ['source', 'sink']
@@ -193,6 +199,7 @@ if __name__ == '__main__':
             assert len(s4) == len(set(s4))
 
             for u, v in randomized_rounding_result:
+                assert bipartite_graph.has_edge_with_positive_capacity(u, v)
                 assert u in bipartite_graph.red_nodes
                 assert v in bipartite_graph.blue_nodes
                 assert u not in ['source', 'sink']
@@ -203,6 +210,7 @@ if __name__ == '__main__':
             assert len(s5) == len(set(s5))
 
             for u, v in simple_greedy_result:
+                assert bipartite_graph.has_edge_with_positive_capacity(u, v)
                 assert u in bipartite_graph.red_nodes
                 assert v in bipartite_graph.blue_nodes
                 assert u not in ['source', 'sink']
@@ -239,5 +247,6 @@ if __name__ == '__main__':
                 max_matching.max_matching_value
             ]
             print(row)
+
             rows.append(row)
         create_csv(f'{num_of_nodes}_heuristic_matching.csv', columns=columns_name, data=rows)

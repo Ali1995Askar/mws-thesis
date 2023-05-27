@@ -15,10 +15,15 @@ class MonteCarloAlgo(AbstractHeuristic):
             red_nodes = self.bipartite_graph.red_nodes
             random.shuffle(list(red_nodes))
             for red_node in red_nodes:
+                if red_node in self.source_sink:
+                    continue
+
                 free_blue_neighbors = self.get_free_blue_neighbors(red_node, matched_nodes)
 
                 if free_blue_neighbors:
                     blue_neighbor = random.choice(free_blue_neighbors)
+                    if blue_neighbor in self.source_sink:
+                        continue
                     matched_nodes.append(red_node)
                     matched_nodes.append(blue_neighbor)
                     matching.add((red_node, blue_neighbor))

@@ -11,6 +11,7 @@ class RandomizedRoundingAlgo(AbstractHeuristic):
         blue_nodes = self.bipartite_graph.blue_nodes
 
         for u, v in self.bipartite_graph.graph.edges():
+            
             if u in self.source_sink or v in self.source_sink or random.random() < 0.5:
                 continue
 

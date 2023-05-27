@@ -6,7 +6,6 @@ from app.src.algorithm.max_flow.dinitz_solver import DinitzSolver
 from app.src.algorithm.max_flow.edmond_karp_solver import EdmondKarpSolver
 from app.src.algorithm.max_flow.ford_fulkerson_solver import FordFulkersonSolver
 from app.src.algorithm.max_matching.max_matching_solver import MaxMatchingSolver
-from app.src.algorithm.max_matching.heuristics.backtracking_algo import BackTrackingAlgo
 
 columns_name = [
     'NUM OF NODES',
@@ -20,7 +19,7 @@ columns_name = [
     'Max Matching Value'
 ]
 nodes_range = [
-    
+
     1000,
     1500,
     2000,
@@ -43,7 +42,7 @@ nodes_range = [
 ]
 
 density_range = [
-
+    0.0001,
     0.0002,
     0.0004,
     0.0007,
@@ -52,7 +51,9 @@ density_range = [
     0.005,
     0.008,
     0.01,
+    0.02,
     0.05,
+    0.07,
     0.1,
     0.18,
     0.25,
@@ -85,7 +86,6 @@ if __name__ == '__main__':
 
             # FordFulkerson Algorithm
             max_matching.set_solver(solver=FordFulkersonSolver)
-            max_matching.set_initial_flow(heuristic_algorithm=BackTrackingAlgo)
             start_time = time.time()
             max_matching.find_max_matching()
             end_time = time.time()
@@ -94,7 +94,6 @@ if __name__ == '__main__':
 
             # EdmondKarp Algorithm
             max_matching.set_solver(solver=EdmondKarpSolver)
-            max_matching.set_initial_flow(heuristic_algorithm=BackTrackingAlgo)
             start_time = time.time()
             max_matching.find_max_matching()
             end_time = time.time()
@@ -103,7 +102,6 @@ if __name__ == '__main__':
 
             # Dinitz Algorithm
             max_matching.set_solver(solver=DinitzSolver)
-            max_matching.set_initial_flow(heuristic_algorithm=BackTrackingAlgo)
             start_time = time.time()
             max_matching.find_max_matching()
             end_time = time.time()
@@ -125,4 +123,4 @@ if __name__ == '__main__':
             ]
             print(row)
             rows.append(row)
-        # create_csv(f'{num_of_nodes}_max_flow.csv', columns=columns_name, data=rows)
+        create_csv(f'{num_of_nodes}_max_flow.csv', columns=columns_name, data=rows)
