@@ -63,16 +63,30 @@ class BackTrackingAlgo(AbstractHeuristic):
 
         return list(matched_edges)
 
+    # def find_other_choice(self, nodes, match_nodes, un_matched_edges):
+    #     for u, v in un_matched_edges:
+    #         if u in nodes and v not in match_nodes:
+    #             if u in self.bipartite_graph.red_nodes and v in self.bipartite_graph.blue_nodes:
+    #                 return u, v
+
     def find_other_choice(self, nodes, match_nodes, un_matched_edges):
+        blue_nodes = self.bipartite_graph.blue_nodes
         for u, v in un_matched_edges:
-            if u in nodes and v not in match_nodes:
-                if u in self.bipartite_graph.red_nodes and v in self.bipartite_graph.blue_nodes:
-                    return u, v
+            if u in nodes and v not in match_nodes and u in self.bipartite_graph.red_nodes and v in blue_nodes:
+                return u, v
+        return None
+
+    # def find_un_matched_neighbor(self, neighbors: List, matched_nodes: Set):
+    #     for neighbor in neighbors:
+    #         if neighbor not in matched_nodes and neighbor not in self.source_sink:
+    #             return neighbor
+    #     return None
 
     def find_un_matched_neighbor(self, neighbors: List, matched_nodes: Set):
-
+        unmatched_set = set(self.source_sink)
+        unmatched_set |= matched_nodes
         for neighbor in neighbors:
-            if neighbor not in matched_nodes and neighbor not in self.source_sink:
+            if neighbor not in unmatched_set:
                 return neighbor
         return None
 

@@ -1,4 +1,5 @@
 import time
+
 from app.utils.utils import create_csv
 from networkx.algorithms.flow import edmonds_karp
 from app.src.graph.bipartite_graph import BipartiteGraph
@@ -18,59 +19,67 @@ from app.src.algorithm.max_matching.heuristics.randomized_rounding_algo import R
 columns_name = [
     'NUM OF NODES',
     'Density',
+    'Max Matching Value',
 
-    'Backtracking Algorithm Time',
     'Backtracking Algorithm Result',
+    'Backtracking Algorithm Time',
 
-    'Static Min Degree Time',
     'Static Min Degree Result',
+    'Static Min Degree Time',
 
-    'Dynamic Min Degree Time',
     'Dynamic Min Degree Result',
+    'Dynamic Min Degree Time',
 
-    'Limit Min Degree Time',
     'Limit Min Degree Result',
+    'Limit Min Degree Time',
 
-    'Monte Carlo Time',
-    'Monte Carlo Result',
-
-    'Randomized Rounding Time',
-    'Randomized Rounding Result',
-
-    'Simple Greedy Time',
     'Simple Greedy Result',
+    'Simple Greedy Time',
 
-    'Max Matching Value'
+    'Monte Carlo Result',
+    'Monte Carlo Time',
+
+    'Rounding Result',
+    'Rounding Time',
+
 ]
-nodes_range = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000]
+nodes_range = [500, 1000, 1500, 2000, 2500, 3000]
 
 density_range = [
     0.0001,
     0.0002,
     0.0004,
     0.0007,
+    0.0009,
     0.001,
     0.003,
-    0.005,
-    0.008,
+    0.004,
+    0.007,
+    0.009,
     0.01,
     0.02,
     0.05,
     0.07,
+    0.09,
     0.1,
     0.18,
     0.25,
     0.36,
+    0.4,
     0.42,
+    0.44,
     0.48,
+    0.52,
     0.56,
     0.62,
     0.68,
     0.72,
     0.78,
     0.82,
+    0.85,
     0.88,
     0.92,
+    0.94,
     0.98,
     1
 ]
@@ -92,7 +101,6 @@ if __name__ == '__main__':
             backtracking_algo = BackTrackingAlgo(bipartite_graph=bipartite_graph)
             start_time = time.time()
             backtracking_algo_result = backtracking_algo.find_matching_edges()
-
             end_time = time.time()
             backtracking_algo_time = end_time - start_time
 
@@ -117,6 +125,13 @@ if __name__ == '__main__':
             end_time = time.time()
             limit_min_degree_time = end_time - start_time
 
+            #  Simple Greedy
+            simple_greedy = SimpleGreedyAlgo(bipartite_graph=bipartite_graph)
+            start_time = time.time()
+            simple_greedy_result = simple_greedy.find_matching_edges()
+            end_time = time.time()
+            simple_greedy_time = end_time - start_time
+
             # Monte Carlo
             monte_carlo = MonteCarloAlgo(bipartite_graph=bipartite_graph)
             start_time = time.time()
@@ -131,13 +146,6 @@ if __name__ == '__main__':
             end_time = time.time()
             randomized_rounding_time = end_time - start_time
 
-            # Randomized Rounding
-            simple_greedy = SimpleGreedyAlgo(bipartite_graph=bipartite_graph)
-            start_time = time.time()
-            simple_greedy_result = simple_greedy.find_matching_edges()
-            end_time = time.time()
-            simple_greedy_time = end_time - start_time
-
             max_matching = MaxMatchingSolver()
             max_matching.set_bipartite_graph(bipartite_graph=bipartite_graph)
             max_matching.set_solver(solver=FordFulkersonSolver)
@@ -145,13 +153,14 @@ if __name__ == '__main__':
             max_matching.find_max_matching()
 
             bipartite_graph.split_nodes()
-            #
             s1 = []
             s2 = []
             s3 = []
             s4 = []
             s5 = []
             s6 = []
+            s7 = []
+
             assert len(backtracking_algo_result) == len(set(backtracking_algo_result))
             for u, v in backtracking_algo_result:
                 assert bipartite_graph.has_edge_with_positive_capacity(u, v)
@@ -163,7 +172,7 @@ if __name__ == '__main__':
                 s1.append(u)
                 s1.append(v)
             assert len(s1) == len(set(s1))
-            #
+
             for u, v in static_min_degree_result:
                 assert bipartite_graph.has_edge_with_positive_capacity(u, v)
                 assert u in bipartite_graph.red_nodes
@@ -219,34 +228,43 @@ if __name__ == '__main__':
                 s6.append(v)
             assert len(s6) == len(set(s6))
 
+            for u, v in monte_carlo_result:
+                assert bipartite_graph.has_edge_with_positive_capacity(u, v)
+                assert u in bipartite_graph.red_nodes
+                assert v in bipartite_graph.blue_nodes
+                assert u not in ['source', 'sink']
+                assert v not in ['source', 'sink']
+                s7.append(u)
+                s7.append(v)
+            assert len(s7) == len(set(s7))
+
             row = [
                 num_of_nodes,
                 density,
+                max_matching.max_matching_value,
 
                 len(backtracking_algo_result),
-                backtracking_algo_time,
+                round(backtracking_algo_time, 3),
 
                 len(static_min_degree_result),
-                static_min_degree_time,
+                round(static_min_degree_time, 3),
 
                 len(dynamic_min_degree_result),
-                dynamic_min_degree_time,
+                round(dynamic_min_degree_time, 3),
 
                 len(limit_min_degree_result),
-                limit_min_degree_time,
-
-                len(monte_carlo_result),
-                monte_carlo_time,
-
-                len(randomized_rounding_result),
-                randomized_rounding_time,
+                round(limit_min_degree_time, 3),
 
                 len(simple_greedy_result),
-                simple_greedy_time,
+                round(simple_greedy_time, 3),
 
-                max_matching.max_matching_value
+                len(monte_carlo_result),
+                round(monte_carlo_time, 3),
+
+                len(randomized_rounding_result),
+                round(randomized_rounding_time, 3),
+
             ]
             print(row)
-
             rows.append(row)
         create_csv(f'{num_of_nodes}_heuristic_matching.csv', columns=columns_name, data=rows)

@@ -19,26 +19,15 @@ columns_name = [
     'Max Matching Value'
 ]
 nodes_range = [
-
-    1000,
-    1500,
-    2000,
-    2500,
+    # 500,
+    # 1000,
+    # 1500,
+    # 2000,
+    # 2500,
     3000,
     3500,
     4000,
-    4500,
-    5000,
-    5500,
-    6000,
-    6500,
-    7000,
-    7500,
-    8000,
-    8500,
-    9000,
-    9500,
-    10000
+
 ]
 
 density_range = [
@@ -46,28 +35,36 @@ density_range = [
     0.0002,
     0.0004,
     0.0007,
+    0.0009,
     0.001,
     0.003,
-    0.005,
-    0.008,
+    0.004,
+    0.007,
+    0.009,
     0.01,
     0.02,
     0.05,
     0.07,
+    0.09,
     0.1,
     0.18,
     0.25,
     0.36,
+    0.4,
     0.42,
+    0.44,
     0.48,
+    0.52,
     0.56,
     0.62,
     0.68,
     0.72,
     0.78,
     0.82,
+    0.85,
     0.88,
     0.92,
+    0.94,
     0.98,
     1
 ]
@@ -114,11 +111,11 @@ if __name__ == '__main__':
                 num_of_nodes,
                 density,
                 ford_fulkerson_algorithm_value,
-                ford_fulkerson_algorithm_execution_time,
+                round(ford_fulkerson_algorithm_execution_time, 3),
                 edmond_algorithm_value,
-                edmond_algorithm_execution_time,
+                round(edmond_algorithm_execution_time, 3),
                 dinitz_algorithm_value,
-                dinitz_algorithm_execution_time,
+                round(dinitz_algorithm_execution_time, 3),
                 R.graph['flow_value']
             ]
             print(row)
