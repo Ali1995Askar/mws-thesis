@@ -1,21 +1,26 @@
-"""core URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import path, include
+from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Basic
+    path('', views.HomeView.as_view()),
+    path('contact-us/', views.ContactUsView.as_view()),
+    path('about-us/', views.AboutUsView.as_view()),
+    # path('', AboutUs.as_view(), name="aboutus")
+    # Apps
+    # path('auth/', admin.site.urls),
+    # path('management/', include('management.urls')),
+    # path('tasks/', include('management.urls')),
+    # path('workers/', include('management.urls')),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

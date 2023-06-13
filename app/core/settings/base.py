@@ -5,10 +5,11 @@ from pathlib import Path
 
 env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 SECRET_KEY = env.str("DJANGO_SECRET_KEY")
-DEBUG = env.bool("DJANGO_DEBUG")
+DEBUG = env.bool("DJANGO_DEBUG", True)
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 INSTALLED_APPS = [
@@ -20,8 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # my apps
-    'users',
-    'jobs'
+
 ]
 
 MIDDLEWARE = [
@@ -39,7 +39,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,32 +79,29 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DJANGO_LOG_FILE = env.str("DJANGO_LOG_FILE", "../logs/server.log")
 os.makedirs(os.path.dirname(DJANGO_LOG_FILE), exist_ok=True)
 
-logging.config.dictConfig(
-    {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "formatters": {
-            "console": {
-                "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
-            },
-            "file": {"format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"},
+STATIC_URL = '/static/'
+STATICFILES_DIRS = os.path.join(os.path.join(BASE_DIR, 'app'), 'static'),
+
+logging.config.dictConfig({
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {"format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"},
+        "file": {"format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"},
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "console"},
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "formatter": "file",
+            "filename": DJANGO_LOG_FILE,
         },
-        "handlers": {
-            "console": {"class": "logging.StreamHandler", "formatter": "console"},
-            "file": {
-                "level": "DEBUG",
-                "class": "logging.FileHandler",
-                "formatter": "file",
-                "filename": DJANGO_LOG_FILE,
-            },
-        },
-        "loggers": {"": {"level": "DEBUG", "handlers": ["console", "file"]}},
-    }
-)
+    },
+    "loggers": {"": {"level": "DEBUG", "handlers": ["console", "file"]}},
+})

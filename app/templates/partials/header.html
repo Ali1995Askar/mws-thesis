@@ -1,0 +1,68 @@
+{% load static %}
+<div class="row align-items-center text-center">
+    <div class="col">
+        <div class="topbarElements d-inline-flex align-items-center">
+            <div>&#x27A4;</div>
+            <div class="text-start d-md-block d-none">
+                <h5 class="p-0 m-0 text-uppercase">Syrian Virtual University</h5>
+                <p class="p-0 m-0 text-secondary">Master of Web Science, MWS</p>
+            </div>
+        </div>
+    </div>
+    <div class="col border-start border-end">
+        <div class="topbarElements d-inline-flex align-items-center">
+            <div> &#x2709;</div>
+            <div class="text-start d-md-block d-none">
+                <h5 class="p-0 m-0 text-uppercase">Email</h5>
+                <p class="p-0 m-0 text-secondary">ali_133380@svuonline.org</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="topbarElements d-inline-flex align-items-center ">
+            <div>
+                &#x260F;
+            </div>
+            <div class="text-start d-md-block d-none">
+                <h5 class="p-0 m-0 text-uppercase">Phone</h5>
+                <p class="p-0 m-0 text-secondary">+963 936 771 771</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-info p-0 m-0">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src={% static 'img/logo.png' %} alt="Logo" height="72"/></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+                <li class="nav-item"><a class="nav-link mx-2 active" aria-current="page" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link mx-2" href="#">Tasks</a></li>
+                <li class="nav-item"><a class="nav-link mx-2" href="#">Workers</a></li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        &#x1F464; Account
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">signup</a></li>
+                        <li><a class="dropdown-item" href="#">signin</a></li>
+                        <li><a class="dropdown-item" href="#">my profile</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item btn-primary">
+                    <a class="nav-link mx-2 btn-primary " href="#">Dashboard <span class="ms-2">&#x2192;</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
