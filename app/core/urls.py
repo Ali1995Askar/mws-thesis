@@ -9,10 +9,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Basic
-    path('', views.HomeView.as_view()),
-    path('contact-us/', views.ContactUsView.as_view()),
-    path('about-us/', views.AboutUsView.as_view()),
-    # path('', AboutUs.as_view(), name="aboutus")
+    path('', views.HomeView.as_view(), name='home'),
+    path('contact-us/', views.ContactUsView.as_view(), name='contact-us'),
+    path('about-us/', views.AboutUsView.as_view(), name='about-us'),
+  
     # Apps
     # path('auth/', admin.site.urls),
     # path('management/', include('management.urls')),
