@@ -12,11 +12,12 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('contact-us/', views.ContactUsView.as_view(), name='contact-us'),
     path('about-us/', views.AboutUsView.as_view(), name='about-us'),
-  
+
     # Apps
     # path('auth/', admin.site.urls),
     # path('management/', include('management.urls')),
-    # path('tasks/', include('management.urls')),
+    path('tasks/', include('tasks.urls')),
+    path('workers/', include('workers.urls')),
     # path('workers/', include('management.urls')),
 
 ]

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="container my-5 d-flex justify-content-start">
+            <button type="button" class="btn-lg btn-primary">New Worker &nbsp; &#x1F477;</button>
+        </div>
+        <table class="table table-bordered table-light text-center">
+
+            <thead class="table-danger">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Experience Level</th>
+                <th scope="col">Education</th>
+                <th scope="col">Position</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Age</th>
+                <th scope="col">CV</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+
+                <td>1</td>
+
+                <td>Ali</td>
+                <td>Askar</td>
+                <td>Senior</td>
+                <td>Software Engineer</td>
+                <td>Django developer</td>
+                <td>Male</td>
+                <td>36</td>
+                <td>Link to cv file</td>
+                <td>
+                    <a style="text-decoration:none" href="#">&#128065;</a> &nbsp;
+                    <a style="text-decoration:none" href="#">&#9999;</a> &nbsp;
+                    <a style="text-decoration:none" href="#">&#128465;</a>
+                </td>
+
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

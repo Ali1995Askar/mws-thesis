@@ -33,8 +33,10 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-info p-0 m-0">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src={% static 'img/logo.png' %} alt="Logo" height="72"/></a>
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'img/logo.png' %}" alt="" height="72"/>
+            <b class="p-0 m-0 text-capitalize text-primary">Max Matching</b>
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,22 +45,17 @@
 
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
-                <li class="nav-item"><a class="nav-link mx-2 active" aria-current="page" href="#"> &#x1F3E0; Home</a>
+                <li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" href="{% url 'home' %}"> &#x1F3E0; Home </a>
                 </li>
-                <li class="nav-item"><a class="nav-link mx-2" href="#">&#x1F6E0; Tasks</a></li>
-                <li class="nav-item"><a class="nav-link mx-2" href="#"> &#x1F477; Workers</a></li>
-                <li class="nav-item"><a class="nav-link mx-2" href="#"> &#x1F4CA; Dashboard</a></li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="{% url 'tasks:list' %}"> &#x1F6E0; Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="{% url 'workers:list' %}"> &#x1F477; Workers</a>
+                </li>
+                <li class="nav-item"><a class="nav-link mx-2" href="#"> &#x1F4CA; Management</a></li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        &#x1F30D; Website
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#"> &#x1F4DE; contact-us</a></li>
-                        <li><a class="dropdown-item" href="#">&#x2753; about-us</a></li>
-                    </ul>
-                </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
