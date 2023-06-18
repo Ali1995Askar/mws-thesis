@@ -9,5 +9,5 @@ class ContactUsView(TemplateView):
     template_name = 'site-pages/contact-us.html'
 
 
-class AboutUsView(TemplateView):
-    template_name = 'site-pages/about-us.html'
+class FAQView(TemplateView):
+    template_name = 'site-pages/f_a_q.html'

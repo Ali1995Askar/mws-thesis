@@ -1,0 +1,105 @@
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'home' %}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person"></i><span>Employee</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'workers:create' %}">
+                        <i class="bi bi-circle"></i><span>Add new worker</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'workers:list' %}">
+                        <i class="bi bi-circle"></i><span>Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'workers:statistics' %}">
+                        <i class="bi bi-circle"></i><span>statistics</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Workers Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi bi-list-task"></i><span>Tasks</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+
+            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'tasks:create' %}">
+                        <i class="bi bi-circle"></i><span>Add new Task</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'tasks:list' %}">
+                        <i class="bi bi-circle"></i><span>Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'tasks:statistics' %}">
+                        <i class="bi bi-circle"></i><span>Statistics</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Tasks Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-graph-up"></i><span>System Performance</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'management:task-assigner' %}">
+                        <i class="bi bi-circle"></i><span>Tasks Assigner</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{% url 'management:matching' %}">
+                        <i class="bi bi-circle"></i><span>Matching Statistics</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li><!-- End Charts Nav -->
+
+
+        <li class="nav-heading">Pages</li>
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'f-a-q' %}">
+                <i class="bi bi-question-circle"></i>
+                <span>F.A.Q</span>
+            </a>
+        </li><!-- End F.A.Q Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'contact-us' %}">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li><!-- End Contact Page Nav -->
+
+
+    </ul>
+
+</aside><!-- End Sidebar-->

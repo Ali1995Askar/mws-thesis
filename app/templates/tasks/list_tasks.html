@@ -1,46 +1,74 @@
 {% extends "base.html" %}
 
+
 {% block content %}
 
-    <div class="container my-5">
-        <div class="container my-5 d-flex justify-content-start">
-            <button type="button" class="btn-lg btn-primary">New Task &nbsp; &#x1F6E0;</button>
-        </div>
-        <table class="table table-bordered table-light text-center">
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Data Tables</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Tables</li>
+                    <li class="breadcrumb-item active">Data</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-            <thead class="table-danger">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Position</th>
-                <th scope="col">Shout Description</th>
-                <th scope="col">Experience Level</th>
-                <th scope="col">Company</th>
-                <th scope="col">Job type</th>
-                <th scope="col">On-site/remote</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
 
-                <td>1</td>
-                <td>Software Engineer</td>
-                <td>Full stack developer Django and nodejs</td>
-                <td>Senior</td>
-                <td>Pytech</td>
-                <td>Full-time</td>
-                <td>Dubai</td>
-                <td>Open</td>
-                <td>
-                    <a style="text-decoration:none" href="#">&#128065;</a> &nbsp;
-                    <a style="text-decoration:none" href="#">&#9999;</a> &nbsp;
-                    <a style="text-decoration:none" href="#">&#128465;</a>
-                </td>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Datatables</h5>
+                            <p>Write paragraph</p>
 
-            </tr>
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
+                                <thead>
+                                <tr>
+                                    <th scope="col" data-sortable="false">#</th>
+                                    <th scope="col" data-sortable="false">Task Name</th>
+                                    <th scope="col" data-sortable="false">Education</th>
+                                    <th scope="col" data-sortable="false">Shout Description</th>
+                                    <th scope="col" data-sortable="false">Experience Level</th>
+                                    <th scope="col" data-sortable="false">Framework</th>
+                                    <th scope="col" data-sortable="false">Category</th>
+                                    <th scope="col" data-sortable="false">Status</th>
+                                    <th scope="col" data-sortable="false">Deadline</th>
+                                    <th scope="col" data-sortable="false">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Fix bug</td>
+                                    <td>Software Engineer</td>
+                                    <td>fix server bug in aws</td>
+                                    <td>Senior</td>
+                                    <td>Docker</td>
+                                    <td>Devops</td>
+                                    <td>Open</td>
+                                    <td>25-19-2023</td>
+                                    <td>
+                                        <a href="#"> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                        <a href="#"> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                                        <a href="#"> <i class="bi bi-trash-fill"></i></a>
+                                    </td>
+                                </tr>
 
-            </tbody>
-        </table>
-    </div>
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
 {% endblock content %}

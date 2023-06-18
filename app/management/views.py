@@ -8,3 +8,17 @@ class DashboardView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
+
+
+class MatchingView(generic.ListView):
+    template_name = "management/matching.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, f"{self.template_name}")
+
+
+class AssignTasksView(generic.ListView):
+    template_name = "management/task-assigner.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, f"{self.template_name}")

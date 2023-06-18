@@ -6,17 +6,19 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
+    # Admin
     path('admin/', admin.site.urls),
 
     # Basic
     path('', views.HomeView.as_view(), name='home'),
     path('contact-us/', views.ContactUsView.as_view(), name='contact-us'),
-    path('about-us/', views.AboutUsView.as_view(), name='about-us'),
+    path('faq/', views.FAQView.as_view(), name='f-a-q'),
 
     # Apps
-
+    path('auth/', include('auth.urls')),
     path('tasks/', include('tasks.urls')),
     path('workers/', include('workers.urls')),
+    path('accounts/', include('accounts.urls')),
     path('management/', include('management.urls')),
 
 ]

@@ -35,3 +35,10 @@ class WorkerDetailsView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
+
+
+class WorkerStatisticsView(generic.DeleteView):
+    template_name = "workers/workers_statistics.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, f"{self.template_name}")
