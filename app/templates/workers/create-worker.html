@@ -23,27 +23,40 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">New Task Form</h5>
+                        <h5 class="card-title">New Worker Form</h5>
 
                         <!-- General Form Elements -->
                         <form>
                             <div class="row mb-3">
-                                <label for="inputText" class="col-sm-2 col-form-label">Title</label>
+                                <label for="inputText" class="col-sm-2 col-form-label">Full Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputText" class="col-sm-2 col-form-label">Department</label>
+                                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="inputNumber" class="col-sm-2 col-form-label">Phone Number</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputNumber" class="col-sm-2 col-form-label">Cv</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="file" id="formFile">
                                 </div>
                             </div>
                             <br>
                             <div class="row mb-3">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Task Description</label>
+                                <label for="inputDate" class="col-sm-2 col-form-label">Date Of Birth</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" style="height: 100px"></textarea>
+                                    <input type="date" class="form-control">
                                 </div>
                             </div>
                             <br>
@@ -81,14 +94,30 @@
                                 </div>
                             </fieldset>
 
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Residence</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>----------</option>
+                                        <option value="1">Syria</option>
+                                        <option value="2">Lebanon</option>
+                                        <option value="3">Jordon</option>
+                                        <option value="4">UAE</option>
+                                        <option value="5">Saudi Arabia</option>
+                                        <option value="6">Turkey</option>
+                                        <option value="7">Germany</option>
+                                    </select>
+                                </div>
+                            </div>
                             <br>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Education</label>
                                 <div class="col-sm-10">
                                     <select class="form-select" multiple aria-label="multiple select example">
-                                        <option value="1">Network Engineering</option>
-                                        <option value="2">Software Engineering</option>
-                                        <option value="3">Accountant Engineering</option>
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">Network</option>
+                                        <option value="2">Software</option>
+                                        <option value="3">Accountant</option>
                                     </select>
                                 </div>
                             </div>
@@ -97,6 +126,7 @@
                                 <label class="col-sm-2 col-form-label">Expert with</label>
                                 <div class="col-sm-10">
                                     <select class="form-select" multiple aria-label="multiple select example">
+                                        <option selected>Open this select menu</option>
                                         <option value="1">ASP.NET</option>
                                         <option value="2">Django</option>
                                         <option value="3">AWS</option>
@@ -111,6 +141,7 @@
                                 <label class="col-sm-2 col-form-label">Positions held</label>
                                 <div class="col-sm-10">
                                     <select class="form-select" multiple aria-label="multiple select example">
+                                        <option selected>Open this select menu</option>
                                         <option value="1">Backend Developer</option>
                                         <option value="2">Frontend Developer</option>
                                         <option value="3">Database Administration</option>
@@ -139,3 +170,5 @@
 
 
 {% endblock content %}
+
+

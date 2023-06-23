@@ -23,6 +23,10 @@ INSTALLED_APPS = [
     # my apps
     'tasks',
     'workers',
+    'departments',
+    'educations',
+    'positions',
+    'categories',
     'management',
 
 ]

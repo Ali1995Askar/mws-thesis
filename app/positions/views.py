@@ -1,42 +1,39 @@
-from django.shortcuts import render
-
-# # Create your views here.
-
-
-from django.shortcuts import render
 from django.views import generic
+from django.shortcuts import render
 
 
-class SigninView(generic.UpdateView):
-    template_name = "accounts/profile.html"
+# Create your views here.
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
-
-
-class SignupView(generic.UpdateView):
-    template_name = "accounts/profile.html"
+class PositionListView(generic.ListView):
+    template_name = "position/list-positions.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
-class ProfileView(generic.UpdateView):
-    template_name = "accounts/profile.html"
+class PositionCreateView(generic.CreateView):
+    template_name = "position/create-position.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
-class EditProfileView(generic.UpdateView):
-    template_name = "accounts/edit_profile.html"
+class PositionDetailsView(generic.DetailView):
+    template_name = "position/position-details.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
-class ChangePasswordView(generic.UpdateView):
-    template_name = "accounts/edit_profile.html"
+class PositionUpdateView(generic.UpdateView):
+    template_name = "position/update-position.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, f"{self.template_name}")
+
+
+class PositionDeleteView(generic.DeleteView):
+    template_name = "position/delete-position.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")

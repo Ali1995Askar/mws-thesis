@@ -9,6 +9,66 @@
             </a>
         </li><!-- End Dashboard Nav -->
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#departments-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person"></i><span>Departments</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="departments-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'departments:list' %}">
+                        <i class="bi bi-circle"></i><span>Table</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li><!-- End Departments Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#educations-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person"></i><span>Educations</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="educations-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'educations:list' %}">
+                        <i class="bi bi-circle"></i><span>Table</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li><!-- End Educations Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#positions-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person"></i><span>Positions</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="positions-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'positions:list' %}">
+                        <i class="bi bi-circle"></i><span>Table</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li><!-- End Positions Nav -->
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#categories-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person"></i><span>Categories</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="categories-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'categories:list' %}">
+                        <i class="bi bi-circle"></i><span>Table</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Categories Nav -->
+
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -16,11 +76,7 @@
                     class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{% url 'workers:create' %}">
-                        <i class="bi bi-circle"></i><span>Positions</span>
-                    </a>
-                </li>
+
                 <li>
                     <a href="{% url 'workers:create' %}">
                         <i class="bi bi-circle"></i><span>Add new worker</span>
@@ -28,7 +84,7 @@
                 </li>
                 <li>
                     <a href="{% url 'workers:list' %}">
-                        <i class="bi bi-circle"></i><span>Data</span>
+                        <i class="bi bi-circle"></i><span>Table</span>
                     </a>
                 </li>
                 <li>
@@ -39,6 +95,7 @@
             </ul>
         </li><!-- End Workers Nav -->
 
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi bi-list-task"></i><span>Tasks</span><i
@@ -48,17 +105,12 @@
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{% url 'tasks:create' %}">
-                        <i class="bi bi-circle"></i><span>Categories</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'tasks:create' %}">
                         <i class="bi bi-circle"></i><span>Add new Task</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'tasks:list' %}">
-                        <i class="bi bi-circle"></i><span>Data</span>
+                        <i class="bi bi-circle"></i><span>Table</span>
                     </a>
                 </li>
                 <li>
@@ -68,6 +120,7 @@
                 </li>
             </ul>
         </li><!-- End Tasks Nav -->
+
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">

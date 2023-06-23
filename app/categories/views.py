@@ -1,42 +1,37 @@
 from django.shortcuts import render
-
-# # Create your views here.
-
-
-from django.shortcuts import render
 from django.views import generic
 
 
-class SigninView(generic.UpdateView):
-    template_name = "accounts/profile.html"
+class CategoryListView(generic.ListView):
+    template_name = "category/list-category.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
-class SignupView(generic.UpdateView):
-    template_name = "accounts/profile.html"
+class CategoryCreateView(generic.CreateView):
+    template_name = "category/create-category.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
-class ProfileView(generic.UpdateView):
-    template_name = "accounts/profile.html"
+class CategoryDetailsView(generic.DetailView):
+    template_name = "category/category-details.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
-class EditProfileView(generic.UpdateView):
-    template_name = "accounts/edit_profile.html"
+class CategoryUpdateView(generic.UpdateView):
+    template_name = "category/update-category.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
-class ChangePasswordView(generic.UpdateView):
-    template_name = "accounts/edit_profile.html"
+class CategoryDeleteView(generic.DeleteView):
+    template_name = "category/delete-category.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")

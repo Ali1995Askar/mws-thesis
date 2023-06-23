@@ -6,14 +6,12 @@ __all__ = ["ford_fulkerson"]
 
 def ford_fulkerson_core(R, s, t, cutoff):
     """Implementation of the Ford-Fulkerson algorithm."""
-    R_nodes = R.nodes
-    R_pred = R.pred
     R_succ = R.succ
 
     inf = R.graph["inf"]
 
     def augment(path):
-      
+
         """Augment flow along a path from s to t."""
         # Determine the path residual capacity.
         flow = inf
