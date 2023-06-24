@@ -312,7 +312,7 @@
                 <div class="col-xxl-4 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Bar Chart</h5>
+                            <h5 class="card-title">Categories</h5>
 
                             <!-- Bar Chart -->
                             <div id="barChart"></div>
@@ -321,7 +321,7 @@
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#barChart"), {
                                         series: [{
-                                            data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+                                            data: [400, 430, 448, 470, 540, 1000,]
                                         }],
                                         chart: {
                                             type: 'bar',
@@ -337,9 +337,7 @@
                                             enabled: false
                                         },
                                         xaxis: {
-                                            categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
-                                                'United States', 'China', 'Germany'
-                                            ],
+                                            categories: ['Node.js', 'Asp.net', 'Django', 'React', 'Laravel', 'Marketing'],
                                         }
                                     }).render();
                                 });

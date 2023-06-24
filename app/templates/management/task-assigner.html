@@ -60,18 +60,15 @@
                 <div class="col-xxl-3 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
-                            <h5 class="card-title">Relation Density<span></span></h5>
+                            <h5 class="card-title">Graph Density<span></span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-people"></i>
+                                    <i class="bi bi-diagram-3-fill"></i>
                                 </div>
                                 <div class="ps-3">
                                     <h6>0.48%</h6>
-
                                 </div>
-
                             </div>
-
                         </div>
 
                     </div>
@@ -79,32 +76,114 @@
                 <div class="col-xxl-3 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
-                            <h5 class="card-title">Workers<span></span></h5>
+                            <h5 class="card-title">Average Degree of Nodes<span></span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-people"></i>
                                 </div>
                                 <div class="ps-3">
                                     <h6>145</h6>
-
+                                    <span class="text-danger small pt-1 fw-bold">Max degree 13</span>
+                                    <br>
+                                    <span class="text-danger small pt-1 fw-bold">Min degree 1</span>
                                 </div>
-
                             </div>
-
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Degree Distribution of Tasks and Workers</h5>
+
+                        <!-- Bar Chart -->
+                        <canvas id="barChart" style="max-height: 400px;"></canvas>
+                        <script>
+                            const numberList = [];
+                            for (let i = 1; i <= 100; i++) {
+                                numberList.push(i);
+                            }
+                            const randomList = [];
+                            for (let i = 0; i < 100; i++) {
+                                const randomValue = Math.floor(Math.random() * 5000) + 1;
+                                randomList.push(randomValue);
+                            }
+                            document.addEventListener("DOMContentLoaded", () => {
+                                new Chart(document.querySelector('#barChart'), {
+                                    type: 'bar',
+                                    data: {
+                                        labels: numberList,
+                                        datasets: [{
+                                            label: '',
+                                            data: randomList,
+                                            backgroundColor: [
+                                                'rgba(255, 99, 132, 0.2)',
+                                                'rgba(255, 159, 64, 0.2)',
+                                                'rgba(255, 205, 86, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(54, 162, 235, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(201, 203, 207, 0.2)'
+                                            ],
+                                            borderColor: [
+                                                'rgb(255, 99, 132)',
+                                                'rgb(255, 159, 64)',
+                                                'rgb(255, 205, 86)',
+                                                'rgb(75, 192, 192)',
+                                                'rgb(54, 162, 235)',
+                                                'rgb(153, 102, 255)',
+                                                'rgb(201, 203, 207)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        plugins: {
+                                            legend: {
+                                                display: false
+                                            }
+                                        },
+                                        scales: {
+
+                                            y: {
+                                                title: {
+                                                    display: true,
+                                                    text: 'Degree Value'
+                                                },
+                                                display: true,
+                                                beginAtZero: true
+                                            },
+                                            x: {
+                                                title: {
+                                                    display: true,
+                                                    text: 'Nodes Number'
+                                                },
+
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <!-- End Bar CHart -->
 
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xxl-2 col-md-6">
+                <div class="col-xxl-3 col-md-4">
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-primary" type="button">Max Matching (H + F)</button>
+                        <button class="btn btn-primary" type="button">Max Matching</button>
                     </div>
                 </div>
-                <div class="col-xxl-2 col-md-6">
+                <div class="col-xxl-6 col-md-4">
+
+                </div>
+                <div class="col-xxl-3 col-md-4">
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-danger" type="button">Matching (H)</button>
+                        <button class="btn btn-danger" type="button">Heuristic Matching</button>
                     </div>
                 </div>
             </div>
