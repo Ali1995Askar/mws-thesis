@@ -18,13 +18,6 @@ class DepartmentCreateView(generic.CreateView):
         return render(request, f"{self.template_name}")
 
 
-class DepartmentDetailsView(generic.DetailView):
-    template_name = "department/department-details.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
-
-
 class DepartmentUpdateView(generic.UpdateView):
     template_name = "department/update-department.html"
 

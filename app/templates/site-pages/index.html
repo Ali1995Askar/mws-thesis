@@ -10,7 +10,7 @@
             <h1>Dashboard</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </nav>
@@ -18,187 +18,152 @@
 
         <section class="section dashboard">
             <div class="row">
+                <!-- Workers Card -->
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Workers<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-person-badge-fill"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>4431</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Workers Card -->
 
-                <!-- Left side columns -->
-                <div class="col-lg-8">
-                    <div class="row">
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Categories<span></span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-layout-wtf"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>145</h6>
+                <!-- Tasks Tasks -->
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card revenue-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tasks <span></span></h5>
 
-                                        </div>
-
-                                    </div>
-
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-wrench-adjustable"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>264</h6>
                                 </div>
 
                             </div>
-                        </div><!-- End Sales Card -->
-
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card revenue-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Tasks <span></span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-list-task"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>264</h6>
-                                            <span class="text-success small pt-1 fw-bold">22</span>
-                                            <span class="text-muted small pt-2 ps-1">Idle</span>
-                                            <br>
-                                            <span class="text-success small pt-1 fw-bold">100</span>
-                                            <span class="text-muted small pt-2 ps-1">Progress</span>
-                                            <br>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Revenue Card -->
-
-                        <!-- Customers Card -->
-                        <div class="col-xxl-4 col-xl-12">
-
-                            <div class="card info-card customers-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Employess</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>124</h6>
-                                            <span class="text-danger small pt-1 fw-bold">14</span> <span
-                                                class="text-muted small pt-2 ps-1">idle</span>
-                                            <br>
-                                            <span class="text-danger small pt-1 fw-bold">155</span> <span
-                                                class="text-muted small pt-2 ps-1">working</span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div><!-- End Customers Card -->
-
-                        <!-- Reports -->
-                        <div class="col-12">
-                            <div class="card">
-
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Reports <span>/Today</span></h5>
-
-                                    <!-- Line Chart -->
-                                    <div id="reportsChart"></div>
-
-
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", () => {
-                                            new ApexCharts(document.querySelector("#reportsChart"), {
-                                                series: [
-                                                    {
-                                                        name: 'Mobile',
-                                                        data: [31, 40, 28, 51, 42, 82, 56],
-                                                    },
-                                                    {
-                                                        name: 'Backend',
-                                                        data: [11, 32, 45, 32, 34, 52, 41]
-                                                    },
-                                                    {
-                                                        name: 'Front-end',
-                                                        data: [15, 11, 32, 18, 9, 24, 11]
-                                                    },
-                                                    {
-                                                        name: 'Devops',
-                                                        data: [12, 9, 4, 4, 11, 12, 7]
-                                                    },
-                                                    {
-                                                        name: 'ERP',
-                                                        data: [19, 12, 22, 11, 41, 22, 7]
-                                                    }
-                                                ],
-                                                chart: {
-                                                    height: 350,
-                                                    type: 'area',
-                                                    toolbar: {
-                                                        show: false
-                                                    },
-                                                },
-                                                markers: {
-                                                    size: 4
-                                                },
-                                                colors: ['#4154f1', '#2eca6a', '#ff771d', '#b21b8d', '#0099ff', '#ffff00'],
-                                                fill: {
-                                                    type: "gradient",
-                                                    gradient: {
-                                                        shadeIntensity: 1,
-                                                        opacityFrom: 0.3,
-                                                        opacityTo: 0.4,
-                                                        stops: [0, 90, 100]
-                                                    }
-                                                },
-                                                dataLabels: {
-                                                    enabled: false
-                                                },
-                                                stroke: {
-                                                    curve: 'smooth',
-                                                    width: 2
-                                                },
-                                                xaxis: {
-                                                    type: 'datetime',
-                                                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                                                },
-                                                tooltip: {
-                                                    x: {
-                                                        format: 'dd/MM/yy HH:mm'
-                                                    },
-                                                }
-                                            }).render();
-                                        });
-                                    </script>
-                                    <!-- End Line Chart -->
-
-                                </div>
-
-                            </div>
-                        </div><!-- End Reports -->
-
+                        </div>
 
                     </div>
-                </div><!-- End Left side columns -->
+                </div><!-- End Tasks Card -->
 
-                <!-- Right side columns -->
-                <div class="col-lg-4">
+                <!-- Departments Card -->
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card customers-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Departments</h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-building-fill-check"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>124</h6>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div><!-- End Departments Card -->
+
+                <!-- Positions Card -->
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Positions<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-person-workspace"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div><!-- End Positions Card -->
+
+            </div>
+            <div class="row">
+                <div class="col-xxl-8 col-md-12">
+                    <div class="card top-selling overflow-auto">
+
+                        <div class="card-body pb-0">
+                            <h5 class="card-title">Top 5 Workers <span>| This month</span></h5>
+
+                            <table class="table table-borderless">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Worker Id</th>
+                                    <th scope="col">Worker Name</th>
+                                    <th scope="col">Degree</th>
+                                    <th scope="col">Education</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <th scope="row">
+                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
+                                    </th>
+                                    <td><a href="#" class="text-primary fw-bold">231 </a></td>
+                                    <td>ALi Askar</td>
+                                    <td class="fw-bold">25</td>
+                                    <td>Software Engineer</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
+                                    </th>
+                                    <td><a href="#" class="text-primary fw-bold">231 </a></td>
+                                    <td>ALi Askar</td>
+                                    <td class="fw-bold">25</td>
+                                    <td>Software Engineer</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
+                                    </th>
+                                    <td><a href="#" class="text-primary fw-bold">231 </a></td>
+                                    <td>ALi Askar</td>
+                                    <td class="fw-bold">25</td>
+                                    <td>Software Engineer</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-12">
                     <!-- Website Traffic -->
                     <div class="card">
 
                         <div class="card-body pb-0">
-                            <h5 class="card-title">Tasks distribution<span></span></h5>
+                            <h5 class="card-title">Tasks Per Department<span></span></h5>
 
                             <div id="pieChart" style="min-height: 400px;" class="echart"></div>
 
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#pieChart"), {
-                                        series: [44, 55, 13, 43, 22,],
+                                        series: [44, 55, 13, 22,],
                                         chart: {
                                             height: 350,
                                             type: 'pie',
@@ -207,11 +172,10 @@
                                             }
                                         },
                                         labels: [
-                                            'Mobile',
-                                            'Front-end',
-                                            'Backend',
-                                            'Devops',
-                                            'ERP',
+                                            'Software',
+                                            'Marketing',
+                                            'Data Analysis',
+                                            'Others',
                                         ]
                                     }).render();
                                 });
@@ -219,180 +183,174 @@
 
                         </div>
                     </div><!-- End Website Traffic -->
-                </div><!-- End Right side columns -->
-
-                <div class="col-lg-12">
-                    <!-- Recent Sales -->
-
-                    <div class="col-12">
-                        <div class="card top-selling overflow-auto">
-
-                            <div class="card-body pb-0">
-                                <h5 class="card-title">Top 5 Employess <span>| This month</span></h5>
-
-                                <table class="table table-borderless">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">Employee Id</th>
-                                        <th scope="col">Employee Name</th>
-                                        <th scope="col">Position</th>
-                                        <th scope="col">completed tasks</th>
-                                        <th scope="col">join date</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-
-                                    <tr>
-                                        <th scope="row">
-                                            <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
-                                        </th>
-                                        <td><a href="#" class="text-primary fw-bold">231 </a></td>
-                                        <td>ALi Askar</td>
-                                        <td class="fw-bold">Backend developer</td>
-                                        <td>25</td>
-                                        <td>1-2-2021</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-
-                            </div>
-
-                        </div>
-                    </div><!-- End Top Selling -->
-                    <!-- Top Selling -->
-                    <div class="col-12">
-
-                        <div class="card top-selling overflow-auto">
-
-                            <div class="card-body pb-0">
-                                <h5 class="card-title"> Most 10 Requested Technologies <span>| This Year</span></h5>
-                                <table class="table table-borderless">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">Technology Name</th>
-                                        <th scope="col">short description</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">number of tasks</th>
-                                        <th scope="col">employess works on</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx  bxl-aws" style="font-size: 35px;"></i></a>
-                                        </th>
-                                        <td>AWS</td>
-                                        <td><a href="#" class="text-primary fw-bold">cloud of services</a></td>
-                                        <td class="fw-bold">Cloud</td>
-                                        <td>400</td>
-                                        <td>120 / 124</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-django" style="font-size: 35px;"></i></a>
-                                        </th>
-                                        <td>Django</td>
-                                        <td><a href="#" class="text-primary fw-bold">python framework </a></td>
-                                        <td class="fw-bold">Backend</td>
-                                        <td>120</td>
-                                        <td>13 / 200</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-docker" style="font-size: 35px;"></i></a>
-                                        </th>
-                                        <td>Docker</td>
-                                        <td><a href="#" class="text-primary fw-bold">Deploy network</a></td>
-                                        <td class="fw-bold">Devops</td>
-                                        <td>220</td>
-                                        <td>130 / 150</td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-javascript"
-                                                               style="font-size: 35px;"></i></a></th>
-                                        <td>JavaScript</td>
-                                        <td><a href="#" class="text-primary fw-bold">Programming language</a></td>
-                                        <td class="fw-bold">Programming</td>
-                                        <td>600</td>
-                                        <td>45 / 50</td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-react" style="font-size: 35px;"></i></a>
-                                        </th>
-                                        <td>React</td>
-                                        <td><a href="#" class="text-primary fw-bold">frontend library facebook</a></td>
-                                        <td class="fw-bold">Frontend</td>
-                                        <td>1002</td>
-                                        <td>92 / 100</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-php" style="font-size: 35px;"></i></a></th>
-                                        <td>PHP</td>
-                                        <td><a href="#" class="text-primary fw-bold">Programming language</a></td>
-                                        <td class="fw-bold">WEB Programming</td>
-                                        <td>1500</td>
-                                        <td>80 / 140</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-vuejs" style="font-size: 35px;"></i></a>
-                                        </th>
-                                        <td>Vue.js</td>
-                                        <td><a href="#" class="text-primary fw-bold">frontend library facebook</a></td>
-                                        <td class="fw-bold">Frontend</td>
-                                        <td>1002</td>
-                                        <td>92 / 100</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-android" style="font-size: 35px;"></i></a>
-                                        </th>
-                                        <td>android</td>
-                                        <td><a href="#" class="text-primary fw-bold">Java & Kotlin</a></td>
-                                        <td class="fw-bold">Mobile</td>
-                                        <td>1500</td>
-                                        <td>192 / 200</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-flutter" style="font-size: 35px;"></i></a>
-                                        </th>
-                                        <td>Flutter</td>
-                                        <td><a href="#" class="text-primary fw-bold">Dart by google</a></td>
-                                        <td class="fw-bold">Mobile</td>
-                                        <td>1500</td>
-                                        <td>200 / 200</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a> <i class="bx bxl-kubernetes"
-                                                               style="font-size: 35px;"></i></a></th>
-                                        <td>Kubernetes</td>
-                                        <td><a href="#" class="text-primary fw-bold">Deploy network</a></td>
-                                        <td class="fw-bold">Devops</td>
-                                        <td>220</td>
-                                        <td>130 / 150</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-
-                            </div>
-
-                        </div>
-                    </div><!-- End Top Selling -->
-
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xxl-8 col-md-12">
+                    <div class="card top-selling overflow-auto">
+                        <div class="card-body pb-0">
+                            <h5 class="card-title"> Most 10 Requested Technologies <span>| This Year</span></h5>
+                            <table class="table table-borderless">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Technology Name</th>
+                                    <th scope="col">short description</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">number of tasks</th>
+                                    <th scope="col">employess works on</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><a> <i class="bx  bxl-aws" style="font-size: 35px;"></i></a>
+                                    </th>
+                                    <td>AWS</td>
+                                    <td><a href="#" class="text-primary fw-bold">cloud of services</a></td>
+                                    <td class="fw-bold">Cloud</td>
+                                    <td>400</td>
+                                    <td>120 / 124</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-django" style="font-size: 35px;"></i></a>
+                                    </th>
+                                    <td>Django</td>
+                                    <td><a href="#" class="text-primary fw-bold">python framework </a></td>
+                                    <td class="fw-bold">Backend</td>
+                                    <td>120</td>
+                                    <td>13 / 200</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-docker" style="font-size: 35px;"></i></a>
+                                    </th>
+                                    <td>Docker</td>
+                                    <td><a href="#" class="text-primary fw-bold">Deploy network</a></td>
+                                    <td class="fw-bold">Devops</td>
+                                    <td>220</td>
+                                    <td>130 / 150</td>
+                                </tr>
+
+
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-javascript"
+                                                           style="font-size: 35px;"></i></a></th>
+                                    <td>JavaScript</td>
+                                    <td><a href="#" class="text-primary fw-bold">Programming language</a></td>
+                                    <td class="fw-bold">Programming</td>
+                                    <td>600</td>
+                                    <td>45 / 50</td>
+                                </tr>
+
+
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-react" style="font-size: 35px;"></i></a>
+                                    </th>
+                                    <td>React</td>
+                                    <td><a href="#" class="text-primary fw-bold">frontend library facebook</a></td>
+                                    <td class="fw-bold">Frontend</td>
+                                    <td>1002</td>
+                                    <td>92 / 100</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-php" style="font-size: 35px;"></i></a></th>
+                                    <td>PHP</td>
+                                    <td><a href="#" class="text-primary fw-bold">Programming language</a></td>
+                                    <td class="fw-bold">WEB Programming</td>
+                                    <td>1500</td>
+                                    <td>80 / 140</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-vuejs" style="font-size: 35px;"></i></a>
+                                    </th>
+                                    <td>Vue.js</td>
+                                    <td><a href="#" class="text-primary fw-bold">frontend library facebook</a></td>
+                                    <td class="fw-bold">Frontend</td>
+                                    <td>1002</td>
+                                    <td>92 / 100</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-android" style="font-size: 35px;"></i></a>
+                                    </th>
+                                    <td>android</td>
+                                    <td><a href="#" class="text-primary fw-bold">Java & Kotlin</a></td>
+                                    <td class="fw-bold">Mobile</td>
+                                    <td>1500</td>
+                                    <td>192 / 200</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-flutter" style="font-size: 35px;"></i></a>
+                                    </th>
+                                    <td>Flutter</td>
+                                    <td><a href="#" class="text-primary fw-bold">Dart by google</a></td>
+                                    <td class="fw-bold">Mobile</td>
+                                    <td>1500</td>
+                                    <td>200 / 200</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a> <i class="bx bxl-kubernetes"
+                                                           style="font-size: 35px;"></i></a></th>
+                                    <td>Kubernetes</td>
+                                    <td><a href="#" class="text-primary fw-bold">Deploy network</a></td>
+                                    <td class="fw-bold">Devops</td>
+                                    <td>220</td>
+                                    <td>130 / 150</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Bar Chart</h5>
+
+                            <!-- Bar Chart -->
+                            <div id="barChart"></div>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#barChart"), {
+                                        series: [{
+                                            data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+                                        }],
+                                        chart: {
+                                            type: 'bar',
+                                            height: 350
+                                        },
+                                        plotOptions: {
+                                            bar: {
+                                                borderRadius: 4,
+                                                horizontal: true,
+                                            }
+                                        },
+                                        dataLabels: {
+                                            enabled: false
+                                        },
+                                        xaxis: {
+                                            categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
+                                                'United States', 'China', 'Germany'
+                                            ],
+                                        }
+                                    }).render();
+                                });
+                            </script>
+                            <!-- End Bar Chart -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
     </main><!-- End #main -->

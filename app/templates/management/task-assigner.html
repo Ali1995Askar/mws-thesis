@@ -4,89 +4,115 @@
 {% block content %}
 
 
-<main id="main" class="main">
+    <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Dashboard</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Task Assigner</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+        <div class="pagetitle">
+            <h1>Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
+                    <li class="breadcrumb-item active">Task Assigner</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-    <section class="section dashboard">
-        <div class="row">
+        <section class="section dashboard">
 
-            <!-- Left side columns -->
-            <div class="col-lg-8">
-                <div class="row">
-                    <!-- Sales Card -->
-                    <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card sales-card">
-                            <div class="card-body">
-                                <h5 class="card-title">Number of Tasks to workon<span></span></h5>
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-list-task"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>145</h6>
 
-                                    </div>
+            <div class="row">
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tasks<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-list-task"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
 
                                 </div>
 
                             </div>
 
                         </div>
-                    </div><!-- End Sales Card -->
-                    <div class="col-xxl-4 col-md-6"></div>
-                    <!-- Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card sales-card">
-                            <div class="card-body">
-                                <h5 class="card-title">Number of Idle Wrokers<span></span></h5>
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-people"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>145</h6>
-
-                                    </div>
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Workers<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
 
                                 </div>
 
                             </div>
 
                         </div>
-                    </div><!-- End Sales Card -->
 
-
-                </div>
-                <div class="row">
-                    <div class="col-xxl-6 col-md-6">
-                        <div class="d-grid gap-2 mt-3">
-                            <button class="btn btn-primary" type="button">Max Matching (Normal)</button>
-                        </div>
-                    </div>
-                    <div class="col-xxl-6 col-md-6">
-                        <div class="d-grid gap-2 mt-3">
-                            <button class="btn btn-danger" type="button">Matching (Fast)</button>
-                        </div>
                     </div>
                 </div>
-            </div><!-- End Left side columns -->
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Relation Density<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>0.48%</h6>
 
-            <!-- Right side columns -->
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Workers<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-2 col-md-6">
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-primary" type="button">Max Matching (H + F)</button>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-md-6">
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-danger" type="button">Matching (H)</button>
+                    </div>
+                </div>
+            </div>
 
 
-        </div>
-    </section>
+        </section>
 
-</main><!-- End #main -->
+    </main><!-- End #main -->
 
 
 {% endblock content %}

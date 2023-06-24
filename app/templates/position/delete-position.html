@@ -1,11 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<br>
-###################################################### Delete Position
-</body>
-</html>
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Modal</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
+                    <li class="breadcrumb-item"><a href={% url 'positions:list' %}>Positions</a></li>
+                    <li class="breadcrumb-item active">Delete</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-trash-fill"></i> Delete Position</h5>
+                            <p>Are you sure you want to delete education {Position-Name}</p>
+
+                            <!-- Basic Modal -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#basicModal">
+                                Delete Position
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+
+{% endblock content %}

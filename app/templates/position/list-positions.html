@@ -1,99 +1,60 @@
 {% extends "base.html" %}
-
-
 {% block content %}
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Positions Table</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
+                    <li class="breadcrumb-item active">Data Table</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-<main id="main" class="main">
-    <div class="pagetitle">
-        <h1>Data Tables</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">Data</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Datatables</h5>
+                            <a href="{% url 'positions:create' %}">
+                                <button type="submit" class="btn btn-primary">Add New Postions</button>
+                            </a>
+                            <br>
+                            <br>
 
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Datatables</h5>
-                        <a href="{% url 'positions:create' %}">
-                            <button type="submit" class="btn btn-primary">Add New Position</button>
-                        </a>
-                        <br>
-                        <br>
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
+                                <thead>
+                                <tr>
+                                    <th scope="col" data-sortable="false">#</th>
+                                    <th scope="col" data-sortable="false">Title</th>
+                                    <th scope="col" data-sortable="false">Department</th>
+                                    <th scope="col" data-sortable="false">Education</th>
+                                    <th scope="col" data-sortable="false">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Software Engineer</td>
+                                    <td>Software</td>
+                                    <td>Software Engineering</td>
+                                    <td>
+                                        <a href={% url 'positions:update' 3 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'positions:delete' 3 %}> <i class="bi bi-trash-fill"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
 
-                        <!-- Table with stripped rows -->
-                        <table class="table datatable">
-                            <thead>
-                            <tr>
-                                <th scope="col" data-sortable="false">#</th>
-                                <th scope="col" data-sortable="false">Department</th>
-                                <th scope="col" data-sortable="false">Title</th>
-                                <th scope="col" data-sortable="false">Education</th>
-                                <th scope="col" data-sortable="false">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Software</td>
-                                <td>Software Engineer</td>
-                                <td>Software Engineering</td>
-                                <td>
-                                    <a href="#"> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                    <a href="#"> <i class="bi bi-trash-fill"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Technical Support</td>
-                                <td>Network Engineer</td>
-                                <td>Network Engineering</td>
-                                <td>
-                                    <a href="#"> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                    <a href="#"> <i class="bi bi-trash-fill"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Data Analysis</td>
-                                <td>Data analysis CTO</td>
-                                <td>Computer Science</td>
-                                <td>
-                                    <a href="#"> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                    <a href="#"> <i class="bi bi-trash-fill"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Web</td>
-                                <td>Backend Developer</td>
-                                <td>Computer Science</td>
-                                <td>
-                                    <a href="#"> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                    <a href="#"> <i class="bi bi-trash-fill"></i></a>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
-
+                        </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
-    </section>
-
-</main><!-- End #main -->
+        </section>
+    </main><!-- End #main -->
 
 {% endblock content %}
