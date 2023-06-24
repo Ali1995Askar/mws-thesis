@@ -9,8 +9,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
-                    <li class="breadcrumb-item">Tables</li>
-                    <li class="breadcrumb-item active">Data</li>
+                    <li class="breadcrumb-item"><a href={% url 'workers:list' %}>Workers</a></li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -36,7 +35,7 @@
                                     <th scope="col" data-sortable="false">Position</th>
                                     <th scope="col" data-sortable="false">Gender</th>
                                     <th scope="col" data-sortable="false">Age</th>
-                                    <th scope="col" data-sortable="false">CV</th>
+                                    <th scope="col" data-sortable="false">Status</th>
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
@@ -50,11 +49,28 @@
                                     <td>Backend Developer</td>
                                     <td>Male</td>
                                     <td>25</td>
-                                    <td><a href="#">cv</a></td>
+                                    <td><span class="badge bg-success">Free</span></td>
                                     <td>
-                                        <a href="#"> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
-                                        <a href="#"> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href="#"> <i class="bi bi-trash-fill"></i></a>
+                                        <a href={% url 'workers:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'workers:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'workers:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Brandon</td>
+                                    <td>Jacob</td>
+                                    <td>Senior</td>
+                                    <td>Software Engineer</td>
+                                    <td>Backend Developer</td>
+                                    <td>Male</td>
+                                    <td>25</td>
+                                    <td><span class="badge bg-warning">Occupied</span></td>
+                                    <td>
+                                        <a href={% url 'workers:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'workers:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'workers:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
 

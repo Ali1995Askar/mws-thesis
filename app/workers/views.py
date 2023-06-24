@@ -17,28 +17,21 @@ class WorkerCreateView(generic.CreateView):
 
 
 class WorkerUpdateView(generic.UpdateView):
-    template_name = "workers/update-category.html"
+    template_name = "workers/update-worker.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
 class WorkerDeleteView(generic.DeleteView):
-    template_name = "workers/delete-category.html"
+    template_name = "workers/delete-worker.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
 class WorkerDetailsView(generic.DetailView):
-    template_name = "workers/category-details.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
-
-
-class WorkerStatisticsView(generic.DeleteView):
-    template_name = "workers/workers-statistics.html"
+    template_name = "workers/worker-details.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")

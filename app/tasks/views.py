@@ -35,10 +35,3 @@ class TaskDetailsView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
-
-
-class TaskStatisticsView(generic.DeleteView):
-    template_name = "tasks/tasks_statistics.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")

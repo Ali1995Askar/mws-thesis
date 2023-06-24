@@ -18,7 +18,6 @@
         <section class="section">
             <div class="row">
                 <div class="col-lg-12">
-
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
@@ -29,32 +28,60 @@
                                 <thead>
                                 <tr>
                                     <th scope="col" data-sortable="false">#</th>
-                                    <th scope="col" data-sortable="false">Task Name</th>
-                                    <th scope="col" data-sortable="false">Education</th>
-                                    <th scope="col" data-sortable="false">Shout Description</th>
-                                    <th scope="col" data-sortable="false">Experience Level</th>
-                                    <th scope="col" data-sortable="false">Framework</th>
-                                    <th scope="col" data-sortable="false">Category</th>
                                     <th scope="col" data-sortable="false">Status</th>
+                                    <th scope="col" data-sortable="false">Title</th>
+                                    <th scope="col" data-sortable="false">Department</th>
+                                    <th scope="col" data-sortable="false">Experience Level</th>
+
                                     <th scope="col" data-sortable="false">Deadline</th>
+                                    <th scope="col" data-sortable="false">Status</th>
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Fix bug</td>
-                                    <td>Software Engineer</td>
-                                    <td>fix server bug in aws</td>
-                                    <td>Senior</td>
-                                    <td>Docker</td>
-                                    <td>Devops</td>
                                     <td>Open</td>
+                                    <td>FLUTTER.</td>
+                                    <td>Software</td>
+                                    <td>Senior</td>
+
                                     <td>25-19-2023</td>
+                                    <td><span class="badge bg-success">Done</span></td>
                                     <td>
-                                        <a href="#"> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
-                                        <a href="#"> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href="#"> <i class="bi bi-trash-fill"></i></a>
+                                        <a href={% url 'tasks:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'tasks:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'tasks:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>Progress</td>
+                                    <td>AWS.</td>
+                                    <td>Software</td>
+                                    <td>Senior</td>
+                                    <td>25-19-2023</td>
+                                    <td><span class="badge bg-warning">Open</span></td>
+                                    <td>
+                                        <a href={% url 'tasks:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'tasks:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'tasks:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Closed</td>
+                                    <td>LARAVEL.</td>
+                                    <td>Software</td>
+                                    <td>Senior</td>
+
+                                    <td>25-19-2023</td>
+                                    <td><span class="badge bg-danger">Progress</span></td>
+                                    <td>
+                                        <a href={% url 'tasks:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'tasks:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                                        <a href={% url 'tasks:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
 
@@ -64,7 +91,6 @@
 
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
