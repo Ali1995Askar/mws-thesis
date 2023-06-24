@@ -6,12 +6,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Form Elements</h1>
+            <h1>New Worker</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
-                    <li class="breadcrumb-item">Forms</li>
-                    <li class="breadcrumb-item active">Elements</li>
+                    <li class="breadcrumb-item"><a href={% url 'workers:list' %}>Workers</a></li>
+                    <li class="breadcrumb-item active">New Worker</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -28,7 +28,13 @@
                             <!-- General Form Elements -->
                             <form>
                                 <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-2 col-form-label">Full Name</label>
+                                    <label for="inputText" class="col-sm-2 col-form-label">First Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Last Name</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control">
                                     </div>
@@ -63,32 +69,52 @@
                                 <fieldset class="row mb-3">
                                     <legend class="col-form-label col-sm-2 pt-0">Level</legend>
                                     <div class="col-sm-10">
-                                        <div class="form-check">
+                                        <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gridRadios"
                                                    id="gridRadios1" value="option1" checked>
                                             <label class="form-check-label" for="gridRadios1">
                                                 Junior
                                             </label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gridRadios"
                                                    id="gridRadios2" value="option2">
                                             <label class="form-check-label" for="gridRadios2">
                                                 Low Mid Level
                                             </label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gridRadios"
                                                    id="gridRadios3" value="option2">
                                             <label class="form-check-label" for="gridRadios3">
                                                 High Mid Level
                                             </label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gridRadios"
                                                    id="gridRadios4" value="option4">
                                             <label class="form-check-label" for="gridRadios4">
                                                 Senior
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="row mb-3">
+                                    <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                                    <div class="col-sm-10">
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                   id="Male" value="option1" checked>
+                                            <label class="form-check-label" for="Male">
+                                                Male
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                   id="Female" value="option4">
+                                            <label class="form-check-label" for="Female">
+                                                Female
                                             </label>
                                         </div>
                                     </div>

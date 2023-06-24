@@ -4,13 +4,14 @@
 {% block content %}
 
     <main id="main" class="main">
+
         <div class="pagetitle">
-            <h1>Form Elements</h1>
+            <h1>New Task</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
-                    <li class="breadcrumb-item">Forms</li>
-                    <li class="breadcrumb-item active">Elements</li>
+                    <li class="breadcrumb-item"><a href={% url 'tasks:list' %}>Tasks</a></li>
+                    <li class="breadcrumb-item active">New Task</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -33,44 +34,45 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-2 col-form-label">Department</label>
+                                    <label for="inputText" class="col-sm-2 col-form-label">Description</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
+
                                 <br>
                                 <div class="row mb-3">
-                                    <label for="inputPassword" class="col-sm-2 col-form-label">Task Description</label>
+                                    <label for="inputDate" class="col-sm-2 col-form-label">Dead Line</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" style="height: 100px"></textarea>
+                                        <input type="date" class="form-control">
                                     </div>
                                 </div>
                                 <br>
                                 <fieldset class="row mb-3">
                                     <legend class="col-form-label col-sm-2 pt-0">Level</legend>
                                     <div class="col-sm-10">
-                                        <div class="form-check">
+                                        <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gridRadios"
                                                    id="gridRadios1" value="option1" checked>
                                             <label class="form-check-label" for="gridRadios1">
                                                 Junior
                                             </label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gridRadios"
                                                    id="gridRadios2" value="option2">
                                             <label class="form-check-label" for="gridRadios2">
                                                 Low Mid Level
                                             </label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gridRadios"
                                                    id="gridRadios3" value="option2">
                                             <label class="form-check-label" for="gridRadios3">
                                                 High Mid Level
                                             </label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gridRadios"
                                                    id="gridRadios4" value="option4">
                                             <label class="form-check-label" for="gridRadios4">
@@ -85,9 +87,10 @@
                                     <label class="col-sm-2 col-form-label">Education</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" multiple aria-label="multiple select example">
-                                            <option value="1">Network Engineering</option>
-                                            <option value="2">Software Engineering</option>
-                                            <option value="3">Accountant Engineering</option>
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">Network</option>
+                                            <option value="2">Software</option>
+                                            <option value="3">Accountant</option>
                                         </select>
                                     </div>
                                 </div>
@@ -96,6 +99,7 @@
                                     <label class="col-sm-2 col-form-label">Expert with</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" multiple aria-label="multiple select example">
+                                            <option selected>Open this select menu</option>
                                             <option value="1">ASP.NET</option>
                                             <option value="2">Django</option>
                                             <option value="3">AWS</option>
@@ -110,6 +114,7 @@
                                     <label class="col-sm-2 col-form-label">Positions held</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" multiple aria-label="multiple select example">
+                                            <option selected>Open this select menu</option>
                                             <option value="1">Backend Developer</option>
                                             <option value="2">Frontend Developer</option>
                                             <option value="3">Database Administration</option>
@@ -133,7 +138,10 @@
                 </div>
             </div>
         </section>
+
     </main><!-- End #main -->
 
 
 {% endblock content %}
+
+
