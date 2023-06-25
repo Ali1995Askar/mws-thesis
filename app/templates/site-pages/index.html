@@ -1,355 +1,85 @@
-{% extends "base.html" %}
+{% extends 'site-base.html' %}
 {% load static %}
 
+
+
 {% block content %}
+    <section id="hero" class="d-flex align-items-center">
 
-
-    <main id="main" class="main">
-
-        <div class="pagetitle">
-            <h1>Dashboard</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
-        <section class="section dashboard">
+        <div class="container">
             <div class="row">
-                <!-- Workers Card -->
-                <div class="col-xxl-3 col-md-6">
-                    <div class="card info-card sales-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Workers<span></span></h5>
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-person-badge-fill"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6>4431</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- End Workers Card -->
-
-                <!-- Tasks Tasks -->
-                <div class="col-xxl-3 col-md-6">
-                    <div class="card info-card revenue-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Tasks <span></span></h5>
-
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-wrench-adjustable"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6>264</h6>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div><!-- End Tasks Card -->
-
-                <!-- Departments Card -->
-                <div class="col-xxl-3 col-md-6">
-                    <div class="card info-card customers-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Departments</h5>
-
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-building-fill-check"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6>124</h6>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div><!-- End Departments Card -->
-
-                <!-- Positions Card -->
-                <div class="col-xxl-3 col-md-6">
-                    <div class="card info-card sales-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Positions<span></span></h5>
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-person-workspace"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6>145</h6>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div><!-- End Positions Card -->
-
-            </div>
-            <div class="row">
-                <div class="col-xxl-8 col-md-12">
-                    <div class="card top-selling overflow-auto">
-                        <div class="card-body pb-0">
-                            <h5 class="card-title">Top 5 Workers <span>| This month</span></h5>
-                            <table class="table table-borderless">
-                                <thead>
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Full Name</th>
-                                    <th scope="col">Degree</th>
-                                    <th scope="col">Education</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                                    <th scope="row">
-                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
-                                    </th>
-                                    <td><a href="#" class="text-primary fw-bold">231</a></td>
-                                    <td>ALi Askar</td>
-                                    <td class="fw-bold">25</td>
-                                    <td>Software Engineer</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
-                                    </th>
-                                    <td><a href="#" class="text-primary fw-bold">231</a></td>
-                                    <td>ALi Askar</td>
-                                    <td class="fw-bold">25</td>
-                                    <td>Software Engineer</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
-                                    </th>
-                                    <td><a href="#" class="text-primary fw-bold">231</a></td>
-                                    <td>ALi Askar</td>
-                                    <td class="fw-bold">25</td>
-                                    <td>Software Engineer</td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-
+                <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                    <h1 data-aos="fade-up">Grow your business with Max Matching</h1>
+                    <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented software engineers making your
+                        tasks
+                        always in progress!!</h2>
+                    <div data-aos="fade-up" data-aos-delay="800">
+                        <a href="{% url 'accounts:signup' %}" class="btn-get-started scrollto">Register Now</a>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-md-12">
-                    <!-- Website Traffic -->
-                    <div class="card">
-
-                        <div class="card-body pb-0">
-                            <h5 class="card-title">Tasks Per Department<span></span></h5>
-
-                            <div id="pieChart" style="min-height: 400px;" class="echart"></div>
-
-                            <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#pieChart"), {
-                                        series: [44, 55, 13, 22,],
-                                        chart: {
-                                            height: 350,
-                                            type: 'pie',
-                                            toolbar: {
-                                                show: true
-                                            }
-                                        },
-                                        labels: [
-                                            'Software',
-                                            'Marketing',
-                                            'Data Analysis',
-                                            'Others',
-                                        ]
-                                    }).render();
-                                });
-                            </script>
-
-                        </div>
-                    </div><!-- End Website Traffic -->
+                <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
+                    <img src="{% static 'landing-page/assets/img/hero-img.png' %}" class="img-fluid animated" alt="">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xxl-8 col-md-12">
-                    <div class="card top-selling overflow-auto">
-                        <div class="card-body pb-0">
-                            <h5 class="card-title"> Most 10 Requested Technologies <span>| This Year</span></h5>
-                            <table class="table table-borderless">
-                                <thead>
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">Technology Name</th>
-                                    <th scope="col">short description</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">number of tasks</th>
-                                    <th scope="col">employess works on</th>
+        </div>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row"><a> <i class="bx  bxl-aws" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>AWS</td>
-                                    <td><a href="#" class="text-primary fw-bold">cloud of services</a></td>
-                                    <td class="fw-bold">Cloud</td>
-                                    <td>400</td>
-                                    <td>120 / 124</td>
-                                </tr>
+    </section><!-- End Hero -->
 
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-django" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>Django</td>
-                                    <td><a href="#" class="text-primary fw-bold">python framework </a></td>
-                                    <td class="fw-bold">Backend</td>
-                                    <td>120</td>
-                                    <td>13 / 200</td>
-                                </tr>
+    <main id="main">
 
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-docker" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>Docker</td>
-                                    <td><a href="#" class="text-primary fw-bold">Deploy network</a></td>
-                                    <td class="fw-bold">Devops</td>
-                                    <td>220</td>
-                                    <td>130 / 150</td>
-                                </tr>
+        <!-- ======= Clients Section ======= -->
+        <section id="clients" class="clients clients">
+            <div class="container">
 
+                <div class="row">
 
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-javascript"
-                                                           style="font-size: 35px;"></i></a></th>
-                                    <td>JavaScript</td>
-                                    <td><a href="#" class="text-primary fw-bold">Programming language</a></td>
-                                    <td class="fw-bold">Programming</td>
-                                    <td>600</td>
-                                    <td>45 / 50</td>
-                                </tr>
-
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-react" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>React</td>
-                                    <td><a href="#" class="text-primary fw-bold">frontend library facebook</a></td>
-                                    <td class="fw-bold">Frontend</td>
-                                    <td>1002</td>
-                                    <td>92 / 100</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-php" style="font-size: 35px;"></i></a></th>
-                                    <td>PHP</td>
-                                    <td><a href="#" class="text-primary fw-bold">Programming language</a></td>
-                                    <td class="fw-bold">WEB Programming</td>
-                                    <td>1500</td>
-                                    <td>80 / 140</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-vuejs" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>Vue.js</td>
-                                    <td><a href="#" class="text-primary fw-bold">frontend library facebook</a></td>
-                                    <td class="fw-bold">Frontend</td>
-                                    <td>1002</td>
-                                    <td>92 / 100</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-android" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>android</td>
-                                    <td><a href="#" class="text-primary fw-bold">Java & Kotlin</a></td>
-                                    <td class="fw-bold">Mobile</td>
-                                    <td>1500</td>
-                                    <td>192 / 200</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-flutter" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>Flutter</td>
-                                    <td><a href="#" class="text-primary fw-bold">Dart by google</a></td>
-                                    <td class="fw-bold">Mobile</td>
-                                    <td>1500</td>
-                                    <td>200 / 200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-kubernetes"
-                                                           style="font-size: 35px;"></i></a></th>
-                                    <td>Kubernetes</td>
-                                    <td><a href="#" class="text-primary fw-bold">Deploy network</a></td>
-                                    <td class="fw-bold">Devops</td>
-                                    <td>220</td>
-                                    <td>130 / 150</td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-
-                        </div>
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <img src="{% static 'landing-page/assets/img/clients/client-1.png' %}" class="img-fluid" alt=""
+                             data-aos="zoom-in">
                     </div>
-                </div>
-                <div class="col-xxl-4 col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Categories</h5>
 
-                            <!-- Bar Chart -->
-                            <div id="barChart"></div>
-
-                            <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#barChart"), {
-                                        series: [{
-                                            data: [400, 430, 448, 470, 540, 1000,]
-                                        }],
-                                        chart: {
-                                            type: 'bar',
-                                            height: 350
-                                        },
-                                        plotOptions: {
-                                            bar: {
-                                                borderRadius: 4,
-                                                horizontal: true,
-                                            }
-                                        },
-                                        dataLabels: {
-                                            enabled: false
-                                        },
-                                        xaxis: {
-                                            categories: ['Node.js', 'Asp.net', 'Django', 'React', 'Laravel', 'Marketing'],
-                                        }
-                                    }).render();
-                                });
-                            </script>
-                            <!-- End Bar Chart -->
-
-                        </div>
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <img src="{% static 'landing-page/assets/img/clients/client-2.png' %}" class="img-fluid" alt=""
+                             data-aos="zoom-in"
+                             data-aos-delay="100">
                     </div>
+
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <img src="{% static 'landing-page/assets/img/clients/client-3.png' %}" class="img-fluid" alt=""
+                             data-aos="zoom-in"
+                             data-aos-delay="200">
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <img src="{% static 'landing-page/assets/img/clients/client-4.png' %}" class="img-fluid" alt=""
+                             data-aos="zoom-in"
+                             data-aos-delay="300">
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <img src="{% static 'landing-page/assets/img/clients/client-5.png' %}" class="img-fluid" alt=""
+                             data-aos="zoom-in"
+                             data-aos-delay="400">
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <img src="{% static 'landing-page/assets/img/clients/client-6.png' %}" class="img-fluid" alt=""
+                             data-aos="zoom-in"
+                             data-aos-delay="500">
+                    </div>
+
                 </div>
+
             </div>
+        </section><!-- End Clients Section -->
 
-        </section>
 
     </main><!-- End #main -->
 
+    <!-- ======= Footer ======= -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
 {% endblock content %}
+

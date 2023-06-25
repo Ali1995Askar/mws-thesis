@@ -8,14 +8,21 @@ from django.views import generic
 
 
 class SigninView(generic.UpdateView):
-    template_name = "accounts/profile.html"
+    template_name = "accounts/signin.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
 
 class SignupView(generic.UpdateView):
-    template_name = "accounts/profile.html"
+    template_name = "accounts/signup.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, f"{self.template_name}")
+
+
+class LogoutView(generic.UpdateView):
+    template_name = "accounts/logout.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
@@ -28,15 +35,7 @@ class ProfileView(generic.UpdateView):
         return render(request, f"{self.template_name}")
 
 
-class EditProfileView(generic.UpdateView):
-    template_name = "accounts/edit_profile.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
-
-
 class ChangePasswordView(generic.UpdateView):
-    template_name = "accounts/edit_profile.html"
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def put(self, *args, **kwargs):
+        pass

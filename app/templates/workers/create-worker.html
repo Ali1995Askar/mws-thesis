@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "dashboard-base.html" %}
 
 
 {% block content %}
@@ -70,28 +70,28 @@
                                     <legend class="col-form-label col-sm-2 pt-0">Level</legend>
                                     <div class="col-sm-10">
                                         <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                            <input class="form-check-input" type="radio" name="level"
                                                    id="gridRadios1" value="option1" checked>
                                             <label class="form-check-label" for="gridRadios1">
                                                 Junior
                                             </label>
                                         </div>
                                         <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                            <input class="form-check-input" type="radio" name="level"
                                                    id="gridRadios2" value="option2">
                                             <label class="form-check-label" for="gridRadios2">
                                                 Low Mid Level
                                             </label>
                                         </div>
                                         <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                            <input class="form-check-input" type="radio" name="level"
                                                    id="gridRadios3" value="option2">
                                             <label class="form-check-label" for="gridRadios3">
                                                 High Mid Level
                                             </label>
                                         </div>
                                         <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                            <input class="form-check-input" type="radio" name="level"
                                                    id="gridRadios4" value="option4">
                                             <label class="form-check-label" for="gridRadios4">
                                                 Senior
@@ -103,7 +103,7 @@
                                     <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                                     <div class="col-sm-10">
                                         <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                            <input class="form-check-input" type="radio" name="gender"
                                                    id="Male" value="option1" checked>
                                             <label class="form-check-label" for="Male">
                                                 Male
@@ -111,7 +111,7 @@
                                         </div>
 
                                         <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                            <input class="form-check-input" type="radio" name="gender"
                                                    id="Female" value="option4">
                                             <label class="form-check-label" for="Female">
                                                 Female
@@ -159,7 +159,6 @@
                                     <label class="col-sm-2 col-form-label">Education</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" multiple aria-label="multiple select example">
-                                            <option selected>Open this select menu</option>
                                             <option value="1">Network</option>
                                             <option value="2">Software</option>
                                             <option value="3">Accountant</option>
@@ -171,7 +170,6 @@
                                     <label class="col-sm-2 col-form-label">Expert with</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" multiple aria-label="multiple select example">
-                                            <option selected>Open this select menu</option>
                                             <option value="1">ASP.NET</option>
                                             <option value="2">Django</option>
                                             <option value="3">AWS</option>
@@ -186,7 +184,6 @@
                                     <label class="col-sm-2 col-form-label">Positions held</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" multiple aria-label="multiple select example">
-                                            <option selected>Open this select menu</option>
                                             <option value="1">Backend Developer</option>
                                             <option value="2">Frontend Developer</option>
                                             <option value="3">Database Administration</option>

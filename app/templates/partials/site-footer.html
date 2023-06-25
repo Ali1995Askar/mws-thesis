@@ -1,0 +1,24 @@
+{% load static %}
+<footer id="footer">
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-6 text-lg-left text-center">
+                <div class="copyright">
+                    &copy; Copyright <strong>Max Matching</strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    Designed by <a href="https://bootstrapmade.com/">SVU</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+
+                    <a href="{% url 'home' %}" class="scrollto">Home</a>
+                    <a href="{% url 'management:dashboard' %}" class="scrollto">Dashboard</a>
+                    <a href="{% url 'contact-us' %}">Contact</a>
+                    <a href="{% url 'accounts:signin' %}">Terms of Use</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>

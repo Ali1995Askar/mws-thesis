@@ -1,6 +1,5 @@
-{% extends "base.html" %}
+{% extends "dashboard-base.html" %}
 {% load static %}
-
 
 
 {% block content %}
@@ -11,8 +10,8 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
-                    <li class="breadcrumb-item"><a href={% url 'tasks:list' %}>Tasks</a></li>
-                    <li class="breadcrumb-item active">Details</li>
+                    <li class="breadcrumb-item"><a href={% url 'workers:list' %}>Workers</a></li>
+                    <li class="breadcrumb-item active">Profile</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -23,10 +22,9 @@
 
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <i class="bx bxl-flutter" style="font-size: 350px;"></i>
-                            <h2>Flutter</h2>
-                            <h3>Mobile Development</h3>
-
+                            <img src="{% static 'img/profile-img.jpg' %}" alt="Profile" class="rounded-circle">
+                            <h2>Kevin Anderson</h2>
+                            <h3>Web Designer</h3>
                         </div>
                     </div>
 
@@ -38,30 +36,39 @@
                         <div class="card-body pt-3">
                             <!-- Bordered Tabs -->
                             <ul class="nav nav-tabs nav-tabs-bordered">
+
                                 <li class="nav-item">
                                     <button class="nav-link active" data-bs-toggle="tab"
-                                            data-bs-target="#profile-overview">Task overview
+                                            data-bs-target="#profile-overview">Overview
                                     </button>
                                 </li>
-
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#profile-change-password">Assign to Worker
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-experience">
+                                        Experience
                                     </button>
                                 </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">
+                                        Assign Task
+                                    </button>
+                                </li>
+
+
                             </ul>
-
                             <div class="tab-content pt-2">
-                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                    <h5 class="card-title">Fix Slow Query</h5>
-                                    <p class="small fst-italic">in some services insert took too much time try to find a
-                                        way to optimize this query for big data.</p>
 
-                                    <h5 class="card-title">Task Detials</h5>
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                    <h5 class="card-title">About</h5>
+                                    <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores
+                                        cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt
+                                        iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea
+                                        saepe at unde.</p>
+
+                                    <h5 class="card-title">Profile Details</h5>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label ">Department</div>
-                                        <div class="col-lg-9 col-md-8">Web</div>
+                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                        <div class="col-lg-9 col-md-8">Ali Askar</div>
                                     </div>
 
                                     <div class="row">
@@ -70,35 +77,47 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Category</div>
-                                        <div class="col-lg-9 col-md-8">
-                                            Database - administration - linux
-                                            django - python - devops - docker.
-                                        </div>
+                                        <div class="col-lg-3 col-md-4 label">Status</div>
+                                        <div class="col-lg-9 col-md-8">Free</div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Deadline</div>
-                                        <div class="col-lg-9 col-md-8">25-10-2023</div>
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8">ali1995askar@gmail.com</div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Phone Number</div>
+                                        <div class="col-lg-9 col-md-8">+963 936771771</div>
+                                    </div>
+
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Education</div>
-                                        <div class="col-lg-9 col-md-8">Software Engineering</div>
+                                        <div class="col-lg-9 col-md-8">Software Engineer</div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Status</div>
-                                        <div class="col-lg-9 col-md-8">Progress</div>
+                                        <div class="col-lg-3 col-md-4 label">Experience</div>
+                                        <div class="col-lg-9 col-md-8">Web Designer</div>
                                     </div>
+
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Assigned To</div>
-                                        <div class="col-lg-9 col-md-8">No one</div>
+                                        <div class="col-lg-3 col-md-4 label">Gender</div>
+                                        <div class="col-lg-9 col-md-8">USA</div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Date of Birth</div>
+                                        <div class="col-lg-9 col-md-8">24-05-1995</div>
+                                    </div>
+
                                 </div>
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-experience">
+                                    TO DO WRITE INFORMATION
+                                </div>
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-                                <div class="tab-pane fade pt-3" id="profile-change-password">
-                                    <!-- Change Password Form -->
                                     <form>
                                         <div class="row mb-3">
                                             <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Choose
@@ -106,23 +125,22 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <select class="form-select" aria-label="Default select example">
                                                     <option selected>----------</option>
-                                                    <option value="1">Ali</option>
-                                                    <option value="2">Ahmad</option>
-                                                    <option value="3">Alaa</option>
-                                                    <option value="4">Mage</option>
-                                                    <option value="5">Tommy</option>
+                                                    <option value="1">Fix Bug</option>
+                                                    <option value="2">Slow Query</option>
+                                                    <option value="3">new endpoint</option>
+                                                    <option value="4">optimize</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <br>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-danger">Assign Task</button>
+                                            <button type="submit" class="btn btn-danger">Assign</button>
                                         </div>
-                                    </form><!-- End Change Password Form -->
+                                    </form>
 
                                 </div>
-                            </div><!-- End Bordered Tabs -->
 
+                            </div><!-- End Bordered Tabs -->
                         </div>
                     </div>
 

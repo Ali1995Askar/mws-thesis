@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "dashboard-base.html" %}
 {% load static %}
 
 {% block content %}
@@ -173,17 +173,23 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xxl-3 col-md-4">
+                <div class="col-xxl-3 col-md-3">
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-primary" type="button">Max Matching</button>
+                        <button class="btn btn-primary" type="button">Build Graph</button>
                     </div>
                 </div>
-                <div class="col-xxl-6 col-md-4">
+                <div class="col-xxl-2 col-md-2"></div>
+
+                <div class="col-xxl-3 col-md-3">
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-warning" disabled type="button">Max Matching</button>
+                    </div>
+
 
                 </div>
-                <div class="col-xxl-3 col-md-4">
+                <div class="col-xxl-3 col-md-3">
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-danger" type="button">Heuristic Matching</button>
+                        <button class="btn btn-danger" disabled type="button">Heuristic Matching</button>
                     </div>
                 </div>
             </div>
