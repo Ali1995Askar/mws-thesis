@@ -1,0 +1,2 @@
+class TestGraph:
+    pass
