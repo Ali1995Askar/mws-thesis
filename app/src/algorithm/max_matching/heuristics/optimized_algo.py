@@ -18,6 +18,9 @@ class OptimizedAlgo(AbstractHeuristic):
         sorted_red_nodes = sorted(red_nodes, key=self.sort_by_degree)
 
         for node, _ in sorted_red_nodes:
+            if self.check_if_node_matched(node, matched_nodes):
+                continue
+
             blue_neighbors = list(self.bipartite_graph.graph.neighbors(node))
             free_blue_neighbor = self.find_un_matched_neighbor(blue_neighbors, matched_nodes)
 
@@ -29,9 +32,7 @@ class OptimizedAlgo(AbstractHeuristic):
                 continue
 
             else:
-                print('Print Cant find')
                 replace_data = self.get_replace_data(matched_nodes, blue_neighbors, matching_blue_red)
-                print(replace_data)
                 if not replace_data:
                     continue
 

@@ -13,7 +13,7 @@ from app.src.algorithm.max_matching.heuristics.limit_min_degree_algo import Limi
 from app.src.algorithm.max_matching.heuristics.static_min_degree_algo import StaticMinDegreeAlgo
 from app.src.algorithm.max_matching.heuristics.dynamic_min_degree_algo import DynamicMinDegreeAlgo
 from app.src.algorithm.max_matching.heuristics.randomized_rounding_algo import RandomizedRoundingAlgo
-from src.algorithm.max_matching.heuristics.optimized_algo import OptimizedAlgo
+from app.src.algorithm.max_matching.heuristics.optimized_algo import OptimizedAlgo
 
 columns_name = [
     'NUM OF NODES',
@@ -42,7 +42,14 @@ columns_name = [
     'Rounding Time',
 
 ]
-nodes_range = [200, 400, 600, 700, 900]
+nodes_range = [500,
+               1000,
+               1500,
+               2000,
+               2500,
+               3000,
+               3500,
+               4000, ]
 
 density_range = [
     0.0001,
@@ -130,7 +137,7 @@ if __name__ == '__main__':
                 len(backtracking_algo_result),
                 len(dynamic_min_degree_result),
                 len(static_min_degree_result),
-                '=======================================================',
+                '========================',
                 round(optimized_time, 3),
                 round(backtracking_algo_time, 3),
                 round(dynamic_min_degree_time, 3),
