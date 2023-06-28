@@ -2,13 +2,19 @@ from app.src.algorithm.max_matching.heuristics.abstract_heuristic import Abstrac
 
 
 class StaticMinDegreeAlgo(AbstractHeuristic):
+    @staticmethod
+    def sort_by_degree(node_degree):
+        return node_degree[1]
 
     def find_matching_edges(self):
         matching_edges = set()
         matched_nodes = []
-        red_nodes = sorted(self.bipartite_graph.red_nodes, key=self.bipartite_graph.graph.degree)
 
-        for red_node in red_nodes:
+        node_degree = list(self.bipartite_graph.graph.out_degree)
+        red_nodes = [node for node in node_degree if node[0] in self.bipartite_graph.red_nodes]
+        sorted_red_nodes = sorted(red_nodes, key=self.sort_by_degree)
+
+        for red_node, _ in sorted_red_nodes:
             if self.check_if_node_matched(red_node, matched_nodes):
                 continue
 
