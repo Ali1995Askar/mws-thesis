@@ -50,3 +50,7 @@ class Graph:
     def get_graph_copy(self):
         graph = deepcopy(self.graph)
         return graph
+
+    def get_instance_copy(self):
+        inst = deepcopy(self)
+        return inst

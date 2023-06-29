@@ -1,5 +1,5 @@
 from networkx import DiGraph
-from typing import Tuple, List, Union, Any
+from typing import Tuple, List, Union, Any, Type
 from src.dev.graph.bipartite_graph import BipartiteGraph
 from src.algorithm.max_flow.ford_fulkerson_solver import FordFulkersonSolver
 from src.dev.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
@@ -9,23 +9,42 @@ class MaxMatchingSolver:
 
     def __init__(self):
         self.initial_flow_graph: Union[DiGraph, None] = None
-        self.max_matching_value: Union[int, None] = None
         self.bipartite_graph: Union[BipartiteGraph, None] = None
         self.temp_graph: Union[BipartiteGraph, None] = None
         self.solver: Union[FordFulkersonSolver, None] = None
         self.heuristic_algorithm: Union[AbstractHeuristic, None] = None
-        self.max_matching: Union[List[Tuple[Any, Any]], None] = None
+        self.max_matching: Union[List[Tuple[Any, Any]], None] = []
 
     def set_bipartite_graph(self, bipartite_graph: BipartiteGraph):
         self.bipartite_graph = bipartite_graph
-        self.temp_graph = self.bipartite_graph.get_graph_copy()
+        self.temp_graph = self.bipartite_graph.get_instance_copy()
 
     def init_ford_fulkerson_solver(self):
+        self.max_matching = []
         self.solver = FordFulkersonSolver(graph=self.temp_graph.graph)
 
-    def set_initial_flow(self, heuristic_algorithm: Type[AbstractHeuristic]):
+    def build_initial_flow(self):
+        matching_edges = self.heuristic_algorithm.execute()
+
+        residual_network = self.temp_graph.get_graph_copy()
+        residual_network.graph["inf"] = float("inf")
+
+        for u, v, d in residual_network.edges(data=True):
+            d["flow"] = 0
+
+        for u, v in matching_edges:
+            residual_network[u][v]['flow'] += 1
+            residual_network['source'][u]['flow'] += 1
+            residual_network[v]['sink']['flow'] += 1
+
+            residual_network[v][u]['flow'] -= 1
+            residual_network[u]['source']['flow'] -= 1
+            residual_network['sink'][v]['flow'] -= 1
+
+        return residual_network
+
+    def init_heuristic_algorithm(self, heuristic_algorithm: Type[AbstractHeuristic]):
         self.heuristic_algorithm = heuristic_algorithm(bipartite_graph=self.bipartite_graph)
-        self.initial_flow_graph = self.heuristic_algorithm.execute()
 
     def add_source(self):
         self.temp_graph.graph.add_node('source')
