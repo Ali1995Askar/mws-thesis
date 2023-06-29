@@ -2,7 +2,7 @@ from copy import deepcopy
 from abc import abstractmethod
 from typing import Tuple, List, Set
 
-from graph.bipartite_graph import BipartiteGraph
+from app.src.dev.graph.bipartite_graph import BipartiteGraph
 
 
 class AbstractHeuristic:
@@ -28,10 +28,8 @@ class AbstractHeuristic:
         return node_degree[1]
 
     def find_un_matched_neighbor(self, neighbors: List, matched_nodes: Set):
-        unmatched_set = set(self.source_sink)
-        unmatched_set |= matched_nodes
         for neighbor in neighbors:
-            if neighbor not in unmatched_set:
+            if not self.check_if_node_matched(neighbor, matched_nodes):
                 return neighbor
         return None
 

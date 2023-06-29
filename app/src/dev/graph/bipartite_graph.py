@@ -3,8 +3,10 @@ import random
 from typing import List, Tuple, Set
 
 from networkx import DiGraph
-from graph.graph import Graph
+
 from networkx.algorithms import bipartite
+
+from app.src.dev.graph.graph import Graph
 
 
 class BipartiteGraph(Graph):
@@ -56,5 +58,3 @@ class BipartiteGraph(Graph):
             edges.append((j, i, {'capacity': 1}))
 
         self.build_manually(nodes=list(nodes), edges=edges)
-
-

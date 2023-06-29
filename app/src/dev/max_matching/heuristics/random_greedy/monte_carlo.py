@@ -1,7 +1,7 @@
 import random
 from typing import List, Tuple
 
-from max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from app.src.dev.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 NUM_OF_ITERATION = 3
 

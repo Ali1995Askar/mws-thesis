@@ -1,6 +1,6 @@
 from typing import List, Tuple, Set
 
-from max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from app.src.dev.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
 class SimpleGreedyHeuristic(AbstractHeuristic):

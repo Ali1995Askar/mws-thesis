@@ -1,12 +1,13 @@
 import time
 
-from graph.bipartite_graph import BipartiteGraph
-from max_matching.heuristics.min_degree.dynamic import DynamicMinDegreeHeuristic
-from max_matching.heuristics.min_degree.limit import LimitMinDegreeHeuristic
-from max_matching.heuristics.min_degree.static import StaticMinDegreeHeuristic
-from max_matching.heuristics.optimized_algo import Optimization
-from max_matching.heuristics.random_greedy.randomized_rounding import RandomizedRoundingHeuristic
-from max_matching.heuristics.random_greedy.simple_greedy import SimpleGreedyHeuristic
+from app.src.dev.graph.bipartite_graph import BipartiteGraph
+from app.src.dev.max_matching.heuristics.min_degree.dynamic import DynamicMinDegreeHeuristic
+from app.src.dev.max_matching.heuristics.min_degree.limit import LimitMinDegreeHeuristic
+from app.src.dev.max_matching.heuristics.min_degree.static import StaticMinDegreeHeuristic
+from app.src.dev.max_matching.heuristics.optimized_algo import Optimization
+from app.src.dev.max_matching.heuristics.random_greedy.randomized_rounding import RandomizedRoundingHeuristic
+from app.src.dev.max_matching.heuristics.random_greedy.simple_greedy import SimpleGreedyHeuristic
+from app.src.dev.max_matching.heuristics.random_greedy.monte_carlo import MonteCarloHeuristic
 
 columns_name = [
     'NUM OF NODES',
@@ -39,11 +40,8 @@ nodes_range = [
 
     500,
     1000,
-    1500,
     2000,
-
     3000,
-
     4000,
     5000
 ]
@@ -118,7 +116,7 @@ if __name__ == '__main__':
             randomized_time = end_time - start_time
 
             # Monte Carlo Heuristic
-            monte_carlo = RandomizedRoundingHeuristic(bipartite_graph=bipartite_graph)
+            monte_carlo = MonteCarloHeuristic(bipartite_graph=bipartite_graph)
             start_time = time.time()
             monte_carlo_result = monte_carlo.get_matching_edges()
             end_time = time.time()
@@ -242,7 +240,7 @@ if __name__ == '__main__':
             row = [
                 num_of_nodes,
                 density,
-
+                #
                 f'greedy {len(simple_greedy_result)}',
                 f'monte_carlo {len(monte_carlo_result)}',
                 f'randomized {len(randomized_result)}',
@@ -250,7 +248,7 @@ if __name__ == '__main__':
                 f'static {len(static_min_degree_result)}',
                 f'limit {len(limit_min_degree_result)}',
                 f'dynamic {len(dynamic_min_degree_result)}',
-
+                
                 f'optimization {len(optimization_result)}',
 
                 '==========> ',
@@ -258,7 +256,7 @@ if __name__ == '__main__':
                 f'greedy {round(simple_greedy_time, 4)}',
                 f'monte_carlo {round(monte_carlo_time, 4)}',
                 f'randomized {round(randomized_time, 4)}',
-                
+
                 f'static {round(static_min_degree_time, 4)}',
                 f'limit {round(limit_min_degree_time, 4)}',
                 f'dynamic {round(dynamic_min_degree_time, 4)}',

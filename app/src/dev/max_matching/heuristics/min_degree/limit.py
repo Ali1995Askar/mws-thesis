@@ -1,6 +1,6 @@
 from typing import List, Tuple
-from graph.bipartite_graph import BipartiteGraph
-from max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from app.src.dev.graph.bipartite_graph import BipartiteGraph
+from app.src.dev.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
 class LimitMinDegreeHeuristic(AbstractHeuristic):
