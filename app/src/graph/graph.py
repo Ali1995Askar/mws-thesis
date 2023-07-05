@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 import networkx as nx
 from typing import List
 
@@ -36,7 +38,8 @@ class Graph:
         self.add_nodes(nodes=nodes)
         self.add_edges(edges=edges, directed=directed)
 
-    def build_un_directed_edges(self, edges):
+    @staticmethod
+    def build_un_directed_edges(edges):
         temp = []
         for edge in edges:
             temp.append((edge[0], edge[1], {'capacity': 1}))
@@ -44,8 +47,10 @@ class Graph:
 
         return temp
 
-    def print_graph(self):
-        # Draw the graph using ASCII art
-        for node in self.graph.nodes():
-            neighbors = list(self.graph.neighbors(node))
-            print(f"Node {node}: ==> {neighbors}")
+    def get_graph_copy(self):
+        graph = deepcopy(self.graph)
+        return graph
+
+    def get_instance_copy(self):
+        inst = deepcopy(self)
+        return inst

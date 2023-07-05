@@ -4,8 +4,9 @@ from typing import List, Tuple, Set
 
 from networkx import DiGraph
 
-from app.src.graph.graph import Graph
 from networkx.algorithms import bipartite
+
+from app.src.dev.graph.graph import Graph
 
 
 class BipartiteGraph(Graph):
@@ -51,7 +52,7 @@ class BipartiteGraph(Graph):
         selected_edges = possible_edges[:num_of_edges]
 
         edges = []
-        # Create edges with capacity 1
+
         for i, j in selected_edges:
             edges.append((i, j, {'capacity': 1}))
             edges.append((j, i, {'capacity': 1}))

@@ -1,4 +1,4 @@
-from app.src.graph.bipartite_graph import BipartiteGraph
+from app.src.dev.graph.bipartite_graph import BipartiteGraph
 
 
 class TestBipartiteGraph:
