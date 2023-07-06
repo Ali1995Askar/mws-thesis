@@ -1,0 +1,2 @@
+class TestSimpleGreedy:
+    pass

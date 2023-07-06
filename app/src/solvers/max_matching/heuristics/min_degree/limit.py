@@ -1,6 +1,6 @@
 from typing import List, Tuple
 from app.src.graph.bipartite_graph import BipartiteGraph
-from app.src.problems.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from app.src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
 class LimitMinDegreeHeuristic(AbstractHeuristic):
@@ -11,9 +11,16 @@ class LimitMinDegreeHeuristic(AbstractHeuristic):
 
     def get_limit_value(self) -> int:
         degrees = list(self.bipartite_graph.graph.out_degree)
-        max_tuple = max(degrees, key=lambda x: x[0])
-        min_tuple = min(degrees, key=lambda x: x[0])
+        max_tuple = max(degrees, key=lambda x: x[1])
+        min_tuple = min(degrees, key=lambda x: x[1])
         limit_val = (max_tuple[1] - min_tuple[1]) // 2
+
+        if min_tuple[1] > max_tuple[1]:
+            print(degrees)
+            print(max_tuple)
+            print(min_tuple)
+            raise Exception
+
         return limit_val
 
     def get_matching_edges(self) -> List[Tuple]:
@@ -27,7 +34,7 @@ class LimitMinDegreeHeuristic(AbstractHeuristic):
         red_with_degrees = list(item for item in temp.out_degree if
                                 item[0] not in matched_nodes and item[0] in self.bipartite_graph.red_nodes)
         sorted_red_nodes = sorted(red_with_degrees, key=self.sort_by_degree)
-
+       
         while len(sorted_red_nodes) > 0:
             red_node, degree = sorted_red_nodes.pop(0)
             if degree > self.limit_val:

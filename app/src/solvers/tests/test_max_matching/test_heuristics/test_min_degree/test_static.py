@@ -1,0 +1,2 @@
+class TestStatic:
+    pass

@@ -1,7 +1,7 @@
 import random
 from typing import List, Tuple
 
-from app.src.problems.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from app.src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 NUM_OF_ITERATION = 3
 
@@ -18,6 +18,7 @@ class MonteCarloHeuristic(AbstractHeuristic):
             random.shuffle(list(red_nodes))
             for red_node in red_nodes:
                 neighbors = self.get_node_neighbors(red_node)
+                random.shuffle(neighbors)
                 free_blue_neighbor = self.find_un_matched_neighbor(neighbors, matched_nodes)
 
                 if not free_blue_neighbor:

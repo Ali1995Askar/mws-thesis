@@ -1,4 +1,4 @@
-from app.src.dev.graph.graph import Graph
+from app.src.graph.graph import Graph
 
 
 class TestGraph:

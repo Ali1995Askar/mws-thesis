@@ -1,0 +1,2 @@
+class TestModifiedGreedy:
+    pass

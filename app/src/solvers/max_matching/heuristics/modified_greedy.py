@@ -1,9 +1,8 @@
 from typing import List, Tuple, Set
-
 from app.src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
-class Optimization(AbstractHeuristic):
+class ModifiedGreedy(AbstractHeuristic):
 
     def get_matching_edges(self) -> List[Tuple]:
         matching_blue_red = {}
@@ -42,12 +41,6 @@ class Optimization(AbstractHeuristic):
                 matching_blue_red[old_blue] = node
 
         return list(matched_edges)
-
-    def find_un_matched_neighbor(self, neighbors: List, matched_nodes: Set):
-        for neighbor in neighbors:
-            if not self.check_if_node_matched(neighbor, matched_nodes):
-                return neighbor
-        return None
 
     def get_replace_data(self, matched_nodes, neighbors, matching_dict):
 

@@ -17,8 +17,6 @@
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-
-
             <div class="row">
                 <div class="col-xxl-3 col-md-6">
                     <div class="card info-card sales-card">
@@ -173,26 +171,64 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xxl-3 col-md-3">
+                <div class="col-xxl-2 col-md-3">
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-primary" type="button">Build Graph</button>
+                        <h4>Graph Action</h4>
                     </div>
                 </div>
-                <div class="col-xxl-2 col-md-2"></div>
-
+                <div class="col-xxl-2 col-md-3">
+                    <div class="d-grid gap-2 mt-3">
+                         <select class="form-select" aria-label="Default select example">
+                            <option selected>----------</option>
+                            <option value="1">Build</option>
+                            <option value="2">Complete</option>
+                            <option value="2">Reset</option>
+                         </select>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-md-2"> </div>
                 <div class="col-xxl-3 col-md-3">
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-warning" disabled type="button">Max Matching</button>
+                        <button class="btn btn-danger" disabled type="button">Execute</button>
                     </div>
+                </div>
+                <div class="col-xxl-3 col-md-2"> </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xxl-2 col-md-2">
+                    <div class="d-grid gap-2 mt-3">
+                        <h4>Heuristic Algorithm</h4>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-md-2">
+                    <div class="d-grid gap-2 mt-3">
 
-
+                         <select class="form-select" aria-label="Default select example">
+                            <option selected>----------</option>
+                            <option value="1">Optimized Greedy</option>
+                            <option value="2">Simple Greedy</option>
+                            <option value="3">Randomized Rounding</option>
+                            <option value="4">Monte Carlo</option>
+                            <option value="5">Static Min Degree</option>
+                            <option value="6">Dynamic Min Degree</option>
+                            <option value="7">Limit Min Degree</option>
+                         </select>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-md-2"> </div>
+                <div class="col-xxl-3 col-md-3">
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-warning" disabled type="button">Execute Matching</button>
+                    </div>
                 </div>
                 <div class="col-xxl-3 col-md-3">
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-danger" disabled type="button">Heuristic Matching</button>
+                        <button class="btn btn-primary" disabled type="button">Optimize to Max Matching</button>
                     </div>
                 </div>
             </div>
+
 
 
         </section>

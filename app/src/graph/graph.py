@@ -1,7 +1,6 @@
-from copy import deepcopy
-
 import networkx as nx
 from typing import List
+from copy import deepcopy
 
 
 class Graph:

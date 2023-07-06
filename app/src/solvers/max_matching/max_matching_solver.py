@@ -1,8 +1,8 @@
 from networkx import DiGraph
 from typing import Tuple, List, Union, Any, Type
 from app.src.graph.bipartite_graph import BipartiteGraph
-from app.src.algorithm.max_flow.ford_fulkerson_solver import FordFulkersonSolver
-from app.src.problems.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from app.src.solvers.max_flow.max_flow_solver import MaxFLowSolver
+from app.src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
 class MaxMatchingSolver:
@@ -11,7 +11,7 @@ class MaxMatchingSolver:
         self.initial_flow_graph: Union[DiGraph, None] = None
         self.bipartite_graph: Union[BipartiteGraph, None] = None
         self.temp_graph: Union[BipartiteGraph, None] = None
-        self.solver: Union[FordFulkersonSolver, None] = None
+        self.solver: Union[MaxFLowSolver, None] = None
         self.heuristic_algorithm: Union[AbstractHeuristic, None] = None
         self.max_matching: Union[List[Tuple[Any, Any]], None] = []
 
@@ -21,11 +21,10 @@ class MaxMatchingSolver:
 
     def init_ford_fulkerson_solver(self):
         self.max_matching = []
-        self.solver = FordFulkersonSolver(graph=self.temp_graph.graph)
+        self.solver = MaxFLowSolver(graph=self.temp_graph.graph)
 
     def build_initial_flow(self):
         matching_edges = self.heuristic_algorithm.execute()
-
         residual_network = self.temp_graph.get_graph_copy()
         residual_network.graph["inf"] = float("inf")
 
