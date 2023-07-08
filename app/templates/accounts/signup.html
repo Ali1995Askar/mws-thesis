@@ -3,9 +3,11 @@
 
 {% block content %}
     <main>
+
         <div class="container">
             <section
                     class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
@@ -14,51 +16,45 @@
                                 <a class="logo d-flex align-items-center w-auto" href={% url 'home' %}>
                                     <img src="{% static 'img/logo.png' %}" alt="" style="height: 50px; width: 75px;">
                                 </a>
-                            </div><!-- End Logo -->
+                            </div>
 
                             <div class="card mb-3">
-
                                 <div class="card-body">
-
                                     <div class="pt-4 pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                                         <br>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" novalidate>
+                                    <form method="post" class="row g-3 needs-validation">
+                                        {% csrf_token %}
+
                                         <div class="col-12">
-                                            <label for="yourName" class="form-label">Company Name</label>
-                                            <input type="text" name="name" class="form-control" id="yourName" required>
-                                            <div class="invalid-feedback">Please, enter your name!</div>
+                                            <label for="companyName" class="form-label">Company Name</label>
+                                            {{ form.username }}
+                                            <small class="form-text text-muted "> {{ form.username.errors }}</small>
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="yourEmail" class="form-label"> Email</label>
-                                            <input type="email" name="email" class="form-control" id="yourEmail"
-                                                   required>
-                                            <div class="invalid-feedback">Please enter a valid Email address!</div>
+                                            <label for="companyEmail" class="form-label"> Email</label>
+                                            {{ form.email }}
+                                            <small class="form-text text-muted "> {{ form.email.errors }}</small>
                                         </div>
 
-                                        <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Username</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="text" name="username" class="form-control"
-                                                       id="yourUsername" required>
-                                                <div class="invalid-feedback">Please choose a username.</div>
-                                            </div>
-                                        </div>
 
                                         <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control"
-                                                   id="yourPassword" required>
+                                            <label for="Password1" class="form-label">Password</label>
+                                            {{ form.password1 }}
                                             <div class="invalid-feedback">Please enter your password!</div>
                                         </div>
 
                                         <div class="col-12">
-                                            <br>
+                                            <label for="Password2" class="form-label">Re-Password</label>
+                                            {{ form.password2 }}
                                         </div>
+                                        <small class="form-text text-muted "> {{ form.password2.errors }}</small>
+
+                                        <div class="col-12"><br></div>
+
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Create Account</button>
                                         </div>
@@ -67,15 +63,12 @@
                                                 <a href="{% url 'accounts:signin' %}">Log in</a></p>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </section>
-
         </div>
     </main>
 {% endblock content %}

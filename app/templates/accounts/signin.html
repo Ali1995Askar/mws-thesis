@@ -25,27 +25,30 @@
                                         <br>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" novalidate>
+                                    <form method="post" class="row g-3 needs-validation">
+                                        {% csrf_token %}
 
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Username</label>
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="text" name="username" class="form-control"
-                                                       id="yourUsername" required>
+                                                {{ form.username }}
                                                 <div class="invalid-feedback">Please enter your username.</div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control"
-                                                   id="yourPassword" required>
+                                            {{ form.password }}
                                             <div class="invalid-feedback">Please enter your password!</div>
                                         </div>
 
                                         <div class="col-12">
-                                            <br>
+                                            {% if form.errors %}
+                                                <small class="form-text text-muted ">
+                                                    Wrong username or password.
+                                                </small>
+                                            {% endif %}
                                         </div>
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Login</button>
