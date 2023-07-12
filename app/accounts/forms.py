@@ -62,28 +62,28 @@ class SigninForm(AuthenticationForm):
 
 class ChangePasswordForm(PasswordChangeForm):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
 
         self.fields['old_password'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'type': 'text',
-            'name': 'name',
-            'id': 'companyName',
+            'type': 'password',
+            'name': 'old_password',
+            'id': 'old_password',
         })
 
-        self.fields['new_password1'].widget = forms.TextInput(attrs={
+        self.fields['new_password1'].widget = forms.PasswordInput(attrs={
             'class': 'form-control',
-            'type': 'text',
-            'name': 'name',
-            'id': 'companyName',
+            'type': 'password',
+            'name': 'new_password1',
+            'id': 'new_password1',
         })
 
-        self.fields['new_password2'].widget = forms.TextInput(attrs={
+        self.fields['new_password2'].widget = forms.PasswordInput(attrs={
             'class': 'form-control',
-            'type': 'text',
-            'name': 'name',
-            'id': 'companyName',
+            'type': 'password',
+            'name': 'new_password2',
+            'id': 'new_password2',
         })
 
 

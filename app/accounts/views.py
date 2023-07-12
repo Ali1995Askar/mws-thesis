@@ -60,21 +60,17 @@ class LogoutView(View):
             return redirect(reverse('accounts:signin'))
 
 
-class ProfileView(generic.UpdateView):
+class ProfileView(View):
     template_name = "accounts/profile.html"
-    change_password_form = ChangePasswordForm
-    change_profile_form = ProfileForm
-
-    context = {
-        'change_password_form': change_password_form,
-        'change_profile_form': change_profile_form,
-    }
 
     def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}", context=self.context)
-
-    def post(self, request, *args, **kwargs):
-        pass
+        change_password_form = ChangePasswordForm(request.user)
+        change_profile_form = ProfileForm
+        context = {
+            'change_password_form': change_password_form,
+            'change_profile_form': change_profile_form,
+        }
+        return render(request, f"{self.template_name}", context=context)
 
 
 class ChangePasswordView(View):
