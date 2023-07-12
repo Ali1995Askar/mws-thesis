@@ -1,6 +1,9 @@
+import json
+
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.views import generic, View
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from django.shortcuts import render, redirect
 from accounts.forms import SignupForm, SigninForm, ChangePasswordForm, ProfileForm
 
@@ -67,30 +70,29 @@ class ProfileView(generic.UpdateView):
         'change_profile_form': change_profile_form,
     }
 
-    def change_password(self, request):
-        form = ChangePasswordForm(request.POST)
-        if form.is_valid():
-            return render(request, f"{self.template_name}")
-        else:
-            return render(request, f"{self.template_name}")
-
-    def change_profile(self, request):
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            return render(request, f"{self.template_name}")
-        else:
-            return render(request, f"{self.template_name}")
-
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}", context=self.context)
 
     def post(self, request, *args, **kwargs):
-        if request.POST['change-password'] is True:
-            resp = self.change_password(request)
-            return resp
+        pass
 
-        if request.POST['change-profile'] is True:
-            resp = self.change_profile(request)
-            return resp
 
-        return render(request, f"{self.template_name}", context=self.context)
+class ChangePasswordView(View):
+    @staticmethod
+    def get(request, *args, **kwargs):
+        print('getgetgetgetgetgetgetgetgetgetgetget')
+        return HttpResponse(json.dumps({'success': False}), mimetype='application/json')
+
+    @staticmethod
+    def post(request, *args, **kwargs):
+        print('postpostpostpostpost')
+        print(request.method)
+        form = ChangePasswordForm(request.user, request.POST)
+        print(form.data)
+        if form.is_valid():
+
+            user = form.save()
+            update_session_auth_hash(request, user)  # Update the session with the new password
+            return JsonResponse({'message': 'Password changed successfully.'})
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
