@@ -115,7 +115,7 @@ class ProfileForm(forms.ModelForm):
             'name': 'name',
             'id': 'name',
             'style': '"height: 100px"',
-            'value': self.instance.address or ''
+            'value': self.instance.name or ''
         })
 
         self.fields['about'].widget = forms.Textarea(attrs={
@@ -123,7 +123,7 @@ class ProfileForm(forms.ModelForm):
             'type': 'text',
             'name': 'about',
             'id': 'about',
-            'value': self.instance.address or ''
+            'value': self.instance.about or ''
 
         })
 

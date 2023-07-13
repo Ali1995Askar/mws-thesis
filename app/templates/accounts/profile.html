@@ -83,29 +83,61 @@
 
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <h5 class="card-title">About</h5>
-                                    <p class="small fst-italic">{{ user.profile.about }}</p>
+                                    <p class="small fst-italic">
+                                           {% if  user.profile.about %}
+                                            {{user.profile.about}}
+                                            {% else %}
+                                            -
+                                            {% endif %}
+
+                                   </p>
 
                                     <h5 class="card-title">Company Details</h5>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Name</div>
-                                        <div class="col-lg-9 col-md-8">{{ user.profile.name }}</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            {% if  user.profile.name %}
+                                            {{user.profile.name}}
+                                            {% else %}
+                                            -
+                                            {% endif %}
+                                        </div>
                                     </div>
 
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Address</div>
-                                        <div class="col-lg-9 col-md-8">{{ user.profile.address }}</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            {% if  user.profile.address %}
+                                                {{user.profile.address}}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+
+                                        </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Phone</div>
-                                        <div class="col-lg-9 col-md-8">{{ user.profile.phone_number }}</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            {% if  user.profile.phone_number %}
+                                                {{user.profile.phone_number}}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Email</div>
-                                        <div class="col-lg-9 col-md-8">{{ user.profile.contact_email }}</div>
+                                         <div class="col-lg-9 col-md-8">
+                                            {% if  user.profile.contact_email %}
+                                                {{user.profile.contact_email}}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </div>
                                     </div>
 
                                 </div>
