@@ -181,7 +181,11 @@
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </div>
-                                                <input type='file' id="imgInp" class="d-none"/>
+                                                <input
+                                                        type='file'
+                                                        id="imgInp"
+                                                        class="d-none"
+                                                        accept=".jpg, .jpeg, .png"/>
                                             </div>
                                         </div>
 
@@ -332,21 +336,23 @@
         $(document).ready(function () {
             $('#editProfile').submit(function (event) {
                 let data = new FormData();
+                
                 data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
-
                 data.append("img", $("input[id^='imgInp']")[0].files[0]);
-                console.log(data.img)
                 data.append("name", $("#name").val());
                 data.append("about", $("#about").val());
                 data.append("address", $("#address").val());
                 data.append("phone_number", $("#phone_number").val());
                 data.append("contact_email", $("#contact_email").val());
 
-                event.preventDefault();  // Prevent the default form submission
+
+                event.preventDefault();
                 $.ajax({
                     type: 'POST',
                     url: $(this).attr('action'),
-                    data: $(this).serialize(),
+                    data: data,
+                    processData: false,
+                    contentType: false,
                     mimeType: "multipart/form-data",
                     success: function (response) {
                         alert = $('#result-notification')
@@ -391,10 +397,10 @@
     </script>
 
     <script>
-        let imgIno = $("#imgInp");
+        let imgInp = $("#imgInp");
 
         function uploadPhoto() {
-            imgIno.click();
+            imgInp.click();
         }
 
         function removePhoto() {
@@ -413,7 +419,7 @@
             }
         }
 
-        imgIno.change(function () {
+        imgInp.change(function () {
             readURL(this);
         });
     </script>

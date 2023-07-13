@@ -92,12 +92,17 @@ class EditProfileView(View):
     @staticmethod
     def post(request, *args, **kwargs):
         form = ProfileForm(request.POST)
-        img = request.FILES.get("img")
-        print(img)
-        print(request.POST)
-        if form.is_valid():
 
+        print(request.POST)
+
+        if form.is_valid():
             profile = request.user.profile
+
+            img = request.FILES.get("img")
+            print(type(img))
+            if img:
+                profile.logo = img
+
             inst = form.save(commit=False)
             profile.name = inst.name
             profile.about = inst.about
