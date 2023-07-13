@@ -45,7 +45,7 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             {% if user.profile.logo %}
-                                <img src="{% static user.profile.logo %}" alt="Profile">
+                                <img src="{% get_media_prefix %}{{ user.profile.logo }}" alt="Logo"/>
                             {% else %}
                                 <img src="{% static 'img/default-company-logo.png' %}" alt="Profile">
                             {% endif %}
@@ -159,8 +159,11 @@
                                             <div class="col-md-8 col-lg-9">
 
                                                 {% if user.profile.logo %}
-                                                    <img id='profileImage' src="{% static user.profile.logo %}"
-                                                         alt="Profile">
+                                                    <img id='profileImage'
+                                                         src="{% get_media_prefix %}{{ user.profile.logo }}"
+                                                         alt="Logo"/>
+
+
                                                 {% else %}
                                                     <img id='profileImage'
                                                          src="{% static 'img/default-company-logo.png' %}"
@@ -336,7 +339,7 @@
         $(document).ready(function () {
             $('#editProfile').submit(function (event) {
                 let data = new FormData();
-                
+
                 data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
                 data.append("img", $("input[id^='imgInp']")[0].files[0]);
                 data.append("name", $("#name").val());

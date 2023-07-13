@@ -95,6 +95,9 @@ os.makedirs(os.path.dirname(DJANGO_LOG_FILE), exist_ok=True)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = os.path.join(os.path.join(BASE_DIR, 'app'), 'static'),
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 logging.config.dictConfig({
     "version": 1,
     "disable_existing_loggers": False,
