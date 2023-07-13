@@ -92,8 +92,27 @@ class EditProfileView(View):
     @staticmethod
     def post(request, *args, **kwargs):
         form = ProfileForm(request.POST)
+        img = request.FILES.get("img")
+        print(img)
+        print(request.POST)
         if form.is_valid():
-            form.save()
+
+            profile = request.user.profile
+            inst = form.save(commit=False)
+            profile.name = inst.name
+            profile.about = inst.about
+            profile.address = inst.address
+            profile.phone_number = inst.phone_number
+            profile.contact_email = inst.contact_email
+            profile.save()
             return JsonResponse({'message': 'Profile Updated successfully.'})
         else:
+            print(form.errors)
             return JsonResponse({'errors': form.errors}, status=400)
+
+
+class ChangeImageProfileView(View):
+
+    @staticmethod
+    def post(request, *args, **kwargs):
+        pass
