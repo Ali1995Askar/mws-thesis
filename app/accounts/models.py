@@ -8,10 +8,13 @@ phone_regex = RegexValidator(
 
 
 class Profile(models.Model):
-    contact_email = models.EmailField(blank=False)
-    address = models.CharField(max_length=255, null=True)
-    logo = models.ImageField(upload_to='images/', null=True)
+    contact_email = models.EmailField(blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    logo = models.ImageField(upload_to='images/', blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, null=False, blank=False)
-    about = models.CharField(max_length=500, null=False, blank=False)
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, null=True)
+    name = models.CharField(max_length=50, null=False, blank=True)
+    about = models.CharField(max_length=500, null=False, blank=True)
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name} Profile'

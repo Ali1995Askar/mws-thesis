@@ -65,7 +65,8 @@ class ProfileView(View):
 
     def get(self, request, *args, **kwargs):
         change_password_form = ChangePasswordForm(request.user)
-        change_profile_form = ProfileForm
+        change_profile_form = ProfileForm(instance=request.user.profile)
+
         context = {
             'change_password_form': change_password_form,
             'change_profile_form': change_profile_form,
@@ -82,5 +83,17 @@ class ChangePasswordView(View):
             user = form.save()
             update_session_auth_hash(request, user)  # Update the session with the new password
             return JsonResponse({'message': 'Password changed successfully.'})
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+
+
+class EditProfileView(View):
+
+    @staticmethod
+    def post(request, *args, **kwargs):
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'message': 'Profile Updated successfully.'})
         else:
             return JsonResponse({'errors': form.errors}, status=400)

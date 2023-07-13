@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.forms import AuthenticationForm
 
+from accounts.models import Profile
+
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField()
@@ -88,4 +90,51 @@ class ChangePasswordForm(PasswordChangeForm):
 
 
 class ProfileForm(forms.ModelForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['contact_email'].widget = forms.EmailInput(attrs={
+            'class': 'form-control',
+            'type': 'text',
+            'name': 'contact_email',
+            'id': 'contact_email',
+            'value': self.instance.contact_email or ''
+        })
+
+        self.fields['address'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'type': 'text',
+            'name': 'address',
+            'id': 'address',
+            'value': self.instance.address or ''
+        })
+
+        self.fields['name'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'type': 'text',
+            'name': 'name',
+            'id': 'name',
+            'style': '"height: 100px"',
+            'value': self.instance.address or ''
+        })
+
+        self.fields['about'].widget = forms.Textarea(attrs={
+            'class': 'form-control',
+            'type': 'text',
+            'name': 'about',
+            'id': 'about',
+            'value': self.instance.address or ''
+
+        })
+
+        self.fields['phone_number'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'type': 'text',
+            'name': 'phone_number',
+            'id': 'phone_number',
+            'value': self.instance.phone_number or ''
+        })
+
+    class Meta:
+        model = Profile
+        fields = ['name', 'address', 'contact_email', 'about', 'phone_number']
