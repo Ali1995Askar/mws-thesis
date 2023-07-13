@@ -54,10 +54,7 @@
 
 {% block footer %}{% include 'partials/footer.html' %} {% endblock %}
 
-{% comment %} Extra js {% endcomment %}
-{% block extra_js %}
-{% endblock %}
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'vendor/apexcharts/apexcharts.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'vendor/chart.js/chart.umd.js' %}"></script>
@@ -67,6 +64,11 @@
 <script src="{% static 'vendor/tinymce/tinymce.min.js' %}"></script>
 <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+
+{% comment %} Extra js {% endcomment %}
+{% block extra_js %}
+{% endblock %}
+
 </body>
 
 </html>

@@ -74,19 +74,11 @@ class ProfileView(View):
 
 
 class ChangePasswordView(View):
-    @staticmethod
-    def get(request, *args, **kwargs):
-        print('getgetgetgetgetgetgetgetgetgetgetget')
-        return HttpResponse(json.dumps({'success': False}), mimetype='application/json')
 
     @staticmethod
     def post(request, *args, **kwargs):
-        print('postpostpostpostpost')
-        print(request.method)
         form = ChangePasswordForm(request.user, request.POST)
-        print(form.data)
         if form.is_valid():
-
             user = form.save()
             update_session_auth_hash(request, user)  # Update the session with the new password
             return JsonResponse({'message': 'Password changed successfully.'})
