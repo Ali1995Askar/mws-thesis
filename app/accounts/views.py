@@ -1,10 +1,10 @@
-import json
-
-from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.http import JsonResponse
 from django.views import generic, View
-from django.contrib.auth import login, logout, update_session_auth_hash
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
+from django.contrib.auth import login, logout, update_session_auth_hash
 from accounts.forms import SignupForm, SigninForm, ChangePasswordForm, ProfileForm
 
 
@@ -46,6 +46,7 @@ class SignupView(generic.CreateView):
         return redirect(reverse('accounts:profile'))
 
 
+@method_decorator(login_required, name='dispatch')
 class LogoutView(View):
     template_name = "accounts/logout.html"
 
@@ -74,50 +75,40 @@ class ProfileView(View):
         return render(request, f"{self.template_name}", context=context)
 
 
+@method_decorator(login_required, name='dispatch')
 class ChangePasswordView(View):
 
     @staticmethod
     def post(request, *args, **kwargs):
         form = ChangePasswordForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Update the session with the new password
-            return JsonResponse({'message': 'Password changed successfully.'})
-        else:
+
+        if not form.is_valid():
             return JsonResponse({'errors': form.errors}, status=400)
 
+        user = form.save()
+        update_session_auth_hash(request, user)
+        return JsonResponse({'msg': 'Password changed successfully.'})
 
+
+@method_decorator(login_required, name='dispatch')
 class EditProfileView(View):
 
     @staticmethod
     def post(request, *args, **kwargs):
         form = ProfileForm(request.POST)
 
-        print(request.POST)
-
-        if form.is_valid():
-            profile = request.user.profile
-
-            img = request.FILES.get("img")
-            print(type(img))
-            if img:
-                profile.logo = img
-
-            inst = form.save(commit=False)
-            profile.name = inst.name
-            profile.about = inst.about
-            profile.address = inst.address
-            profile.phone_number = inst.phone_number
-            profile.contact_email = inst.contact_email
-            profile.save()
-            return JsonResponse({'message': 'Profile Updated successfully.'})
-        else:
-            print(form.errors)
+        if not form.is_valid():
             return JsonResponse({'errors': form.errors}, status=400)
 
-
-class ChangeImageProfileView(View):
-
-    @staticmethod
-    def post(request, *args, **kwargs):
-        pass
+        profile = request.user.profile
+        img = request.FILES.get("img")
+        inst = form.save(commit=False)
+        profile.logo = img
+        profile.name = inst.name
+        profile.about = inst.about
+        profile.address = inst.address
+        profile.phone_number = inst.phone_number
+        profile.contact_email = inst.contact_email
+        profile.save()
+        profile.refresh_from_db()
+        return JsonResponse({'message': 'Profile Updated successfully.'})

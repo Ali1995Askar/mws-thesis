@@ -19,25 +19,6 @@
         <section class="section profile">
             <div class="row">
                 <div id="notifications">
-                    <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
-                         role="alert">
-                        A simple success alert with solid color—check it out!
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
-                         role="alert">
-                        A simple success alert with solid color—check it out!
-                        <ul>
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                        </ul>
-
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                    </div>
 
                 </div>
 
@@ -187,7 +168,8 @@
                                                 <input
                                                         type='file'
                                                         id="imgInp"
-                                                        class="d-none"
+                                                        class="d-none" ,
+                                                        value="{{ user.profile.logo }}"
                                                         accept=".jpg, .jpeg, .png"/>
                                             </div>
                                         </div>
@@ -291,44 +273,56 @@
                     type: 'POST',
                     url: $(this).attr('action'),
                     data: $(this).serialize(),
-                    success: function (response) {
-                        alert = $('#result-notification')
-                        alert.class = 'alert alert-success bg-success text-light border-0 alert-dismissible fade show';
-                        alert.role = 'alert';
-                        alert.text = ' A simple success alert with solid color—check it out!';
-                        alert.append(`<button
-                                        type="button"
-                                        class="btn-close btn-close-white"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"></button>`)
-                        $('#changePassword').trigger('reset');  // Reset the form
+                    success: function (resp) {
+                        console.log(resp)
+                        let msg = resp.msg;
+                        console.log(msg)
+                        let notification = $('#notifications');
+
+
+                        notification.append(`<div id="passwordRes"
+                        class="alert alert-success bg-success text-light
+                        border-0 alert-dismissible fade show">  ${msg}</div>`
+                        );
+
+                        let passwordRes = $('#passwordRes');
+
+                        setTimeout(function () {
+                            passwordRes.animate({
+                                left: '100%',
+                                opacity: 0
+                            }, 3000, function () {
+                                passwordRes.remove();
+                            });
+                            $('#changePassword').trigger('reset');
+                        }, 5000);
+
                     },
                     error: function (err) {
+                        let message = '';
+                        let resp = err.responseJSON.errors;
+                        let notification = $('#notifications');
 
-                        alert = $('#result-notification');
-                        alert.delay(500).fadeIn('slow', function () {
-                            alert.removeClass();
-                            alert.attr('role', 'alert');
-                            alert.text('A simple success alert with solid color—check it out!');
+                        for (let key in resp) {
+                            message = message + `<li>${resp[key]}</li>`;
+                        }
 
-                            alert.append(`<button
-                                        type="button"
-                                        class="btn-close btn-close-white"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"></button>`)
+                        notification.append(`<div id="passwordRes"
+                        class="alert alert-danger bg-danger text-light
+                        border-0 alert-dismissible fade show">  ${message}</div>`
+                        );
+
+                        let passwordErrors = $('#passwordRes');
+
+                        setTimeout(function () {
+                            passwordErrors.animate({
+                                left: '100%',
+                                opacity: 0
+                            }, 3000, function () {
+                                passwordErrors.remove();
+                            });
                             $('#changePassword').trigger('reset');
-                            alert.addClass('alert alert-success bg-success text-light border-0 alert-dismissible fade show')
-                        });
-
-
-                        alert.delay(5000).fadeOut('slow', function () {
-                            alert.removeClass();
-                            alert.removeAttr('role');
-                            alert.text('');
-                            alert.empty();
-                        });
-
-
+                        }, 5000);
                     }
                 });
             });
@@ -401,6 +395,7 @@
 
     <script>
         let imgInp = $("#imgInp");
+        imgInp.val();
 
         function uploadPhoto() {
             imgInp.click();
@@ -408,6 +403,7 @@
 
         function removePhoto() {
             $('#profileImage').attr('src', "{% static 'img/default-company-logo.png' %}");
+            imgInp.val(null);
         }
 
         function readURL(input) {
@@ -427,6 +423,4 @@
         });
     </script>
 {% endblock extra_js %}
-
-
 
