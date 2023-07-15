@@ -98,6 +98,8 @@ STATICFILES_DIRS = os.path.join(os.path.join(BASE_DIR, 'app'), 'static'),
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+LOGIN_URL = '/accounts/signin'
+
 logging.config.dictConfig({
     "version": 1,
     "disable_existing_loggers": False,

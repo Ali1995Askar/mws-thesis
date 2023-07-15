@@ -61,6 +61,7 @@ class LogoutView(View):
             return redirect(reverse('accounts:signin'))
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileView(View):
     template_name = "accounts/profile.html"
 
