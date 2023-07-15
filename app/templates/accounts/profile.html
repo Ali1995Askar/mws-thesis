@@ -19,7 +19,8 @@
         <section class="section profile">
             <div class="row">
                 <div id="notifications">
-
+                    <div id="EditProfileStatus" class="d-none">
+                    </div>
                 </div>
 
                 <div class="col-xl-4">
@@ -179,7 +180,7 @@
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9">
                                                 {{ change_profile_form.name }}
-
+                                                <small id="name_err" class="text-danger"></small>
                                             </div>
                                         </div>
 
@@ -187,6 +188,7 @@
                                             <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
                                             <div class="col-md-8 col-lg-9">
                                                 {{ change_profile_form.about }}
+                                                <small id="about_err" class="text-danger"></small>
                                             </div>
                                         </div>
 
@@ -195,12 +197,16 @@
                                             <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                             <div class="col-md-8 col-lg-9">
                                                 {{ change_profile_form.contact_email }}
+                                                <small id="contact_email_err" class="text-danger"></small>
+
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                             <div class="col-md-8 col-lg-9">
                                                 {{ change_profile_form.phone_number }}
+                                                <small id="phone_number_err" class="text-danger"></small>
+
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -208,13 +214,16 @@
                                                    class="col-md-4 col-lg-3 col-form-label">Address</label>
                                             <div class="col-md-8 col-lg-9">
                                                 {{ change_profile_form.address }}
+                                                <small id="address_err" class="text-danger"></small>
 
                                             </div>
                                         </div>
 
 
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            <button id="EditProfileBtn" type="submit" class="btn btn-primary">Save
+                                                Changes
+                                            </button>
                                         </div>
                                     </form>
 
@@ -230,6 +239,8 @@
                                                 Password</label>
                                             <div class="col-md-8 col-lg-9">
                                                 {{ change_password_form.old_password }}
+                                                <small id="oldPasswordErr" class=" text-danger">
+                                                </small>
                                             </div>
                                         </div>
 
@@ -248,7 +259,9 @@
                                                 {{ change_password_form.new_password2 }}
                                             </div>
                                         </div>
-
+                                        <small id="PasswordErr" class="d-none text-danger">
+                                            {{ change_password_form.new_password1.help_text }}
+                                        </small>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Change Password</button>
                                         </div>
@@ -274,11 +287,8 @@
                     url: $(this).attr('action'),
                     data: $(this).serialize(),
                     success: function (resp) {
-                        console.log(resp)
                         let msg = resp.msg;
-                        console.log(msg)
                         let notification = $('#notifications');
-
 
                         notification.append(`<div id="passwordRes"
                         class="alert alert-success bg-success text-light
@@ -296,33 +306,25 @@
                             });
                             $('#changePassword').trigger('reset');
                         }, 5000);
+                        window.location.reload();
 
                     },
                     error: function (err) {
-                        let message = '';
-                        let resp = err.responseJSON.errors;
-                        let notification = $('#notifications');
+                        console.log(err);
+                        let errors = JSON.parse(err.responseText).errors;
 
-                        for (let key in resp) {
-                            message = message + `<li>${resp[key]}</li>`;
+                        if (errors.hasOwnProperty('new_password1') ||
+                            errors.hasOwnProperty('new_password2')) {
+                            $('#PasswordErr').removeClass('d-none')
                         }
 
-                        notification.append(`<div id="passwordRes"
-                        class="alert alert-danger bg-danger text-light
-                        border-0 alert-dismissible fade show">  ${message}</div>`
-                        );
+                        if (errors.hasOwnProperty('old_password')) {
+                            console.log("333333333333333333333333333333333333333333333333");
+                            console.log(errors.old_password);
+                            $('#oldPasswordErr').text(errors.old_password);
+                        }
 
-                        let passwordErrors = $('#passwordRes');
 
-                        setTimeout(function () {
-                            passwordErrors.animate({
-                                left: '100%',
-                                opacity: 0
-                            }, 3000, function () {
-                                passwordErrors.remove();
-                            });
-                            $('#changePassword').trigger('reset');
-                        }, 5000);
                     }
                 });
             });
@@ -342,8 +344,8 @@
                 data.append("phone_number", $("#phone_number").val());
                 data.append("contact_email", $("#contact_email").val());
 
-
                 event.preventDefault();
+
                 $.ajax({
                     type: 'POST',
                     url: $(this).attr('action'),
@@ -351,42 +353,111 @@
                     processData: false,
                     contentType: false,
                     mimeType: "multipart/form-data",
-                    success: function (response) {
-                        alert = $('#result-notification')
-                        alert.class = 'alert alert-success bg-success text-light border-0 alert-dismissible fade show';
-                        alert.role = 'alert';
-                        alert.text = ' A simple success alert with solid color—check it out!';
-                        alert.append(`<button
-                                        type="button"
-                                        class="btn-close btn-close-white"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"></button>`)
-                        $('#changePassword').trigger('reset');  // Reset the form
+                    success: function (resp) {
+                        let about_err = $('#about_err');
+                        let name_err = $('#name_err');
+                        let contact_email_err = $('#contact_email_err');
+                        let phone_number_err = $('#phone_number_err');
+                        let address_err = $('#address_err');
+
+
+                        about_err.text("");
+                        name_err.text("");
+                        contact_email_err.text("");
+                        phone_number_err.text("");
+                        address_err.text("");
+
+                        let EditProfileStatus = $('#EditProfileStatus');
+
+                        EditProfileStatus.empty()
+                        EditProfileStatus.removeClass('alert');
+                        EditProfileStatus.removeClass('alert-danger');
+                        EditProfileStatus.removeClass('bg-danger');
+                        EditProfileStatus.removeClass('text-light');
+                        EditProfileStatus.removeClass('border-0');
+                        EditProfileStatus.removeClass('alert-dismissible');
+                        EditProfileStatus.addClass('d-none');
+                        EditProfileStatus.css({left: "0px"});
+
+
+                        let message = JSON.parse(resp).msg;
+                        EditProfileStatus.text(message);
+
+
+                        EditProfileStatus.animate({
+                            right: '0%',
+                            opacity: 100
+                        }, 100, function () {
+                            EditProfileStatus.addClass('alert');
+                            EditProfileStatus.addClass('alert-success');
+                            EditProfileStatus.addClass('bg-success');
+                            EditProfileStatus.addClass('text-light');
+                            EditProfileStatus.addClass('border-0');
+                            EditProfileStatus.addClass('alert-dismissible');
+                            EditProfileStatus.removeClass('d-none');
+                        });
+
+
+                        setTimeout(function () {
+                            EditProfileStatus.animate({
+                                left: '100%',
+                                opacity: 0
+                            }, 4000, function () {
+                                EditProfileStatus.removeClass('alert');
+                                EditProfileStatus.removeClass('alert-danger');
+                                EditProfileStatus.removeClass('bg-danger');
+                                EditProfileStatus.removeClass('text-light');
+                                EditProfileStatus.removeClass('border-0');
+                                EditProfileStatus.removeClass('alert-dismissible');
+                                EditProfileStatus.addClass('d-none');
+                                EditProfileStatus.css({left: "0px"});
+                                window.location.reload();
+                            });
+
+                        }, 6000);
+
+                        $('#changePassword').trigger('reset');
+
+
                     },
                     error: function (err) {
 
-                        alert = $('#result-notification');
-                        alert.delay(500).fadeIn('slow', function () {
-                            alert.removeClass();
-                            alert.attr('role', 'alert');
-                            alert.text('A simple success alert with solid color—check it out!');
-
-                            alert.append(`<button
-                                        type="button"
-                                        class="btn-close btn-close-white"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"></button>`)
-                            $('#changePassword').trigger('reset');
-                            alert.addClass('alert alert-success bg-success text-light border-0 alert-dismissible fade show')
-                        });
+                        let errors = JSON.parse(err.responseText).errors;
+                        let about_err = $('#about_err');
+                        let name_err = $('#name_err');
+                        let contact_email_err = $('#contact_email_err');
+                        let phone_number_err = $('#phone_number_err');
+                        let address_err = $('#address_err');
 
 
-                        alert.delay(5000).fadeOut('slow', function () {
-                            alert.removeClass();
-                            alert.removeAttr('role');
-                            alert.text('');
-                            alert.empty();
-                        });
+                        about_err.text("");
+                        name_err.text("");
+                        contact_email_err.text("");
+                        phone_number_err.text("");
+                        address_err.text("");
+
+
+                        if (errors.hasOwnProperty('about')) {
+                            about_err.text(errors.about);
+                        }
+
+                        if (errors.hasOwnProperty('name')) {
+                            name_err.text(errors.name);
+                        }
+
+                        if (errors.hasOwnProperty('contact_email')) {
+                            contact_email_err.text(errors.contact_email);
+                        }
+
+                        if (errors.hasOwnProperty('phone_number')) {
+                            phone_number_err.text(errors.phone_number);
+                        }
+
+                        if (errors.hasOwnProperty('address')) {
+                            address_err.text(errors.address);
+                        }
+
+
                     }
                 });
             });

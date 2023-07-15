@@ -1,9 +1,9 @@
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views import generic, View
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash
 from accounts.forms import SignupForm, SigninForm, ChangePasswordForm, ProfileForm
 
@@ -111,5 +111,5 @@ class EditProfileView(View):
         profile.phone_number = inst.phone_number
         profile.contact_email = inst.contact_email
         profile.save()
-        profile.refresh_from_db()
-        return JsonResponse({'message': 'Profile Updated successfully.'})
+
+        return JsonResponse({'msg': 'Profile Updated successfully.'})

@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -79,6 +80,7 @@ class ChangePasswordForm(PasswordChangeForm):
             'type': 'password',
             'name': 'new_password1',
             'id': 'new_password1',
+            'help_text': password_validation.password_validators_help_text_html(),
         })
 
         self.fields['new_password2'].widget = forms.PasswordInput(attrs={
@@ -95,7 +97,7 @@ class ProfileForm(forms.ModelForm):
 
         self.fields['contact_email'].widget = forms.EmailInput(attrs={
             'class': 'form-control',
-            'type': 'text',
+            'type': 'text',  # Todo make it email
             'name': 'contact_email',
             'id': 'contact_email',
             'value': self.instance.contact_email or ''
