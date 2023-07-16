@@ -19,11 +19,9 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
     path('workers/', include('workers.urls')),
     path('accounts/', include('accounts.urls')),
-    path('positions/', include('positions.urls')),
     path('management/', include('management.urls')),
     path('categories/', include('categories.urls')),
     path('educations/', include('educations.urls')),
-    path('departments/', include('departments.urls')),
 
 ]
 

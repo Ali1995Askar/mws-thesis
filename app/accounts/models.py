@@ -10,7 +10,7 @@ phone_regex = RegexValidator(
 class Profile(models.Model):
     contact_email = models.EmailField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
-    logo = models.ImageField(upload_to='images/', blank=True, null=True)
+    logo = models.ImageField(upload_to='images/companies-logos', blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, null=False, blank=True)
     about = models.CharField(max_length=500, null=False, blank=True)

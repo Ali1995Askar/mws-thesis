@@ -12,7 +12,7 @@
                     <li class="breadcrumb-item"><a href={% url 'workers:list' %}>Workers</a></li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
 
         <section class="section">
             <div class="row">
@@ -21,70 +21,70 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
-                            <p>Write paragraph</p>
 
-                            <!-- Table with stripped rows -->
                             <table class="table datatable">
                                 <thead>
                                 <tr>
                                     <th scope="col" data-sortable="false">#</th>
+                                    <th scope="col" data-sortable="false">Status</th>
                                     <th scope="col" data-sortable="false">First Name</th>
                                     <th scope="col" data-sortable="false">Last Name</th>
-                                    <th scope="col" data-sortable="false">Experience Level</th>
+                                    <th scope="col" data-sortable="false">Email</th>
                                     <th scope="col" data-sortable="false">Education</th>
-                                    <th scope="col" data-sortable="false">Position</th>
-                                    <th scope="col" data-sortable="false">Gender</th>
-                                    <th scope="col" data-sortable="false">Age</th>
-                                    <th scope="col" data-sortable="false">Status</th>
+                                    <th scope="col" data-sortable="false">Level</th>
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Brandon</td>
-                                    <td>Jacob</td>
-                                    <td>Senior</td>
-                                    <td>Software Engineer</td>
-                                    <td>Backend Developer</td>
-                                    <td>Male</td>
-                                    <td>25</td>
-                                    <td><span class="badge bg-success">Free</span></td>
-                                    <td>
-                                        <a href={% url 'workers:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'workers:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'workers:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
+                                {% for worker in object_list %}
+                                    <tr>
 
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Brandon</td>
-                                    <td>Jacob</td>
-                                    <td>Senior</td>
-                                    <td>Software Engineer</td>
-                                    <td>Backend Developer</td>
-                                    <td>Male</td>
-                                    <td>25</td>
-                                    <td><span class="badge bg-warning">Occupied</span></td>
-                                    <td>
-                                        <a href={% url 'workers:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'workers:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'workers:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
+                                        <th scope="row">{{ worker.id }}</th>
+                                        <td>
+                                            {% if worker.status == "OCCUPIED" %}
+                                                <span class="badge bg-success">
+                                            {% elif worker.status == "FREE" %}
+                                                <span class="badge bg-danger">
+                                            {% endif %}
+                                            {{ worker.status }}
+                                            </span>
+                                        </td>
 
+                                        <td>{{ worker.first_name }}</td>
+                                        <td>{{ worker.last_name }}</td>
+                                        <td>{{ worker.email }}</td>
+                                        <td>
+                                            {% if worker.education %}
+                                                {{ worker.education }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ worker.level }}</td>
+
+                                        <td>
+                                            <a href={% url 'workers:details' worker.id %}>
+                                                <i class="bi bi-eye-fill"></i>
+                                            </a>&nbsp;&nbsp;
+
+                                            <a href={% url 'workers:update' worker.id %}>
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>&nbsp;&nbsp;
+
+                                            <a href={% url 'workers:delete' worker.id %}>
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
-
                         </div>
                     </div>
 
                 </div>
             </div>
         </section>
-
-    </main><!-- End #main -->
+    </main>
 
 {% endblock content %}

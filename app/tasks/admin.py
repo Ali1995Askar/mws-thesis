@@ -1,3 +1,7 @@
 from django.contrib import admin
+from tasks import models
 
-# Register your models here.
+
+@admin.register(models.Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ['title', 'assigned_to']

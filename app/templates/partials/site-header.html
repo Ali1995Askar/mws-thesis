@@ -19,7 +19,14 @@
                 {% if not user.is_authenticated %}
                     <li><a class="getstarted scrollto" href="{% url 'accounts:signin' %}">Login</a></li>
                 {% else %}
-                    <li><a class="getstarted scrollto" href="{% url 'accounts:profile' %}">{{ user.profile.name }}</a>
+                    <li><a class="getstarted scrollto" href="{% url 'accounts:profile' %}">
+
+                        {% if  user.profile.name %}
+                            {{ user.profile.name }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+                    </a>
                     </li>
                 {% endif %}
             </ul>

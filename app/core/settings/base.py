@@ -24,9 +24,7 @@ INSTALLED_APPS = [
     'accounts',
     'tasks',
     'workers',
-    'departments',
     'educations',
-    'positions',
     'categories',
     'management',
 

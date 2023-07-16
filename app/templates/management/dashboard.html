@@ -18,7 +18,7 @@
         <section class="section dashboard">
             <div class="row">
                 <!-- Workers Card -->
-                <div class="col-xxl-3 col-md-6">
+                <div class="col-xxl-4 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <h5 class="card-title">Workers<span></span></h5>
@@ -35,7 +35,7 @@
                 </div><!-- End Workers Card -->
 
                 <!-- Tasks Tasks -->
-                <div class="col-xxl-3 col-md-6">
+                <div class="col-xxl-4 col-md-6">
                     <div class="card info-card revenue-card">
                         <div class="card-body">
                             <h5 class="card-title">Tasks <span></span></h5>
@@ -55,34 +55,16 @@
                 </div><!-- End Tasks Card -->
 
                 <!-- Departments Card -->
-                <div class="col-xxl-3 col-md-6">
-                    <div class="card info-card customers-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Departments</h5>
 
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <a href={% url 'departments:list' %}> <i class="bi bi-building-fill-check"></i></a>
-                                </div>
-                                <div class="ps-3">
-                                    <h6>124</h6>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div><!-- End Departments Card -->
 
                 <!-- Positions Card -->
-                <div class="col-xxl-3 col-md-6">
+                <div class="col-xxl-4 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
-                            <h5 class="card-title">Positions<span></span></h5>
+                            <h5 class="card-title">Categories<span></span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <a href={% url 'positions:list' %}> <i class="bi bi-person-workspace"></i></a>
+                                    <a href={% url 'categories:list' %}> <i class="bi bi-tags-fill"></i></a>
 
 
                                 </div>
@@ -155,7 +137,7 @@
                     <div class="card">
 
                         <div class="card-body pb-0">
-                            <h5 class="card-title">Tasks Per Department<span></span></h5>
+                            <h5 class="card-title">Tasks Per Category<span></span></h5>
 
                             <div id="pieChart" style="min-height: 400px;" class="echart"></div>
 
@@ -311,7 +293,7 @@
                 <div class="col-xxl-4 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Categories</h5>
+                            <h5 class="card-title">Workers Per Categories</h5>
 
                             <!-- Bar Chart -->
                             <div id="barChart"></div>

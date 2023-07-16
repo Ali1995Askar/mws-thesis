@@ -30,65 +30,61 @@
                                     <th scope="col" data-sortable="false">#</th>
                                     <th scope="col" data-sortable="false">Status</th>
                                     <th scope="col" data-sortable="false">Title</th>
-                                    <th scope="col" data-sortable="false">Department</th>
-                                    <th scope="col" data-sortable="false">Experience Level</th>
-
                                     <th scope="col" data-sortable="false">Deadline</th>
-                                    <th scope="col" data-sortable="false">Status</th>
+                                    <th scope="col" data-sortable="false">Assigned To</th>
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Open</td>
-                                    <td>FLUTTER.</td>
-                                    <td>Software</td>
-                                    <td>Senior</td>
+                                {% for task in object_list %}
+                                    <tr>
+                                        <th scope="row">{{ task.id }}</th>
+                                        <td>
+                                            {% if task.status == "OPEN" %}
+                                                <span class="badge bg-warning">  {{ task.status }} </span>
+                                            {% elif task.status == "DONE" %}
+                                                <span class="badge bg-success">Done</span>
+                                            {% elif task.status == "PROGRESS" %}
+                                                <span class="badge bg-danger">Progress</span>
+                                            {% endif %}
+                                        </td>
 
-                                    <td>25-19-2023</td>
-                                    <td><span class="badge bg-success">Done</span></td>
-                                    <td>
-                                        <a href={% url 'tasks:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'tasks:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'tasks:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            {{ task.title }}
+                                        </td>
 
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Progress</td>
-                                    <td>AWS.</td>
-                                    <td>Software</td>
-                                    <td>Senior</td>
-                                    <td>25-19-2023</td>
-                                    <td><span class="badge bg-warning">Open</span></td>
-                                    <td>
-                                        <a href={% url 'tasks:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'tasks:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'tasks:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Closed</td>
-                                    <td>LARAVEL.</td>
-                                    <td>Software</td>
-                                    <td>Senior</td>
+                                        <td>
+                                            {{ task.deadline }}
+                                        </td>
 
-                                    <td>25-19-2023</td>
-                                    <td><span class="badge bg-danger">Progress</span></td>
-                                    <td>
-                                        <a href={% url 'tasks:details' 2 %}> <i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'tasks:update' 2 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'tasks:delete' 2 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            {% if task.assigned_to %}
+                                                {{ task.assigned_to }}
+                                            {% else %}
+                                                No one
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            <a href={% url 'tasks:details' task.id %}>
+                                                <i class="bi bi-eye-fill"></i>
+                                            </a>&nbsp;&nbsp;
+
+
+                                            <a href={% url 'tasks:update' task.id %}>
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>&nbsp;&nbsp;
+
+                                            <a href={% url 'tasks:delete' task.id %}>
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </td>
+                                    
+                                    </tr>
+                                {% endfor %}
 
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
-
                         </div>
                     </div>
                 </div>

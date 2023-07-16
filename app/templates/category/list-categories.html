@@ -32,7 +32,6 @@
                                 <tr>
                                     <th scope="col" data-sortable="false">#</th>
                                     <th scope="col" data-sortable="false">Name</th>
-                                    <th scope="col" data-sortable="false">Department</th>
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
@@ -41,7 +40,6 @@
                                     <tr>
                                         <th scope="row">{{ category.id }}</th>
                                         <td>{{ category.name }}</td>
-                                        <td>{{ category.department }}</td>
                                         <td>
                                             <a href={% url 'categories:update' category.id %}>
                                                 <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
