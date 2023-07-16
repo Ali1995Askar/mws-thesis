@@ -15,7 +15,11 @@
         <ul class="d-flex align-items-center">
             <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="{% static 'img/company.png' %}" alt="Profile">
+                    {% if user.profile.logo %}
+                        <img src="{% get_media_prefix %}{{ user.profile.logo }}" alt="logo"/>
+                    {% else %}
+                        <img src="{% static 'img/default-company-logo.png' %}" alt="logo">
+                    {% endif %}
 
                     <span class="d-none d-md-block dropdown-toggle ps-2">Quantic Media Solutions</span>
                 </a><!-- End Profile Iamge Icon -->
