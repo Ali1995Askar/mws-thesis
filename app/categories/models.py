@@ -1,6 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
-# Create your models here.
 class Category(models.Model):
-    pass
+    name = models.CharField(max_length=255, blank=False, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    department = models.ForeignKey("departments.Department", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name}'

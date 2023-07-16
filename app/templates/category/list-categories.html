@@ -31,41 +31,27 @@
                                 <thead>
                                 <tr>
                                     <th scope="col" data-sortable="false">#</th>
+                                    <th scope="col" data-sortable="false">Name</th>
                                     <th scope="col" data-sortable="false">Department</th>
-                                    <th scope="col" data-sortable="false">Category</th>
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Software</td>
-                                    <td>ASP.NET Developer</td>
-                                    <td>
-                                        <a href={% url 'categories:update' 3 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'categories:delete' 3 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
+                                {% for category in object_list %}
+                                    <tr>
+                                        <th scope="row">{{ category.id }}</th>
+                                        <td>{{ category.name }}</td>
+                                        <td>{{ category.department }}</td>
+                                        <td>
+                                            <a href={% url 'categories:update' category.id %}>
+                                                <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
 
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Software</td>
-                                    <td>Django Developer</td>
-                                    <td>
-                                        <a href={% url 'categories:update' 3 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'categories:delete' 3 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
+                                            <a href={% url 'categories:delete' category.id %}>
+                                                <i class="bi bi-trash-fill"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
 
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Accountant</td>
-                                    <td>Reviewer</td>
-                                    <td>
-                                        <a href={% url 'categories:update' 3 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'categories:delete' 3 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
                             <!-- End Table with stripped rows -->

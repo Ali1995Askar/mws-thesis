@@ -28,26 +28,32 @@
                                 <thead>
                                 <tr>
                                     <th scope="col" data-sortable="false">#</th>
-                                    <th scope="col" data-sortable="false">Title</th>
-                                    <th scope="col" data-sortable="false">Department</th>
+                                    <th scope="col" data-sortable="false">Name</th>
+                                    <th scope="col" data-sortable="false">Category</th>
                                     <th scope="col" data-sortable="false">Education</th>
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Software Engineer</td>
-                                    <td>Software</td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href={% url 'positions:update' 3 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'positions:delete' 3 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
+                                {% for position in object_list %}
+                                    <tr>
+                                        <th scope="row">{{ position.id }}</th>
+                                        <td>{{ position.name }}</td>
+                                        <td>{{ position.category }}</td>
+                                        <td>{{ position.education }}</td>
+                                        <td>
+                                            <a href={% url 'positions:update' position.id %}>
+                                                <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+
+                                            <a href={% url 'positions:delete' position.id %}>
+                                                <i class="bi bi-trash-fill"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
 
                         </div>
                     </div>

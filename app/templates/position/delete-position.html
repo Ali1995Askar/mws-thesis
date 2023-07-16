@@ -22,13 +22,28 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><i class="bi bi-trash-fill"></i> Delete Position</h5>
-                            <p>Are you sure you want to delete education {Position-Name}</p>
+                            <p>Are you sure you want to delete education {{ position.name }}</p>
 
-                            <!-- Basic Modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#basicModal">
-                                Delete Position
-                            </button>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger" data-bs-toggle="modal"
+                                       data-bs-target="#basicModal" value="Delete Position"/>
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+
+                                <button
+                                        class="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#basicModal">
+                                    Back to Table
+                                </button>
+
+                            </form>
+
+
                         </div>
                     </div>
                 </div>
