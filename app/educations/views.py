@@ -1,39 +1,44 @@
+from django.urls import reverse
 from django.views import generic
-from django.shortcuts import render
+from educations.models import Education
+from educations.forms import EducationForm
+from django.http import HttpResponseRedirect
 
-
-# Create your views here.
 
 class EducationListView(generic.ListView):
+    model = Education
     template_name = "education/list-educations.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
 
 
 class EducationCreateView(generic.CreateView):
+    model = Education
+    form_class = EducationForm
     template_name = "education/create-education.html"
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
-
-class EducationDetailsView(generic.DetailView):
-    template_name = "education/education-details.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def get_success_url(self):
+        return reverse("educations:list")
 
 
 class EducationUpdateView(generic.UpdateView):
+    model = Education
+    form_class = EducationForm
     template_name = "education/update-education.html"
+    context_object_name = 'education'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def get_success_url(self):
+        reverse('educations:list')
 
 
 class EducationDeleteView(generic.DeleteView):
+    model = Education
     template_name = "education/delete-education.html"
+    context_object_name = 'education'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def get_success_url(self):
+        return reverse("educations:list")

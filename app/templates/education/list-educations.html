@@ -35,38 +35,24 @@
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
+                            
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href={% url 'educations:update' 3 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'educations:delete' 3 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
+                                {% for education in object_list %}
+                                    <tr>
+                                        <th scope="row">{{ education.id }}</th>
+                                        <td>{{ education.name }}</td>
+                                        <td>
+                                            <a href={% url 'educations:update' education.id %}>
+                                                <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
 
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Hardware Technical</td>
-                                    <td>
-                                        <a href={% url 'educations:update' 3 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'educations:delete' 3 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Accountant</td>
-                                    <td>
-                                        <a href={% url 'educations:update' 3 %}> <i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
-                                        <a href={% url 'educations:delete' 3 %}> <i class="bi bi-trash-fill"></i></a>
-                                    </td>
-                                </tr>
-
-
+                                            <a href={% url 'educations:delete' education.id %}>
+                                                <i class="bi bi-trash-fill"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
+
                             </table>
-                            <!-- End Table with stripped rows -->
 
                         </div>
                     </div>

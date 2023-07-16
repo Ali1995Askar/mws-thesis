@@ -1,13 +1,9 @@
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
-from django.shortcuts import render
-
-from departments.forms import DepartmentForm
 from departments.models import Department
+from departments.forms import DepartmentForm
+from django.http import HttpResponseRedirect
 
-
-# Create your views here.
 
 class DepartmentListView(generic.ListView):
     model = Department
@@ -33,6 +29,7 @@ class DepartmentUpdateView(generic.UpdateView):
     model = Department
     form_class = DepartmentForm
     template_name = "department/update-department.html"
+    context_object_name = 'department'
 
     def get_success_url(self):
         reverse('departments:list')
