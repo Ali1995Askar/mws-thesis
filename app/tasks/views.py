@@ -39,17 +39,37 @@ class TaskCreateView(generic.CreateView):
 
 
 class TaskUpdateView(generic.UpdateView):
+    model = Task
+    form_class = TaskForm
     template_name = "tasks/update_task.html"
+    context_object_name = 'task'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_success_url(self):
+        reverse('tasks:list')
 
 
 class TaskDeleteView(generic.DeleteView):
+    model = Task
     template_name = "tasks/delete_task.html"
+    context_object_name = 'task'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+    def get_success_url(self):
+        return reverse("tasks:list")
 
 
 class TaskDetailsView(generic.DetailView):

@@ -1,8 +1,10 @@
 {% extends "dashboard-base.html" %}
-{% load static %}
+
 
 {% block content %}
+
     <main id="main" class="main">
+
         <div class="pagetitle">
             <h1>Update Worker</h1>
             <nav>
@@ -12,196 +14,69 @@
                     <li class="breadcrumb-item active">Update Worker</li>
                 </ol>
             </nav>
-        </div>
+        </div><!-- End Page Title -->
 
         <section class="section">
             <div class="row">
                 <div class="col-lg-2"></div>
                 <div class="col-lg-8">
+
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Update Worker Form</h5>
-                            <form>
-                                <div class="row mb-3">
-                                    <label for="profileImage"
-                                           class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <img src="{% static 'img/profile-img.jpg' %}" alt="Profile">
-                                        <div class="pt-2">
-                                            <a href="#" class="btn btn-primary btn-sm"
-                                               title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                            <a href="#" class="btn btn-danger btn-sm"
-                                               title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+
+                            <!-- General Form Elements -->
+                            <form method="post">
+                                {% csrf_token %}
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">First Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="ali">
+                                        {{ form.first_name }}
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Last Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="askar">
+                                        {{ form.last_name }}
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" value="ali1995askar@gmail.com">
+                                        {{ form.email }}
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="inputNumber" class="col-sm-2 col-form-label">Phone Number</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="09**********">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputNumber" class="col-sm-2 col-form-label">Cv</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="file" id="formFile">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row mb-3">
-                                    <label for="inputDate" class="col-sm-2 col-form-label">Date Of Birth</label>
-                                    <div class="col-sm-10">
-                                        <input id="dateOfBirth" type="date" class="form-control">
-                                    </div>
-                                    <script>
-                                        document.getElementById("dateOfBirth").defaultValue = "1995-05-24";
-                                    </script>
-                                </div>
-                                <br>
+
                                 <fieldset class="row mb-3">
                                     <legend class="col-form-label col-sm-2 pt-0">Level</legend>
                                     <div class="col-sm-10">
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="level"
-                                                   id="gridRadios1" value="option1" checked>
-                                            <label class="form-check-label" for="gridRadios1">
-                                                Junior
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="level"
-                                                   id="gridRadios2" value="option2">
-                                            <label class="form-check-label" for="gridRadios2">
-                                                Low Mid Level
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="level"
-                                                   id="gridRadios3" value="option2">
-                                            <label class="form-check-label" for="gridRadios3">
-                                                High Mid Level
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="level"
-                                                   id="gridRadios4" value="option4">
-                                            <label class="form-check-label" for="gridRadios4">
-                                                Senior
-                                            </label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset class="row mb-3">
-                                    <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
-                                    <div class="col-sm-10">
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender"
-                                                   id="Male" value="option1" checked>
-                                            <label class="form-check-label" for="Male">
-                                                Male
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender"
-                                                   id="Female" value="option4">
-                                            <label class="form-check-label" for="Female">
-                                                Female
-                                            </label>
-                                        </div>
+                                        {{ form.level }}
                                     </div>
                                 </fieldset>
                                 <fieldset class="row mb-3">
                                     <legend class="col-form-label col-sm-2 pt-0">Status</legend>
                                     <div class="col-sm-10">
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="open" value="open" checked>
-                                            <label class="form-check-label" for="open">
-                                                Free
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="progress" value="option2">
-                                            <label class="form-check-label" for="progress">
-                                                Occupied
-                                            </label>
-                                        </div>
+                                        {{ form.status }}
                                     </div>
                                 </fieldset>
-                                <br>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Residence</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option value="1" selected>Syria</option>
-                                            <option value="2">Lebanon</option>
-                                            <option value="3">Jordon</option>
-                                            <option value="4">UAE</option>
-                                            <option value="5">Saudi Arabia</option>
-                                            <option value="6">Turkey</option>
-                                            <option value="7">Germany</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <br>
+
+
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Education</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select" multiple aria-label="multiple select example">
+                                        {{ form.education }}
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Categories</label>
+                                    <div class="col-sm-10">
+                                        {{ form.categories }}
+                                    </div>
+                                </div>
+                                <br>
 
-                                            <option value="1" selected>Network</option>
-                                            <option value="2">Software</option>
-                                            <option value="3">Accountant</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Expert with</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-select" multiple aria-label="multiple select example">
-                                            <option value="1" selected>ASP.NET</option>
-                                            <option value="2">Django</option>
-                                            <option value="3">AWS</option>
-                                            <option value="4">Node.js</option>
-                                            <option value="5">React</option>
-                                            <option value="6">Angular</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Positions held</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-select" multiple aria-label="multiple select example">
-                                            <option value="1">Backend Developer</option>
-                                            <option value="2">Frontend Developer</option>
-                                            <option value="3">Database Administration</option>
-                                            <option value="3">CTO</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <br>
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Update worker</label>

@@ -37,17 +37,37 @@ class WorkerCreateView(generic.CreateView):
 
 
 class WorkerUpdateView(generic.UpdateView):
+    model = Worker
+    form_class = WorkerForm
     template_name = "workers/update-worker.html"
+    context_object_name = 'task'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_success_url(self):
+        reverse('workers:list')
 
 
 class WorkerDeleteView(generic.DeleteView):
+    model = Worker
     template_name = "workers/delete-worker.html"
+    context_object_name = 'task'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+    def get_success_url(self):
+        return reverse("workers:list")
 
 
 class WorkerDetailsView(generic.DetailView):

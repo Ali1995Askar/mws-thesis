@@ -6,7 +6,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Update Task Form</h1>
+            <h1>Update Task</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
@@ -26,17 +26,18 @@
                             <h5 class="card-title">Update Task Form</h5>
 
                             <!-- General Form Elements -->
-                            <form>
+                            <form method="post">
+                                {% csrf_token %}
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Title</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="fix slow query">
+                                        {{ form.title }}
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Description</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="optimize slow query">
+                                        {{ form.description }}
                                     </div>
                                 </div>
 
@@ -44,44 +45,15 @@
                                 <div class="row mb-3">
                                     <label for="inputDate" class="col-sm-2 col-form-label">Dead Line</label>
                                     <div class="col-sm-10">
-                                        <input id="deadLine" type="date" class="form-control">
-                                        <script>
-                                            document.getElementById("deadLine").defaultValue = "2014-02-09";
-                                        </script>
+                                        {{ form.deadline }}
                                     </div>
                                 </div>
                                 <br>
                                 <fieldset class="row mb-3">
                                     <legend class="col-form-label col-sm-2 pt-0">Level</legend>
                                     <div class="col-sm-10">
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="gridRadios1" value="option1" checked>
-                                            <label class="form-check-label" for="gridRadios1">
-                                                Junior
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="gridRadios2" value="option2">
-                                            <label class="form-check-label" for="gridRadios2">
-                                                Low Mid Level
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="gridRadios3" value="option2">
-                                            <label class="form-check-label" for="gridRadios3">
-                                                High Mid Level
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="gridRadios4" value="option4">
-                                            <label class="form-check-label" for="gridRadios4">
-                                                Senior
-                                            </label>
-                                        </div>
+                                        {{ form.level }}
+
                                     </div>
                                 </fieldset>
 
@@ -89,70 +61,27 @@
                                 <fieldset class="row mb-3">
                                     <legend class="col-form-label col-sm-2 pt-0">Status</legend>
                                     <div class="col-sm-10">
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="open" value="open" checked>
-                                            <label class="form-check-label" for="open">
-                                                Open
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="progress" value="option2">
-                                            <label class="form-check-label" for="progress">
-                                                Progress
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                   id="done" value="option2">
-                                            <label class="form-check-label" for="done">
-                                                Done
-                                            </label>
-                                        </div>
+                                        {{ form.status }}
                                     </div>
                                 </fieldset>
                                 <br>
-
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Education</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select" multiple aria-label="multiple select example">
-                                            <option value="1" selected>Network</option>
-                                            <option value="2">Software</option>
-                                            <option value="3" selected>Accountant</option>
-                                        </select>
+                                        {{ form.educations }}
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Expert with</label>
+                                    <label class="col-sm-2 col-form-label">Categories</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select" multiple aria-label="multiple select example">
-                                            <option value="1" selected>ASP.NET</option>
-                                            <option value="2">Django</option>
-                                            <option value="3" selected>AWS</option>
-                                            <option value="4">Node.js</option>
-                                            <option value="5">React</option>
-                                            <option value="6" selected>Angular</option>
-                                        </select>
+                                        {{ form.categories }}
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Positions held</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-select" multiple aria-label="multiple select example">
-                                            <option value="1" selected>Backend Developer</option>
-                                            <option value="2" selected>Frontend Developer</option>
-                                            <option value="3">Database Administration</option>
-                                            <option value="3">CTO</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Add worker</label>
+                                    <label class="col-sm-2 col-form-label">Update worker</label>
                                     <div class="col-sm-10">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
