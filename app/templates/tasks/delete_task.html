@@ -1,6 +1,5 @@
 {% extends "dashboard-base.html" %}
 
-
 {% block content %}
 
     <main id="main" class="main">
@@ -22,13 +21,26 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><i class="bi bi-trash-fill"></i> Delete Task</h5>
-                            <p>Are you sure you want to delete Task {Tasks Name}</p>
+                            <p>Are you sure you want to delete Task {{ task.title }}</p>
 
-                            <!-- Basic Modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#basicModal">
-                                Delete Task
-                            </button>
+
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger" data-bs-toggle="modal"
+                                       data-bs-target="#basicModal" value="Delete Task"/>
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                <button
+                                        class="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#basicModal">
+                                    Back to Table
+                                </button>
+
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -40,3 +52,5 @@
 
 
 {% endblock content %}
+
+
