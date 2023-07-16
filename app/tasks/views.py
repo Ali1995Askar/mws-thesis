@@ -55,7 +55,7 @@ class TaskUpdateView(generic.UpdateView):
         return kwargs
 
     def get_success_url(self):
-        reverse('tasks:list')
+        return reverse('tasks:list')
 
 
 class TaskDeleteView(generic.DeleteView):

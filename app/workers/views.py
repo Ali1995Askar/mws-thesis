@@ -53,7 +53,7 @@ class WorkerUpdateView(generic.UpdateView):
         return kwargs
 
     def get_success_url(self):
-        reverse('workers:list')
+        return reverse('workers:list')
 
 
 class WorkerDeleteView(generic.DeleteView):
