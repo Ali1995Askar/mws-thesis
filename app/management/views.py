@@ -9,10 +9,40 @@ class DashboardView(View):
     template_name = "management/dashboard.html"
 
     def get(self, request, *args, **kwargs):
-        workers_count = 10000
-        tasks_count = 20000
-        categories_count = 1500
+        workers_count = self.get_workers_count()
+        tasks_count = self.get_tasks_count()
+        categories_count = self.get_categories_count()
 
+        tasks_per_category = self.get_tasks_per_category()
+        workers_per_category = self.get_workers_per_category()
+        top_5_workers = self.get_top_5_workers()
+        top_10_categories = self.get_top_10_categories()
+
+        context = {
+            'workers_count': workers_count,
+            'tasks_count': tasks_count,
+            'categories_count': categories_count,
+            'tasks_per_category': json.dumps(tasks_per_category),
+            'workers_per_category': json.dumps(workers_per_category),
+            'top_5_workers': top_5_workers,
+            'top_10_categories': top_10_categories,
+        }
+        return render(request, f"{self.template_name}", context=context)
+
+    @staticmethod
+    def get_workers_count():
+        return 10000
+
+    @staticmethod
+    def get_tasks_count():
+        return 20000
+
+    @staticmethod
+    def get_categories_count():
+        return 1500
+
+    @staticmethod
+    def get_tasks_per_category():
         tasks_per_category = {
             'software': 50,
             'marketing': 10,
@@ -20,6 +50,10 @@ class DashboardView(View):
 
             'other': 15
         }
+        return tasks_per_category
+
+    @staticmethod
+    def get_workers_per_category():
         workers_per_category = {
             'django': 111,
             'node-js': 25,
@@ -27,7 +61,10 @@ class DashboardView(View):
             'devOps': 25,
             'other': 41
         }
+        return workers_per_category
 
+    @staticmethod
+    def get_top_5_workers():
         top_5_workers = [
             {
                 'full_name': 'ali askar',
@@ -44,7 +81,10 @@ class DashboardView(View):
                 'status': 'FREE',
             }
         ]
+        return top_5_workers
 
+    @staticmethod
+    def get_top_10_categories():
         top_10_categories = [
             {
                 'name': 'Django',
@@ -59,16 +99,7 @@ class DashboardView(View):
 
             }
         ]
-        context = {
-            'workers_count': workers_count,
-            'tasks_count': tasks_count,
-            'categories_count': categories_count,
-            'tasks_per_category': json.dumps(tasks_per_category),
-            'workers_per_category': json.dumps(workers_per_category),
-            'top_5_workers': top_5_workers,
-            'top_10_categories': top_10_categories,
-        }
-        return render(request, f"{self.template_name}", context=context)
+        return top_10_categories
 
 
 class MatchingView(generic.ListView):
