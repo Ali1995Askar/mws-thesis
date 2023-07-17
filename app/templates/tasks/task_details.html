@@ -1,13 +1,13 @@
+
+
 {% extends "dashboard-base.html" %}
 {% load static %}
 
 
-
 {% block content %}
     <main id="main" class="main">
-
         <div class="pagetitle">
-            <h1>Profile</h1>
+            <h1>Task Details</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item active">Details</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
 
         <section class="section profile">
             <div class="row">
@@ -23,10 +23,8 @@
 
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <i class="bx bxl-flutter" style="font-size: 350px;"></i>
-                            <h2>Flutter</h2>
-                            <h3>Mobile Development</h3>
-
+                            <img src="{% static 'img/task-icon.png' %}" alt="Profile" class="rounded-circle">
+                            <h2>{{ title }}</h2>
                         </div>
                     </div>
 
@@ -38,73 +36,82 @@
                         <div class="card-body pt-3">
                             <!-- Bordered Tabs -->
                             <ul class="nav nav-tabs nav-tabs-bordered">
+
                                 <li class="nav-item">
                                     <button class="nav-link active" data-bs-toggle="tab"
-                                            data-bs-target="#profile-overview">Task overview
+                                            data-bs-target="#profile-overview">Overview
                                     </button>
                                 </li>
-
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#profile-change-password">Assign to Worker
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-skills">
+                                        Skills
                                     </button>
                                 </li>
-                            </ul>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-educations">
+                                        Educations
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">
+                                        Assign Worker
+                                    </button>
+                                </li>
 
+
+                            </ul>
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                    <h5 class="card-title">Fix Slow Query</h5>
-                                    <p class="small fst-italic">in some services insert took too much time try to find a
-                                        way to optimize this query for big data.</p>
+                                    <h5 class="card-title">{{ title }}</h5>
+                                    <p class="small fst-italic">{{ description }}</p>
+                                    <h5 class="card-title">Task Details</h5>
 
-                                    <h5 class="card-title">Task Detials</h5>
 
-                                  
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Level</div>
-                                        <div class="col-lg-9 col-md-8">Senior</div>
+                                        <div class="col-lg-9 col-md-8">{{ level }}</div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Category</div>
-                                        <div class="col-lg-9 col-md-8">
-                                            Database - administration - linux
-                                            django - python - devops - docker.
-                                        </div>
+                                        <div class="col-lg-3 col-md-4 label">Statue</div>
+                                        <div class="col-lg-9 col-md-8">{{ status }}</div>
                                     </div>
+
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Deadline</div>
-                                        <div class="col-lg-9 col-md-8">25-10-2023</div>
+                                        <div class="fs-6 col-lg-2 col-md-2 badge bg-danger">{{ deadline }}</div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Education</div>
-                                        <div class="col-lg-9 col-md-8">Software Engineering</div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Status</div>
-                                        <div class="col-lg-9 col-md-8">Progress</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Assigned To</div>
-                                        <div class="col-lg-9 col-md-8">No one</div>
-                                    </div>
                                 </div>
-                                <div class="tab-pane fade pt-3" id="profile-change-password">
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-skills">
+
+                                    {% for skill in skills %}
+                                        <span class="fs-6 mb-3 {% cycle 'badge bg-primary'  'badge bg-secondary'   'badge bg-danger' 'badge bg-warning text-dark' 'badge bg-info text-dark' %}">
+                                               {{ skill }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-educations">
+
+                                    {% for education in educations %}
+                                        <span class="fs-6 mb-3 {% cycle 'badge bg-primary'  'badge bg-secondary'   'badge bg-danger' 'badge bg-warning text-dark' 'badge bg-info text-dark' %}">
+                                               {{ education }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                                <div class=" tab-pane fade profile-edit pt-3" id="profile-edit">
                                     <form>
                                         <div class="row mb-3">
                                             <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Choose
                                                 Worker</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <select class="form-select" aria-label="Default select example">
-                                                    <option selected>----------</option>
-                                                    <option value="1">Ali</option>
-                                                    <option value="2">Ahmad</option>
-                                                    <option value="3">Alaa</option>
-                                                    <option value="4">Mage</option>
-                                                    <option value="5">Tommy</option>
+                                                    {% for worker in suitable_workers %}
+                                                        <option value={{ worker.id }}>
+                                                            {{ worker.first_name }} {{ worker.last_name }}
+                                                        </option>
+                                                    {% endfor %}
                                                 </select>
                                             </div>
                                         </div>
@@ -113,12 +120,11 @@
                                             <button type="submit" class="btn btn-danger">Assign</button>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -126,4 +132,6 @@
     </main><!-- End #main -->
 
 {% endblock content %}
+
+
 

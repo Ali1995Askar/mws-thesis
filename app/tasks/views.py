@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
+from workers.models import Worker
+
 
 class TaskListView(generic.ListView):
     model = Task
@@ -73,7 +75,29 @@ class TaskDeleteView(generic.DeleteView):
 
 
 class TaskDetailsView(generic.DetailView):
+    model = Task
+    context_object_name = 'task'
     template_name = "tasks/task_details.html"
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
     def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+        obj: Task = self.get_object(queryset=self.get_queryset())
+
+        suitable_workers = Worker.objects.filter(user=self.request.user).only('id', 'first_name', 'last_name')
+        skills = list(obj.categories.all().values_list('name', flat=True))
+        educations = list(obj.educations.all().values_list('name', flat=True))
+        context = {
+            'title': obj.title,
+            'description': obj.description,
+            'deadline': obj.deadline,
+            'status': obj.status,
+            'level': obj.level,
+            'educations': educations,
+            'skills': skills,
+            'suitable_workers': suitable_workers
+        }
+        return render(request, f"{self.template_name}", context=context)
