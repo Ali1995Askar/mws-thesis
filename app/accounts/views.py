@@ -103,6 +103,7 @@ class EditProfileView(View):
 
         profile = request.user.profile
         img = request.FILES.get("img")
+        print(img)
         inst = form.save(commit=False)
         profile.logo = img
         profile.name = inst.name

@@ -5,6 +5,7 @@
 
     <main id="main" class="main">
 
+
         <div class="pagetitle">
             <h1>Dashboard</h1>
             <nav>
@@ -27,7 +28,7 @@
                                     <a href={% url 'workers:list' %}> <i class="bi bi-person-badge-fill"></i></a>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4431</h6>
+                                    <h6>{{ workers_count }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +46,7 @@
                                     <a href={% url 'tasks:list' %}><i class="bi bi-wrench-adjustable"></i></a>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>264</h6>
+                                    <h6>{{ tasks_count }}</h6>
                                 </div>
 
                             </div>
@@ -69,7 +70,7 @@
 
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ categories_count }}</h6>
 
                                 </div>
 
@@ -90,41 +91,39 @@
                                 <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">Id</th>
                                     <th scope="col">Full Name</th>
-                                    <th scope="col">Degree</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Education</th>
+                                    <th scope="col">Level</th>
+                                    <th scope="col">Status</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <tr>
-                                    <th scope="row">
-                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
-                                    </th>
-                                    <td><a href="#" class="text-primary fw-bold">231</a></td>
-                                    <td>ALi Askar</td>
-                                    <td class="fw-bold">25</td>
-                                    <td>Software Engineer</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
-                                    </th>
-                                    <td><a href="#" class="text-primary fw-bold">231</a></td>
-                                    <td>ALi Askar</td>
-                                    <td class="fw-bold">25</td>
-                                    <td>Software Engineer</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <a href="#"><img src="{% static 'img/profile-img.jpg' %}" alt=""></a>
-                                    </th>
-                                    <td><a href="#" class="text-primary fw-bold">231</a></td>
-                                    <td>ALi Askar</td>
-                                    <td class="fw-bold">25</td>
-                                    <td>Software Engineer</td>
-                                </tr>
+                                {% for worker in top_5_workers %}
+                                    <tr>
+                                        <th scope="row">
+                                            <a href="#"><img src="{% static 'img/worker-icon.png' %}" alt=""></a>
+                                        </th>
+                                        <td class="text-primary fw-bold">{{ worker.full_name }}</td>
+                                        <td>{{ worker.email }}</td>
+                                        <td>{{ worker.education }}</td>
+                                        <td>{{ worker.level }}</td>
+                                        <td>
+                                            {% if worker.status == "OCCUPIED" %}
+                                                <span class="badge bg-success">
+                                            {% elif worker.status == "FREE" %}
+                                                <span class="badge bg-danger">
+                                            {% endif %}
+                                            {{ worker.status }}
+                                            </span>
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+
+
                                 </tbody>
                             </table>
 
@@ -142,9 +141,18 @@
                             <div id="pieChart" style="min-height: 400px;" class="echart"></div>
 
                             <script>
+                                let tasksJsonString = '{{ tasks_per_category|escapejs|safe }}';
+                                let tasksParsedData = JSON.parse(tasksJsonString);
+                                let tasksData = [];
+                                let tasksLabels = [];
+                                for (let key in tasksParsedData) {
+                                    tasksLabels.push(key);
+                                    tasksData.push(tasksParsedData[key]);
+                                }
+
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#pieChart"), {
-                                        series: [44, 55, 13, 22,],
+                                        series: tasksData,
                                         chart: {
                                             height: 350,
                                             type: 'pie',
@@ -152,12 +160,7 @@
                                                 show: true
                                             }
                                         },
-                                        labels: [
-                                            'Software',
-                                            'Marketing',
-                                            'Data Analysis',
-                                            'Others',
-                                        ]
+                                        labels: tasksLabels
                                     }).render();
                                 });
                             </script>
@@ -170,120 +173,29 @@
                 <div class="col-xxl-8 col-md-12">
                     <div class="card top-selling overflow-auto">
                         <div class="card-body pb-0">
-                            <h5 class="card-title"> Most 10 Requested Technologies <span>| This Year</span></h5>
+                            <h5 class="card-title"> Most 10 Requested Categories <span>| This Year</span></h5>
                             <table class="table table-borderless">
                                 <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">Technology Name</th>
-                                    <th scope="col">short description</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">number of tasks</th>
-                                    <th scope="col">employess works on</th>
-
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Tasks Count</th>
+                                    <th scope="col">Employees Count</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row"><a> <i class="bx  bxl-aws" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>AWS</td>
-                                    <td><a href="#" class="text-primary fw-bold">cloud of services</a></td>
-                                    <td class="fw-bold">Cloud</td>
-                                    <td>400</td>
-                                    <td>120 / 124</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-django" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>Django</td>
-                                    <td><a href="#" class="text-primary fw-bold">python framework </a></td>
-                                    <td class="fw-bold">Backend</td>
-                                    <td>120</td>
-                                    <td>13 / 200</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-docker" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>Docker</td>
-                                    <td><a href="#" class="text-primary fw-bold">Deploy network</a></td>
-                                    <td class="fw-bold">Devops</td>
-                                    <td>220</td>
-                                    <td>130 / 150</td>
-                                </tr>
-
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-javascript"
-                                                           style="font-size: 35px;"></i></a></th>
-                                    <td>JavaScript</td>
-                                    <td><a href="#" class="text-primary fw-bold">Programming language</a></td>
-                                    <td class="fw-bold">Programming</td>
-                                    <td>600</td>
-                                    <td>45 / 50</td>
-                                </tr>
-
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-react" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>React</td>
-                                    <td><a href="#" class="text-primary fw-bold">frontend library facebook</a></td>
-                                    <td class="fw-bold">Frontend</td>
-                                    <td>1002</td>
-                                    <td>92 / 100</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-php" style="font-size: 35px;"></i></a></th>
-                                    <td>PHP</td>
-                                    <td><a href="#" class="text-primary fw-bold">Programming language</a></td>
-                                    <td class="fw-bold">WEB Programming</td>
-                                    <td>1500</td>
-                                    <td>80 / 140</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-vuejs" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>Vue.js</td>
-                                    <td><a href="#" class="text-primary fw-bold">frontend library facebook</a></td>
-                                    <td class="fw-bold">Frontend</td>
-                                    <td>1002</td>
-                                    <td>92 / 100</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-android" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>android</td>
-                                    <td><a href="#" class="text-primary fw-bold">Java & Kotlin</a></td>
-                                    <td class="fw-bold">Mobile</td>
-                                    <td>1500</td>
-                                    <td>192 / 200</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-flutter" style="font-size: 35px;"></i></a>
-                                    </th>
-                                    <td>Flutter</td>
-                                    <td><a href="#" class="text-primary fw-bold">Dart by google</a></td>
-                                    <td class="fw-bold">Mobile</td>
-                                    <td>1500</td>
-                                    <td>200 / 200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a> <i class="bx bxl-kubernetes"
-                                                           style="font-size: 35px;"></i></a></th>
-                                    <td>Kubernetes</td>
-                                    <td><a href="#" class="text-primary fw-bold">Deploy network</a></td>
-                                    <td class="fw-bold">Devops</td>
-                                    <td>220</td>
-                                    <td>130 / 150</td>
-                                </tr>
-
+                                {% for category in top_10_categories %}
+                                    <tr>
+                                        <th scope="row">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-tags-fill"></i>
+                                            </div>
+                                        </th>
+                                        <td class="text-primary fw-bold fs-5">{{ category.name }}</td>
+                                        <td class="fs-5">{{ category.number_of_tasks }}</td>
+                                        <td class="fs-5">{{ category.total_employees }}</td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
 
@@ -293,16 +205,26 @@
                 <div class="col-xxl-4 col-md-12">
                     <div class="card">
                         <div class="card-body">
+                            {{ tasks_per_category.software }}
+
                             <h5 class="card-title">Workers Per Categories</h5>
-
-                            <!-- Bar Chart -->
                             <div id="barChart"></div>
-
                             <script>
+                                let workersJsonString = '{{ workers_per_category|escapejs|safe }}';
+                                let workersParsedData = JSON.parse(workersJsonString);
+
+                                let workersData = [];
+                                let workersCategories = [];
+                                for (let key in workersParsedData) {
+                                    workersCategories.push(key);
+                                    workersData.push(workersParsedData[key]);
+                                }
+
+
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#barChart"), {
                                         series: [{
-                                            data: [400, 430, 448, 470, 540, 1000,]
+                                            data: workersData
                                         }],
                                         chart: {
                                             type: 'bar',
@@ -318,13 +240,11 @@
                                             enabled: false
                                         },
                                         xaxis: {
-                                            categories: ['Node.js', 'Asp.net', 'Django', 'React', 'Laravel', 'Marketing'],
+                                            categories: workersCategories,
                                         }
                                     }).render();
                                 });
                             </script>
-                            <!-- End Bar Chart -->
-
                         </div>
                     </div>
                 </div>

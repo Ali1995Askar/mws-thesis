@@ -21,12 +21,23 @@
                         <img src="{% static 'img/default-company-logo.png' %}" alt="logo">
                     {% endif %}
 
-                    <span class="d-none d-md-block dropdown-toggle ps-2">Quantic Media Solutions</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">
+
+                         {% if user.profile.name %}
+                             {{ user.profile.name }}
+                         {% else %}
+                             {{ user.username }}
+                         {% endif %}
+                    </span>
                 </a><!-- End Profile Iamge Icon -->
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Quantic Media Solutions</h6>
-                        <span>IT Company</span>
+                        {% if user.profile.name %}
+                            <h6> {{ user.profile.name }}</h6>
+                        {% else %}
+                            <h6>-</h6>
+                        {% endif %}
+                        <span>{{ user.username }}</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
