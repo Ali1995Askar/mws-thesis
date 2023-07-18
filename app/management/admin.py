@@ -3,9 +3,14 @@ from django.contrib import admin
 from management import models
 
 
+@admin.register(models.Edge)
+class EdgeAdmin(admin.ModelAdmin):
+    list_display = ['user', 'worker', 'task']
+
+
 @admin.register(models.BipartiteGraph)
 class BipartiteGraphAdmin(admin.ModelAdmin):
-    list_display = ['worker', 'task', 'user', 'created_on_datetime', 'updated_on_datetime']
+    list_display = ['user', 'created_on_datetime', 'updated_on_datetime']
 
 
 @admin.register(models.HeuristicMatching)

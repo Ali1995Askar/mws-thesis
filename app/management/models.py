@@ -3,19 +3,28 @@ from django.db import models
 
 
 # Create your models here.
-
-class BipartiteGraph(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+class Edge(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False, unique=True)
     worker = models.ForeignKey('workers.Worker', on_delete=models.CASCADE, null=False, blank=False)
     task = models.ForeignKey('tasks.Task', on_delete=models.CASCADE, null=False, blank=False)
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on_datetime = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
-        unique_together = ('worker', 'task')
+        unique_together = ('user', 'worker', 'task')
 
     def __str__(self):
-        return f'{self.worker} --- {self.task}'
+        return f'{self.worker} <---> {self.task}'
+
+
+class BipartiteGraph(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False, unique=True)
+    edges = models.ManyToManyField(Edge, related_name='edges')
+    created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+    updated_on_datetime = models.DateTimeField(auto_now=True, db_index=True)
+
+    def __str__(self):
+        return f'{self.user.username} Graph'
 
 
 class HeuristicMatching(models.Model):

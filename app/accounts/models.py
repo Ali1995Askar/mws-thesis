@@ -16,5 +16,8 @@ class Profile(models.Model):
     about = models.CharField(max_length=500, null=False, blank=True)
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, null=True)
 
+    created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+    updated_on_datetime = models.DateTimeField(auto_now=True, db_index=True)
+
     def __str__(self):
         return f'{self.name} Profile'
