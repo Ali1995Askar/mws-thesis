@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 class Edge(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     worker = models.ForeignKey('workers.Worker', on_delete=models.CASCADE, null=False, blank=False)
     task = models.ForeignKey('tasks.Task', on_delete=models.CASCADE, null=False, blank=False)
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
@@ -18,7 +18,7 @@ class Edge(models.Model):
 
 
 class BipartiteGraph(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     edges = models.ManyToManyField(Edge, related_name='edges')
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on_datetime = models.DateTimeField(auto_now=True, db_index=True)
