@@ -62,6 +62,7 @@ class MaxMatching(models.Model):
 
 
 class ExecutionHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     max_matching = models.ForeignKey(MaxMatching, on_delete=models.CASCADE, null=False, blank=False)
     heuristic_matching = models.ForeignKey(HeuristicMatching, on_delete=models.CASCADE, null=False, blank=False)
 

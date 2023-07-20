@@ -106,7 +106,19 @@ class MatchingView(generic.ListView):
     template_name = "management/matching.html"
 
     def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+        context = {
+            'open_tasks': 1,
+            'progress_tasks': 2,
+            'done_tasks': 4,
+
+            'free_workers': 1,
+            'occupied_workers': 5,
+
+            'graph_density': 0.5,
+            'max_degree': 55,
+            'min_degree': 10,
+        }
+        return render(request, f"{self.template_name}", context=context)
 
 
 class AssignTasksView(generic.ListView):
