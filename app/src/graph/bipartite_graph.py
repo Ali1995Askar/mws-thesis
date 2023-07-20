@@ -2,7 +2,7 @@ import math
 import random
 from typing import Set
 from networkx import DiGraph
-from app.src.graph.graph import Graph
+from src.graph.graph import Graph
 from networkx.algorithms import bipartite
 
 
@@ -43,7 +43,7 @@ class BipartiteGraph(Graph):
         for red_node in red_nodes:
             for blue_node in blue_nodes:
                 possible_edges.add((red_node, blue_node))
-                
+
         possible_edges = list(possible_edges)
         random.shuffle(possible_edges)
         selected_edges = possible_edges[:num_of_edges]

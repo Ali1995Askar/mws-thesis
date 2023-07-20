@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-from app.src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
 class DynamicMinDegreeHeuristic(AbstractHeuristic):

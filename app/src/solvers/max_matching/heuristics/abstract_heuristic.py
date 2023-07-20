@@ -2,7 +2,7 @@ from copy import deepcopy
 from abc import abstractmethod
 from typing import Tuple, List, Set
 
-from app.src.graph.bipartite_graph import BipartiteGraph
+from src.graph.bipartite_graph import BipartiteGraph
 
 
 class AbstractHeuristic:

@@ -3,13 +3,12 @@ from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuri
 from src.solvers.max_matching.heuristics.min_degree.limit import LimitMinDegreeHeuristic
 from src.solvers.max_matching.heuristics.min_degree.static import StaticMinDegreeHeuristic
 from src.solvers.max_matching.heuristics.min_degree.dynamic import DynamicMinDegreeHeuristic
-
 from src.solvers.max_matching.heuristics.random_greedy.monte_carlo import MonteCarloHeuristic
 from src.solvers.max_matching.heuristics.random_greedy.simple_greedy import SimpleGreedyHeuristic
 from src.solvers.max_matching.heuristics.random_greedy.randomized_rounding import RandomizedRoundingHeuristic
 
 
-class HeuristicsFactory:
+class Factory:
     algorithms = {
         'STATIC_MIN_DEGREE': StaticMinDegreeHeuristic,
         'DYNAMIC_MIN_DEGREE': DynamicMinDegreeHeuristic,
@@ -22,4 +21,4 @@ class HeuristicsFactory:
 
     @staticmethod
     def get_algorithms(algorithm_name: str) -> AbstractHeuristic:
-        return HeuristicsFactory.algorithms[algorithm_name]
+        return Factory.algorithms[algorithm_name.upper()]

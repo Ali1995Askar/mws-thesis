@@ -4,6 +4,8 @@ from time import sleep
 from django.shortcuts import render
 from django.views import generic, View
 
+from management.services import Services
+
 
 # Create your views here.
 class DashboardView(View):
@@ -110,7 +112,7 @@ class MatchingStatisticsView(generic.ListView):
         return render(request, f"{self.template_name}")
 
 
-class AssignTasksView(generic.ListView):
+class AssignTasksView(View):
     template_name = "management/task-assigner.html"
 
     def get(self, request, *args, **kwargs):
@@ -133,3 +135,9 @@ class AssignTasksView(generic.ListView):
         }
 
         return render(request, f"{self.template_name}", context=context)
+
+    def post(self, request, *args, **kwargs):
+        action = request.POST.get("action", "")
+        action_func = Services.get_task_assigner_action_func(action)
+        res = action_func(request=request)
+        return render(request, f"{self.template_name}")

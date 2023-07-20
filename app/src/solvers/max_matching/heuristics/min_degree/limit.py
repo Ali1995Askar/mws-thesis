@@ -1,6 +1,6 @@
 from typing import List, Tuple
-from app.src.graph.bipartite_graph import BipartiteGraph
-from app.src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from src.graph.bipartite_graph import BipartiteGraph
+from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
 class LimitMinDegreeHeuristic(AbstractHeuristic):
@@ -34,7 +34,7 @@ class LimitMinDegreeHeuristic(AbstractHeuristic):
         red_with_degrees = list(item for item in temp.out_degree if
                                 item[0] not in matched_nodes and item[0] in self.bipartite_graph.red_nodes)
         sorted_red_nodes = sorted(red_with_degrees, key=self.sort_by_degree)
-       
+
         while len(sorted_red_nodes) > 0:
             red_node, degree = sorted_red_nodes.pop(0)
             if degree > self.limit_val:

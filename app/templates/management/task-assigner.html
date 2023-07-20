@@ -103,42 +103,64 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Graph / Algorithm Actions</h5>
-                        <form class="row g-3">
+                        <form method="post" action="{% url 'management:task-assigner' %}" class="row g-3">
+
+                            {% csrf_token %}
+                            <input type="hidden" id="actionValue" name="action" value="">
+
                             <div class="col-md-3">
                                 <div class="d-grid gap-2 ">
-                                    <button class="btn btn-dark" disabled type="button">Build Graph</button>
+                                    <button class="btn btn-dark"
+                                            onclick="setActionValue('build_graph')"
+                                            type="submit">
+                                        Build Graph
+                                    </button>
                                 </div>
                             </div>
                             <div class="col-md-4"></div>
                             <div class="col-md-3">
                                 <div class="d-grid gap-2 ">
-                                    <button class="btn btn-warning" disabled type="button">
-                                        Delete Assigned Tasks
+                                    <button
+                                            class="btn btn-warning"
+                                            onclick="setActionValue('clear_assigned_tasks')"
+                                            type="submit">
+                                        Clear Assigned Tasks
                                     </button>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="d-grid gap-2 ">
-                                    <button class="btn btn-danger" disabled type="button">Mark Tasks Done</button>
+                                    <button
+                                            class="btn btn-danger"
+                                            onclick="setActionValue('mark_tasks_done')"
+                                            type="submit">
+                                        Mark Tasks Done
+                                    </button>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="d-grid gap-2">
-                                    <select class="form-select" aria-label="Default select">
-                                        <option value="1">Optimized Greedy</option>
-                                        <option value="2">Simple Greedy</option>
-                                        <option value="3">Randomized Rounding</option>
-                                        <option value="4">Monte Carlo</option>
-                                        <option value="5">Static Min Degree</option>
-                                        <option value="6">Dynamic Min Degree</option>
-                                        <option value="7">Limit Min Degree</option>
+                                    <select name='heuristic_algorithm'
+                                            class="form-select"
+                                            aria-label="Default select">
+                                        <option value="modified_greedy">Modified Greedy</option>
+                                        <option value="simple_greedy">Simple Greedy</option>
+                                        <option value="randomized_rounding">Randomized Rounding</option>
+                                        <option value="monte_carlo">Monte Carlo</option>
+                                        <option value="static_min_degree">Static Min Degree</option>
+                                        <option value="dynamic_min_degree">Dynamic Min Degree</option>
+                                        <option value="limit_min_degree">Limit Min Degree</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4"></div>
                             <div class="col-md-5">
                                 <div class="d-grid gap-2 ">
-                                    <button class="btn btn-primary" disabled type="button">Execute Matching</button>
+                                    <button
+                                            class="btn btn-primary"
+                                            onclick="setActionValue('execute_algorithm')"
+                                            type="submit">Execute Algorithm
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -247,11 +269,12 @@
             </div>
         </section>
     </main>
+    <script>
+        function setActionValue(value) {
+            document.getElementById('actionValue').value = value;
+        }
+    </script>
 {% endblock content %}
 
-
-finish-all-tasks
-build-graph
-execute
 
 
