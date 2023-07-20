@@ -39,6 +39,7 @@ class ExecutionHistoryAdmin(admin.ModelAdmin):
     list_display = [
         'max_matching',
         'heuristic_matching',
+        'graph_density',
         'created_on_datetime',
         'updated_on_datetime'
     ]

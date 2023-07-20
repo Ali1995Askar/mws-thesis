@@ -1,4 +1,5 @@
 import json
+from time import sleep
 
 from django.shortcuts import render
 from django.views import generic, View
@@ -102,8 +103,15 @@ class DashboardView(View):
         return top_10_categories
 
 
-class MatchingView(generic.ListView):
-    template_name = "management/matching.html"
+class MatchingStatisticsView(generic.ListView):
+    template_name = "management/matching-statistics.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, f"{self.template_name}")
+
+
+class AssignTasksView(generic.ListView):
+    template_name = "management/task-assigner.html"
 
     def get(self, request, *args, **kwargs):
         context = {
@@ -117,12 +125,11 @@ class MatchingView(generic.ListView):
             'graph_density': 0.5,
             'max_degree': 55,
             'min_degree': 10,
+
+            'execution_time': 0.005,
+            'matching': 55,
+            'used_heuristic_algorithm': "Limit Min Degree",
+
         }
+
         return render(request, f"{self.template_name}", context=context)
-
-
-class AssignTasksView(generic.ListView):
-    template_name = "management/task-assigner.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")

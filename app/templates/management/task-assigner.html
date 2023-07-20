@@ -16,7 +16,7 @@
         <section class="section dashboard">
             <div class="row">
                 <h4>Workers</h4>
-                <div class="col-xxl-1 col-md-1"></div>
+
                 <div class="col-xxl-4 col-md-4">
                     <div class="card info-card sales-card">
                         <div class="card-body">
@@ -26,7 +26,7 @@
                                     <i class="bi bi-person-fill"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ free_workers }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -42,13 +42,13 @@
                                     <i class="bi bi-person-workspace"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ occupied_workers }}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-1 col-md-1"></div>
+                <div class="col-xxl-1 col-md-2"></div>
             </div>
             <br>
             <div class="row">
@@ -61,7 +61,7 @@
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-hourglass-top"></i></div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ open_tasks }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                                     <i class="bi bi-hourglass-split"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ progress_tasks }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-hourglass-bottom"></i></div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ done_tasks }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,25 @@
                     <div class="card-body">
                         <h5 class="card-title">Graph / Algorithm Actions</h5>
                         <form class="row g-3">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
+                                <div class="d-grid gap-2 ">
+                                    <button class="btn btn-dark" disabled type="button">Build Graph</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-3">
+                                <div class="d-grid gap-2 ">
+                                    <button class="btn btn-warning" disabled type="button">
+                                        Delete Assigned Tasks
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="d-grid gap-2 ">
+                                    <button class="btn btn-danger" disabled type="button">Mark Tasks Done</button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
                                 <div class="d-grid gap-2">
                                     <select class="form-select" aria-label="Default select">
                                         <option value="1">Optimized Greedy</option>
@@ -117,29 +135,63 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-5">
                                 <div class="d-grid gap-2 ">
                                     <button class="btn btn-primary" disabled type="button">Execute Matching</button>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="d-grid gap-2 ">
-                                    <button class="btn btn-dark" disabled type="button">Build Graph</button>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-grid gap-2 ">
-                                    <button class="btn btn-warning" disabled type="button">
-                                        Delete Assigned Tasks
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="d-grid gap-2 ">
-                                    <button class="btn btn-danger" disabled type="button">Mark Tasks Done</button>
-                                </div>
-                            </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <h4>Bipartite Graph</h4>
+                <div class="col-xxl-4 col-md-4">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Density<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-percent"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6 class="text-danger">{{ graph_density }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-4">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Max Degree<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6 class="text-danger">{{ max_degree }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-4">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Min Degree<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-graph-down-arrow"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6 class="text-danger">{{ min_degree }}</h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,7 +208,7 @@
                                     <i class="bi bi-alarm-fill"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6 class="text-danger">0.442 s</h6>
+                                    <h6 class="text-danger">{{ execution_time }} s</h6>
                                 </div>
                             </div>
                         </div>
@@ -168,10 +220,10 @@
                             <h5 class="card-title">Matching Result<span></span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-arrows-collapse"></i>
+                                    <i class="bi bi-intersect"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6 class="text-danger">145</h6>
+                                    <h6 class="text-danger">{{ matching }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +238,7 @@
                                     <i class="bi bi-bezier"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6 class="text-danger">Limit Min Degree</h6>
+                                    <h6 class="text-danger">{{ used_heuristic_algorithm }}</h6>
                                 </div>
                             </div>
                         </div>
