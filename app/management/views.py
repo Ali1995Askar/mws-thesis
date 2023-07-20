@@ -115,8 +115,10 @@ class AssignTasksView(View):
 
     @staticmethod
     def get_context(request):
-        tasks_counts_dict = Selectors.get_tasks_count_by_status()
-        workers_counts_dict = Selectors.get_workers_count_by_status()
+        tasks_counts_dict = Selectors.get_tasks_count_by_status(request.user)
+        workers_counts_dict = Selectors.get_workers_count_by_status(request.user)
+        graph_info_dict = Selectors.get_latest_graph_info(request.user)
+        execution_history_dict = Selectors.get_latest_execution_history(request.user)
 
         context = {
             'open_tasks': tasks_counts_dict['OPEN'],
@@ -126,13 +128,13 @@ class AssignTasksView(View):
             'free_workers': workers_counts_dict['FREE'],
             'occupied_workers': workers_counts_dict['OCCUPIED'],
 
-            'graph_density': 0.5,
-            'max_degree': 55,
-            'min_degree': 10,
+            'graph_density': graph_info_dict['graph_density'],
+            'max_degree': graph_info_dict['max_degree'],
+            'min_degree': graph_info_dict['min_degree'],
 
-            'execution_time': 0.005,
-            'matching': 55,
-            'used_heuristic_algorithm': "Limit Min Degree",
+            'matching': execution_history_dict['matching'],
+            'execution_time': execution_history_dict['execution_time'],
+            'used_heuristic_algorithm': execution_history_dict['used_heuristic_algorithm'],
 
         }
 
