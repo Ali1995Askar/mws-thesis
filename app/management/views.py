@@ -1,10 +1,8 @@
 import json
-from time import sleep
-
 from django.shortcuts import render
 from django.views import generic, View
-
 from management.services import Services
+from management.selectors import Selectors
 
 
 # Create your views here.
@@ -115,14 +113,18 @@ class MatchingStatisticsView(generic.ListView):
 class AssignTasksView(View):
     template_name = "management/task-assigner.html"
 
-    def get(self, request, *args, **kwargs):
-        context = {
-            'open_tasks': 1,
-            'progress_tasks': 2,
-            'done_tasks': 4,
+    @staticmethod
+    def get_context(request):
+        tasks_counts_dict = Selectors.get_tasks_count_by_status()
+        workers_counts_dict = Selectors.get_workers_count_by_status()
 
-            'free_workers': 1,
-            'occupied_workers': 5,
+        context = {
+            'open_tasks': tasks_counts_dict['OPEN'],
+            'progress_tasks': tasks_counts_dict['PROGRESS'],
+            'done_tasks': tasks_counts_dict['DONE'],
+
+            'free_workers': workers_counts_dict['FREE'],
+            'occupied_workers': workers_counts_dict['OCCUPIED'],
 
             'graph_density': 0.5,
             'max_degree': 55,
@@ -134,10 +136,15 @@ class AssignTasksView(View):
 
         }
 
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context(request)
         return render(request, f"{self.template_name}", context=context)
 
     def post(self, request, *args, **kwargs):
         action = request.POST.get("action", "")
         action_func = Services.get_task_assigner_action_func(action)
         res = action_func(request=request)
-        return render(request, f"{self.template_name}")
+        context = self.get_context(request)
+        return render(request, f"{self.template_name}", context)
