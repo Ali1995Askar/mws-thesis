@@ -15,7 +15,7 @@ class Task(models.Model):
 
     title = models.CharField(max_length=50, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
-    deadline = models.DateField(null=False, blank=False)
+    deadline = models.DateField(null=True, blank=True)
 
     level = models.CharField(max_length=50, db_index=True, choices=Level.choices)
     status = models.CharField(max_length=50, db_index=True, choices=Status.choices)

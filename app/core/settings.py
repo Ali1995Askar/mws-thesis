@@ -58,8 +58,7 @@ TEMPLATES = [
         },
     },
 ]
-"/home/ali/Desktop/master/mws-thesis/app/templates"
-print(TEMPLATES)
+
 WSGI_APPLICATION = 'core.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -118,9 +117,10 @@ logging.config.dictConfig({
     },
     "loggers": {"": {"level": "DEBUG", "handlers": ["console", "file"]}},
 })
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'mws-thesis/db.sqlite3',
     }
 }

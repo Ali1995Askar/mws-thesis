@@ -6,6 +6,7 @@ class CategoryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         self.fields['name'].widget = forms.TextInput(attrs={
             'class': 'form-control',
             'type': 'text',
@@ -15,4 +16,4 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ['name', ]
+        fields = ['name']
