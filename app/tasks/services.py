@@ -10,4 +10,4 @@ class TaskServices:
         TaskSelectors.delete_related_task_edges(task=task)
         connected_workers = TaskSelectors.get_connected_workers(task=task)
         edges = EdgeSelectors.build_edges_for_task(task=task, connected_workers=connected_workers)
-        BipartiteGraphSelectors.bulk_add_edges(user=task.user, edges=edges)
+        BipartiteGraphSelectors.bulk_edges_create(user=task.user, edges=edges)

@@ -1,9 +1,9 @@
 from typing import List
 from tasks.models import Task
 from workers.models import Worker
-from django.db.models import QuerySet, Count
-from management.models import Edge, BipartiteGraph
 from django.contrib.auth.models import User
+from django.db.models import QuerySet, Count
+from management.models import Edge, ExecutionHistory
 
 
 class BipartiteGraphSelectors:
@@ -44,7 +44,7 @@ class EdgeSelectors:
         edges = []
 
         for worker in connected_workers:
-            edge = Edge(task=task, worker=worker)
+            edge = Edge(user=task.user, task=task, worker=worker)
             edges.append(edge)
 
         return edges
@@ -54,7 +54,7 @@ class EdgeSelectors:
         edges = []
 
         for task in connected_tasks:
-            edge = Edge(task=task, worker=worker)
+            edge = Edge(user=worker.user, task=task, worker=worker)
             edges.append(edge)
 
         return edges
@@ -63,8 +63,19 @@ class EdgeSelectors:
 class ExecutionHistorySelectors:
     @staticmethod
     def get_latest_execution_history(user):
+        execution_history = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime').first()
+        if not execution_history:
+            return {
+                'execution_time': None,
+                'matching': None,
+                'used_heuristic_algorithm': None
+            }
+        max_matching = execution_history.max_matching
+        heuristic_matching = execution_history.heuristic_matching
+        execution_time = max_matching.execution_time + heuristic_matching.execution_time
+
         return {
-            'execution_time': 0.005,
-            'matching': 55,
-            'used_heuristic_algorithm': "Limit Min Degree"
+            'execution_time': execution_time,
+            'matching': max_matching.max_matching,
+            'used_heuristic_algorithm': heuristic_matching.heuristic_algorithm
         }
