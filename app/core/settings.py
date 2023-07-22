@@ -6,7 +6,7 @@ from pathlib import Path
 env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+environ.Env.read_env(os.path.join(BASE_DIR, "mws-thesis/.env"))
 
 SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 DEBUG = env.bool("DJANGO_DEBUG", True)
@@ -22,11 +22,11 @@ INSTALLED_APPS = [
 
     # my apps
     'accounts',
-    'tasks',
     'workers',
     'educations',
     'categories',
     'management',
+    'tasks',
 
 ]
 
@@ -45,7 +45,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['app/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,9 +91,9 @@ DJANGO_LOG_FILE = env.str("DJANGO_LOG_FILE", "../logs/server.log")
 os.makedirs(os.path.dirname(DJANGO_LOG_FILE), exist_ok=True)
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = os.path.join(os.path.join(BASE_DIR, 'app'), 'static'),
+STATICFILES_DIRS = os.path.join(os.path.join(BASE_DIR, 'mws-thesis/app'), 'static'),
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mws-thesis/media')
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/accounts/signin'

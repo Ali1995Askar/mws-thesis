@@ -1,4 +1,15 @@
+import pytest
+
 pytest_plugins = [
-    "app.src.graph.tests.fixtures",
+    "src.graph.tests.fixtures",
+
+    "accounts.tests.fixtures",
+    # "management.tests.fixtures",
+
+    "categories.tests.fixtures",
+    "educations.tests.fixtures",
+
+    "tasks.tests.fixtures",
+    "workers.tests.fixtures",
 
 ]

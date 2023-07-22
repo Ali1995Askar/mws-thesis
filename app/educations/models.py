@@ -8,5 +8,6 @@ class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on_datetime = models.DateTimeField(auto_now=True, db_index=True)
+
     def __str__(self):
         return f'{self.name}'

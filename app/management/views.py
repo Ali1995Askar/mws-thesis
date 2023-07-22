@@ -2,7 +2,9 @@ import json
 from django.shortcuts import render
 from django.views import generic, View
 from management.services import Services
-from management.selectors import Selectors
+from management.selectors import BipartiteGraphSelectors, ExecutionHistorySelector
+from tasks.selectors import TaskSelectors
+from workers.selectors import WorkerSelectors
 
 
 # Create your views here.
@@ -103,22 +105,15 @@ class DashboardView(View):
         return top_10_categories
 
 
-class MatchingStatisticsView(generic.ListView):
-    template_name = "management/matching-statistics.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
-
-
 class AssignTasksView(View):
     template_name = "management/task-assigner.html"
 
     @staticmethod
     def get_context(request):
-        tasks_counts_dict = Selectors.get_tasks_count_by_status(request.user)
-        workers_counts_dict = Selectors.get_workers_count_by_status(request.user)
-        graph_info_dict = Selectors.get_latest_graph_info(request.user)
-        execution_history_dict = Selectors.get_latest_execution_history(request.user)
+        tasks_counts_dict = TaskSelectors.get_tasks_count_by_status(request.user)
+        workers_counts_dict = WorkerSelectors.get_workers_count_by_status(request.user)
+        graph_info_dict = BipartiteGraphSelectors.get_latest_graph_data(request.user)
+        execution_history_dict = ExecutionHistorySelector.get_latest_execution_history(request.user)
 
         context = {
             'open_tasks': tasks_counts_dict['OPEN'],
@@ -150,3 +145,10 @@ class AssignTasksView(View):
         res = action_func(request=request)
         context = self.get_context(request)
         return render(request, f"{self.template_name}", context)
+
+
+class MatchingStatisticsView(generic.ListView):
+    template_name = "management/matching-statistics.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, f"{self.template_name}")

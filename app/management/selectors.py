@@ -1,50 +1,52 @@
+from typing import List
+
+from django.db.models import QuerySet
+
 from tasks.models import Task
-from django.db.models import Count
-
 from workers.models import Worker
+from management.models import Edge, BipartiteGraph
+from django.contrib.auth.models import User
 
 
-class Selectors:
+class BipartiteGraphSelectors:
     @staticmethod
-    def get_tasks_count_by_status(user):
-        status_choices = Task.Status.choices
-
-        tasks_status_counts = Task.objects.filter(user=user).values('status').annotate(
-            status_count=Count('status'),
-        ).values('status', 'status_count')
-
-        tasks_status_counts_list = list(tasks_status_counts)
-        status_dict = {task['status']: task['status_count'] for task in tasks_status_counts_list}
-        for choice, _ in status_choices:
-            if choice not in status_dict.keys():
-                status_dict[choice] = 0
-
-        return status_dict
+    def bulk_add_edges(user: User, edges: List[Edge]):
+        edges_records = Edge.objects.bulk_create(objs=edges)
+        graph = BipartiteGraph.objects.get(user=user)
+        graph.edges.add(*edges_records)
 
     @staticmethod
-    def get_workers_count_by_status(user):
-        status_choices = Worker.Status.choices
-
-        workers_status_counts = Worker.objects.filter(user=user).values('status').annotate(
-            status_count=Count('status'),
-        ).values('status', 'status_count')
-
-        workers_status_counts_list = list(workers_status_counts)
-        status_dict = {worker['status']: worker['status_count'] for worker in workers_status_counts_list}
-        for choice, _ in status_choices:
-            if choice not in status_dict.keys():
-                status_dict[choice] = 0
-
-        return status_dict
-
-    @staticmethod
-    def get_latest_graph_info(user):
+    def get_latest_graph_data(user):
         return {
             'graph_density': 0.15,
             'max_degree': 55,
             'min_degree': 10,
         }
 
+
+class EdgeSelector:
+    @staticmethod
+    def build_edges_for_task(task: Task, connected_workers: QuerySet[Worker]) -> List[Edge]:
+        edges = []
+
+        for worker in connected_workers:
+            edge = Edge(task=task, worker=worker)
+            edges.append(edge)
+
+        return edges
+
+    @staticmethod
+    def build_edges_for_worker(worker: Worker, connected_tasks: QuerySet[Task]) -> List[Edge]:
+        edges = []
+
+        for task in connected_tasks:
+            edge = Edge(task=task, worker=worker)
+            edges.append(edge)
+
+        return edges
+
+
+class ExecutionHistorySelector:
     @staticmethod
     def get_latest_execution_history(user):
         return {

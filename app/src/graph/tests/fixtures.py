@@ -1,6 +1,6 @@
 import pytest
 import networkx as nx
-from app.src.graph.bipartite_graph import BipartiteGraph
+from src.graph.bipartite_graph import BipartiteGraph
 
 
 @pytest.fixture()
