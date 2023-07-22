@@ -45,7 +45,8 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['app/templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'mws-thesis', 'app', 'templates')],  # Add your template directory path here
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,7 +58,8 @@ TEMPLATES = [
         },
     },
 ]
-
+"/home/ali/Desktop/master/mws-thesis/app/templates"
+print(TEMPLATES)
 WSGI_APPLICATION = 'core.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -116,3 +118,9 @@ logging.config.dictConfig({
     },
     "loggers": {"": {"level": "DEBUG", "handlers": ["console", "file"]}},
 })
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}

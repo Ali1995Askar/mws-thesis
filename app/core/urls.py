@@ -1,9 +1,9 @@
+from . import views
 from django.contrib import admin
 from django.conf import settings
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from django.conf.urls.static import static
-from . import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     # Admin
@@ -15,7 +15,6 @@ urlpatterns = [
     path('faq/', views.FAQView.as_view(), name='f-a-q'),
 
     # Apps
-
     path('tasks/', include('tasks.urls')),
     path('workers/', include('workers.urls')),
     path('accounts/', include('accounts.urls')),

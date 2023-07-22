@@ -4,7 +4,7 @@ pytest_plugins = [
     "src.graph.tests.fixtures",
 
     "accounts.tests.fixtures",
-    # "management.tests.fixtures",
+    "management.tests.fixtures",
 
     "categories.tests.fixtures",
     "educations.tests.fixtures",

@@ -1,5 +1,5 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -19,7 +19,7 @@ class Edge(models.Model):
 
 class BipartiteGraph(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    edges = models.ManyToManyField(Edge, related_name='edges')
+    edges = models.ManyToManyField(Edge, blank=True)
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on_datetime = models.DateTimeField(auto_now=True, db_index=True)
 
@@ -39,7 +39,7 @@ class HeuristicMatching(models.Model):
 
         MODIFIED_GREEDY = 'MODIFIED_GREEDY'
 
-    heuristic_matching_edges = models.JSONField()
+    heuristic_matching_edges = models.JSONField(null=True, blank=True)
     execution_time = models.FloatField(null=False, blank=False)
     heuristic_matching = models.IntegerField(null=False, blank=False)
     heuristic_algorithm = models.CharField(max_length=50, db_index=True, choices=HeuristicAlgorithm.choices)
@@ -51,7 +51,7 @@ class HeuristicMatching(models.Model):
 
 
 class MaxMatching(models.Model):
-    max_matching_edges = models.JSONField()
+    max_matching_edges = models.JSONField(null=True, blank=True)
     execution_time = models.FloatField(null=False, blank=False)
     max_matching = models.IntegerField(null=False, blank=False)
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
@@ -63,8 +63,8 @@ class MaxMatching(models.Model):
 
 class ExecutionHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
-    max_matching = models.ForeignKey(MaxMatching, on_delete=models.CASCADE, null=False, blank=False)
-    heuristic_matching = models.ForeignKey(HeuristicMatching, on_delete=models.CASCADE, null=False, blank=False)
+    max_matching = models.ForeignKey(MaxMatching, on_delete=models.CASCADE, null=True, blank=True)
+    heuristic_matching = models.ForeignKey(HeuristicMatching, on_delete=models.CASCADE, null=True, blank=True)
     graph_density = models.FloatField(null=False, blank=False)
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on_datetime = models.DateTimeField(auto_now=True, db_index=True)

@@ -37,16 +37,3 @@ def accountant_education(pytech_user) -> Education:
 def digital_marketing_education(pytech_user) -> Education:
     digital_marketing, _ = Education.objects.get_or_create(name='digital_marketing', user=pytech_user)
     return digital_marketing
-
-
-@pytest.fixture()
-@pytest.mark.django_db(transaction=True)
-def pytech_user_educations(pytech_user) -> QuerySet[Education]:
-    objects = []
-    for i in range(100):
-        name = f'education_{i}'
-        obj = Education(user=pytech_user, name=name)
-        objects.append(obj)
-
-    records = Education.objects.bulk_create(objects)
-    return records

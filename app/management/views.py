@@ -2,7 +2,7 @@ import json
 from django.shortcuts import render
 from django.views import generic, View
 from management.services import Services
-from management.selectors import BipartiteGraphSelectors, ExecutionHistorySelector
+from management.selectors import BipartiteGraphSelectors, ExecutionHistorySelectors
 from tasks.selectors import TaskSelectors
 from workers.selectors import WorkerSelectors
 
@@ -113,7 +113,7 @@ class AssignTasksView(View):
         tasks_counts_dict = TaskSelectors.get_tasks_count_by_status(request.user)
         workers_counts_dict = WorkerSelectors.get_workers_count_by_status(request.user)
         graph_info_dict = BipartiteGraphSelectors.get_latest_graph_data(request.user)
-        execution_history_dict = ExecutionHistorySelector.get_latest_execution_history(request.user)
+        execution_history_dict = ExecutionHistorySelectors.get_latest_execution_history(request.user)
 
         context = {
             'open_tasks': tasks_counts_dict['OPEN'],

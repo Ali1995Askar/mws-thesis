@@ -1,6 +1,6 @@
 from workers.models import Worker
 from workers.selectors import WorkerSelectors
-from management.selectors import BipartiteGraphSelectors, EdgeSelector
+from management.selectors import BipartiteGraphSelectors, EdgeSelectors
 
 
 class WorkerServices:
@@ -8,5 +8,5 @@ class WorkerServices:
     def add_new_worker_to_bipartite_graph(worker: Worker, created: bool):
         WorkerSelectors.delete_related_worker_edges(worker=worker)
         connected_tasks = WorkerSelectors.get_connected_tasks(worker=worker)
-        edges = EdgeSelector.build_edges_for_worker(worker=worker, connected_tasks=connected_tasks)
+        edges = EdgeSelectors.build_edges_for_worker(worker=worker, connected_tasks=connected_tasks)
         BipartiteGraphSelectors.bulk_add_edges(user=worker.user, edges=edges)
