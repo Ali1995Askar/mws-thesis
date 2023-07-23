@@ -13,7 +13,6 @@ def task_fix_tests(pytech_user) -> Task:
         level=Task.Level.JUNIOR.value,
         status=Task.Status.OPEN.value,
         user=pytech_user
-
     )
 
     return task

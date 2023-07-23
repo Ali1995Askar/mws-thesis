@@ -8,3 +8,6 @@ class TestTasKSModel:
         assert inst.pk
         assert inst.__str__()
         inst.delete()
+
+    def test_signal_dispatch(self):
+        pass

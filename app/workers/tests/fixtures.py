@@ -23,7 +23,7 @@ def worker_ali_askar(pytech_user) -> Worker:
 def worker_ahmad(pytech_user) -> Worker:
     worker = Worker.objects.create(
         user=pytech_user,
-        first_name='ali',
+        first_name='ahmad',
         last_name='askar',
         email='ali1995askar@gmail.com',
         level=Worker.Level.MID.value,
@@ -38,7 +38,7 @@ def worker_ahmad(pytech_user) -> Worker:
 def worker_omar(pytech_user) -> Worker:
     worker = Worker.objects.create(
         user=pytech_user,
-        first_name='ali',
+        first_name='omar',
         last_name='askar',
         email='ali1995askar@gmail.com',
         level=Worker.Level.MID.value,
@@ -53,7 +53,7 @@ def worker_omar(pytech_user) -> Worker:
 def worker_tommy(pytech_user) -> Worker:
     worker = Worker.objects.create(
         user=pytech_user,
-        first_name='ali',
+        first_name='tommy',
         last_name='askar',
         email='ali1995askar@gmail.com',
         level=Worker.Level.MID.value,
@@ -68,7 +68,7 @@ def worker_tommy(pytech_user) -> Worker:
 def worker_bruno(pytech_user) -> Worker:
     worker = Worker.objects.create(
         user=pytech_user,
-        first_name='ali',
+        first_name='bruno',
         last_name='askar',
         email='ali1995askar@gmail.com',
         level=Worker.Level.MID.value,

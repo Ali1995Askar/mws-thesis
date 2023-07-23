@@ -124,3 +124,5 @@ DATABASES = {
         'NAME': BASE_DIR / 'mws-thesis/db.sqlite3',
     }
 }
+
+DISPATCH_ENABLED = False

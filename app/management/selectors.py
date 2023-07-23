@@ -8,8 +8,11 @@ from management.models import Edge, ExecutionHistory
 
 class BipartiteGraphSelectors:
     @staticmethod
-    def bulk_edges_create(user: User, edges: List[Edge]):
+    def bulk_edges_create(edges: List[Edge]):
         Edge.objects.bulk_create(objs=edges, ignore_conflicts=True)
+
+    @staticmethod
+    def reset_bipartite_edges(user):
         edges = Edge.objects.filter(user=user)
         user.bipartitegraph.edges.set(edges)
 

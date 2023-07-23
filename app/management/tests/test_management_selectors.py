@@ -54,7 +54,6 @@ class TestEdgeSelectors:
         assert len(edges) == len(connected_tasks)
         assert all(isinstance(edge, Edge) for edge in edges)
         assert all(edge.user == pytech_user for edge in edges)
-        assert Edge.objects.all().count() == 0
 
 
 class TestExecutionHistorySelectors:

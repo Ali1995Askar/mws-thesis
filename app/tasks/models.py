@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -12,6 +13,10 @@ class Task(models.Model):
         JUNIOR = 'JUNIOR'
         MID = 'MID'
         SENIOR = 'SENIOR'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.dispatch_enabled = settings.DISPATCH_ENABLED
 
     title = models.CharField(max_length=50, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
