@@ -32,7 +32,6 @@ class MaxMatching:
         self.solve(heuristic_solver=heuristic_solver, bipartite_graph=self.graph)
         max_matching_history = self.save_max_matching_model()
         heuristic_matching_history = self.save_heuristic_matching_model()
-
         self.save_execution_history(max_matching_history, heuristic_matching_history)
         self.update_nodes_status()
 
@@ -80,11 +79,12 @@ class MaxMatching:
         return heuristic_matching
 
     def save_execution_history(self, max_matching_model: MaxMatchingModel, heuristic_matching_model: HeuristicMatching):
+        graph_density = self.max_matching_solver.get_graph_density()
         execution_history = ExecutionHistory.objects.create(
             user=self.user,
             max_matching=max_matching_model,
             heuristic_matching=heuristic_matching_model,
-            graph_density=0.5,
+            graph_density=graph_density,
         )
 
         return execution_history

@@ -50,10 +50,6 @@ class GraphBuilder:
                 edges.append(edge)
         return edges
 
-    def get_heuristic_solver(self):
-        heuristic_solver: Type[AbstractHeuristic] = Factory.get_algorithms(self.heuristic_algorithm)
-        return heuristic_solver
-
     @staticmethod
     def prepare_graph(workers, tasks, edges) -> BipartiteGraph:
         tasks = tasks.values_list('id', flat=True)

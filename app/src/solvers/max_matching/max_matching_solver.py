@@ -1,5 +1,4 @@
 import time
-
 from networkx import DiGraph
 from typing import Tuple, List, Union, Any, Type
 from src.graph.bipartite_graph import BipartiteGraph
@@ -95,6 +94,7 @@ class MaxMatchingSolver:
         self.direct_bipartite_graph()
 
     def find_max_matching(self):
+
         start_time = time.time()
         kwargs = {}
         if self.initial_flow_graph:
@@ -118,3 +118,10 @@ class MaxMatchingSolver:
 
     def get_max_matching_edges(self):
         return self.max_matching
+
+    def get_graph_density(self):
+        edges_length = len(self.bipartite_graph.edges())
+        red_nodes_length = len(self.bipartite_graph.red_nodes)
+        blue_nodes_length = len(self.bipartite_graph.blue_nodes)
+        graph_density = round(edges_length / (red_nodes_length * blue_nodes_length), 3)
+        return graph_density
