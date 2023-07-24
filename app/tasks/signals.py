@@ -12,5 +12,6 @@ def add_new_task(sender, instance: Task, created, **kwargs):
         if not created:
             workers = instance.connected_workers.all()
             for worker in workers:
-                worker.save()
+                pass
+                # worker.save()
         instance.connected_workers.set(list(connected_workers))

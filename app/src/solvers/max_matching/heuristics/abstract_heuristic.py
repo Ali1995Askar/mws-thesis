@@ -1,7 +1,7 @@
+import time
 from copy import deepcopy
 from abc import abstractmethod
 from typing import Tuple, List, Set
-
 from src.graph.bipartite_graph import BipartiteGraph
 
 
@@ -11,9 +11,13 @@ class AbstractHeuristic:
     def __init__(self, bipartite_graph: BipartiteGraph):
         self.bipartite_graph: BipartiteGraph = deepcopy(bipartite_graph)
         self.matching_edges: List = []
+        self.execution_time: float = 0
 
     def execute(self):
+        start_time = time.time()
         self.matching_edges = self.get_matching_edges()
+        end_time = time.time()
+        self.execution_time = round(end_time - start_time, 4)
         return self.matching_edges
 
     @abstractmethod

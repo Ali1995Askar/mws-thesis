@@ -147,5 +147,11 @@ class AssignTasksView(View):
 class MatchingStatisticsView(generic.ListView):
     template_name = "management/matching-statistics.html"
 
+    @staticmethod
+    def get_context(request):
+        context = ExecutionHistorySelectors.get_last_15_execution_history(user=request.user)
+        return context
+
     def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
+        context = self.get_context(request)
+        return render(request, f"{self.template_name}", context=context)

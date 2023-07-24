@@ -25,8 +25,8 @@ class Task(models.Model):
     level = models.CharField(max_length=50, db_index=True, choices=Level.choices)
     status = models.CharField(max_length=50, db_index=True, choices=Status.choices)
 
-    categories = models.ManyToManyField('categories.Category')
-    educations = models.ManyToManyField('educations.Education')
+    categories = models.ManyToManyField('categories.Category', blank=True)
+    educations = models.ManyToManyField('educations.Education', blank=True)
 
     assigned_to = models.ForeignKey("workers.Worker", on_delete=models.SET_NULL, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

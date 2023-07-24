@@ -23,7 +23,7 @@ class Worker(models.Model):
     email = models.EmailField(null=False, blank=False)
 
     # Career Info
-    categories = models.ManyToManyField('categories.Category')
+    categories = models.ManyToManyField('categories.Category', blank=True)
     education = models.ForeignKey('educations.Education', null=True, blank=True, on_delete=models.CASCADE)
 
     level = models.CharField(max_length=50, db_index=True, choices=Level.choices)

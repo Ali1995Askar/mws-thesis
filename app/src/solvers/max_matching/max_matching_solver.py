@@ -1,3 +1,5 @@
+import time
+
 from networkx import DiGraph
 from typing import Tuple, List, Union, Any, Type
 from src.graph.bipartite_graph import BipartiteGraph
@@ -14,6 +16,7 @@ class MaxMatchingSolver:
         self.solver: Union[MaxFLowSolver, None] = None
         self.heuristic_algorithm: Union[AbstractHeuristic, None] = None
         self.max_matching: Union[List[Tuple[Any, Any]], None] = []
+        self.execution_time: float = 0
 
     def set_bipartite_graph(self, bipartite_graph: BipartiteGraph):
         self.bipartite_graph = bipartite_graph
@@ -92,6 +95,7 @@ class MaxMatchingSolver:
         self.direct_bipartite_graph()
 
     def find_max_matching(self):
+        start_time = time.time()
         kwargs = {}
         if self.initial_flow_graph:
             kwargs.update({'initial_flow': self.initial_flow_graph})
@@ -101,6 +105,8 @@ class MaxMatchingSolver:
             for kk, vv in v.items():
                 if self.bipartite_graph.has_edge_with_positive_capacity(k, kk) and vv['flow'] == 1:
                     self.max_matching.append((k, kk))
+        end_time = time.time()
+        self.execution_time = round(end_time - start_time, 4)
 
     def print_matching_edges(self):
         print(f'Match edges:')
