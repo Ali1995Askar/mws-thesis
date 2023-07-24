@@ -25,7 +25,6 @@ class Edge:
 class MaxMatching:
     def __init__(self, user: User, heuristic_algorithm: str):
         self.user = user
-        self.graph = user.bipartitegraph
         self.heuristic_algorithm = heuristic_algorithm
         self.max_matching_solver = MaxMatchingSolver()
 

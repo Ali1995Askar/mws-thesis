@@ -1,6 +1,6 @@
 from tasks.models import Task
 from workers.models import Worker
-from management.models import Edge
+
 from django.db.models import QuerySet, Count, Subquery, Q
 
 

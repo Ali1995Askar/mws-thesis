@@ -2,7 +2,7 @@ import json
 from django.shortcuts import render
 from django.views import generic, View
 from management.services import Services
-from management.selectors import BipartiteGraphSelectors, ExecutionHistorySelectors
+from management.selectors import ExecutionHistorySelectors
 from tasks.selectors import TaskSelectors
 from workers.selectors import WorkerSelectors
 
@@ -112,7 +112,6 @@ class AssignTasksView(View):
     def get_context(request):
         tasks_counts_dict = TaskSelectors.get_tasks_count_by_status(request.user)
         workers_counts_dict = WorkerSelectors.get_workers_count_by_status(request.user)
-        graph_info_dict = BipartiteGraphSelectors.get_latest_graph_data(request.user)
         execution_history_dict = ExecutionHistorySelectors.get_latest_execution_history(request.user)
 
         context = {
@@ -123,9 +122,7 @@ class AssignTasksView(View):
             'free_workers': workers_counts_dict['FREE'],
             'occupied_workers': workers_counts_dict['OCCUPIED'],
 
-            'graph_density': graph_info_dict['graph_density'],
-            'max_degree': graph_info_dict['max_degree'],
-            'min_degree': graph_info_dict['min_degree'],
+            'graph_density': execution_history_dict['graph_density'],
 
             'matching': execution_history_dict['matching'],
             'execution_time': execution_history_dict['execution_time'],
@@ -142,8 +139,7 @@ class AssignTasksView(View):
     def post(self, request, *args, **kwargs):
         action = request.POST.get("action", "")
         action_func = Services.get_task_assigner_action_func(action)
-        print(action_func)
-        res = action_func(request=request)
+        action_func(request=request)
         context = self.get_context(request)
         return render(request, f"{self.template_name}", context)
 
