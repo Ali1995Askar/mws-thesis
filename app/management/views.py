@@ -1,5 +1,6 @@
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import generic, View
 from management.services import Services
 from management.selectors import ExecutionHistorySelectors
@@ -140,12 +141,16 @@ class AssignTasksView(View):
         action = request.POST.get("action", "")
         action_func = Services.get_task_assigner_action_func(action)
         action_func(request=request)
-        context = self.get_context(request)
-        return render(request, f"{self.template_name}", context)
+
+        if action == 'execute_algorithm':
+            return redirect(reverse('management:matching-history'))
+        else:
+            context = self.get_context(request)
+            return render(request, f"{self.template_name}", context)
 
 
-class MatchingStatisticsView(generic.ListView):
-    template_name = "management/matching-statistics.html"
+class MatchingHistoryView(generic.ListView):
+    template_name = "management/matching-history.html"
 
     @staticmethod
     def get_context(request):
