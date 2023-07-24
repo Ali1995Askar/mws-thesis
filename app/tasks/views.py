@@ -26,6 +26,7 @@ class TaskCreateView(generic.CreateView):
     template_name = "tasks/create_task.html"
 
     def form_valid(self, form):
+        print('ssssssssssssssssssssssssssssssssssssssssssss')
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
@@ -37,6 +38,7 @@ class TaskCreateView(generic.CreateView):
         return kwargs
 
     def get_success_url(self):
+        print('3333333333333333333333333333333333333333')
         return reverse("tasks:list")
 
 

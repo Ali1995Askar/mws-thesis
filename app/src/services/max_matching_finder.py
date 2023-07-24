@@ -1,6 +1,4 @@
 import time
-
-from management.models import ExecutionHistory, MaxMatching as MaxMatchingModel, HeuristicMatching
 from tasks.models import Task
 from dataclasses import dataclass
 from workers.models import Worker
@@ -12,6 +10,7 @@ from django.contrib.auth.models import User
 from src.graph.bipartite_graph import BipartiteGraph
 from src.solvers.max_matching.max_matching_solver import MaxMatchingSolver
 from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from management.models import ExecutionHistory, MaxMatching as MaxMatchingModel, HeuristicMatching
 
 
 @dataclass
@@ -31,48 +30,30 @@ class MaxMatching:
         self.max_matching_solver = MaxMatchingSolver()
 
     def execute(self):
+        base_start_time = time.time()
         free_workers = self.get_free_workers()
         open_tasks = self.get_open_tasks()
         edges = self.get_edges(open_tasks)
         bipartite_graph = self.prepare_graph(workers=free_workers, tasks=open_tasks, edges=edges)
         heuristic_solver = self.get_heuristic_solver()
+        start_time = time.time()
         self.solve(heuristic_solver=heuristic_solver, bipartite_graph=bipartite_graph)
+        end_time = time.time()
+        print(f'solve took {end_time - start_time}')
         self.update_nodes_status()
         max_matching_history = self.save_max_matching_model(execution_time=0.1)
         heuristic_matching_history = self.save_heuristic_matching_model(heuristic_matching_edges=[], execution_time=0.1)
-        self.save_heuristic_matching_model(max_matching_history, heuristic_matching_history)
+        self.save_execution_history(max_matching_history, heuristic_matching_history)
+        base_end_time = time.time()
+        print(f'execute took {base_end_time - base_start_time}')
 
     def solve(self, heuristic_solver: Type[AbstractHeuristic], bipartite_graph: BipartiteGraph):
-        print('SOLVE')
-        start_time = time.time()
         self.max_matching_solver.set_bipartite_graph(bipartite_graph)
-        end_time = time.time()
-        print(f'set_bipartite_graph took {end_time - start_time}')
-
-        start_time = time.time()
         self.max_matching_solver.reduce_to_max_flow()
-        end_time = time.time()
-        print(f'reduce_to_max_flow took {end_time - start_time}')
-
-        # start_time = time.time()
         # self.max_matching_solver.init_heuristic_algorithm(heuristic_solver)
-        # end_time = time.time()
-        # print(f'init_heuristic_algorithm took {end_time - start_time}')
-
-        # start_time = time.time()
         # self.max_matching_solver.build_initial_flow()
-        # end_time = time.time()
-        # print(f'build_initial_flow took {end_time - start_time}')
-
-        start_time = time.time()
         self.max_matching_solver.init_ford_fulkerson_solver()
-        end_time = time.time()
-        print(f'init_ford_fulkerson_solver took {end_time - start_time}')
-
-        start_time = time.time()
         self.max_matching_solver.find_max_matching()
-        end_time = time.time()
-        print(f'find_max_matching took {end_time - start_time}')
 
     def get_free_workers(self) -> List[str]:
         free_workers = Worker.objects.filter(user=self.user, status=Worker.Status.FREE).values_list('id', flat=True)
@@ -92,8 +73,6 @@ class MaxMatching:
                 edge_obj = Edge(worker_id=f'worker-{connected_worker.id}', task_id=f'task-{task.id}')
                 edge = edge_obj.as_tuple()
                 edges.append(edge)
-
-        edges = list(edges)
         return edges
 
     def get_heuristic_solver(self):
@@ -122,8 +101,8 @@ class MaxMatching:
         Worker.objects.filter(id__in=workers_ids).update(status=Worker.Status.OCCUPIED)
 
     def save_max_matching_model(self, execution_time):
-        max_matching = HeuristicMatching.objects.create(
-            heuristic_matching_edges=self.max_matching_solver.get_max_matching_edges(),
+        max_matching = MaxMatchingModel.objects.create(
+            max_matching_edges=self.max_matching_solver.get_max_matching_edges(),
             execution_time=execution_time,
             max_matching=self.max_matching_solver.get_matching_value(),
 

@@ -1,8 +1,8 @@
 from networkx import DiGraph
 from typing import Tuple, List, Union, Any, Type
-from app.src.graph.bipartite_graph import BipartiteGraph
-from app.src.solvers.max_flow.max_flow_solver import MaxFLowSolver
-from app.src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
+from src.graph.bipartite_graph import BipartiteGraph
+from src.solvers.max_flow.max_flow_solver import MaxFLowSolver
+from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
 class MaxMatchingSolver:

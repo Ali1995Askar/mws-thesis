@@ -142,6 +142,7 @@ class AssignTasksView(View):
     def post(self, request, *args, **kwargs):
         action = request.POST.get("action", "")
         action_func = Services.get_task_assigner_action_func(action)
+        print(action_func)
         res = action_func(request=request)
         context = self.get_context(request)
         return render(request, f"{self.template_name}", context)

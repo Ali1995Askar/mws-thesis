@@ -104,40 +104,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Graph / Algorithm Actions</h5>
                         <form method="post" action="{% url 'management:task-assigner' %}" class="row g-3">
-
                             {% csrf_token %}
                             <input type="hidden" id="actionValue" name="action" value="">
-
-                            <div class="col-md-3">
-                                <div class="d-grid gap-2 ">
-                                    <button class="btn btn-dark"
-                                            onclick="setActionValue('build_graph')"
-                                            type="submit">
-                                        Build Graph
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-4"></div>
-                            <div class="col-md-3">
-                                <div class="d-grid gap-2 ">
-                                    <button
-                                            class="btn btn-warning"
-                                            onclick="setActionValue('clear_assigned_tasks')"
-                                            type="submit">
-                                        Clear Assigned Tasks
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="d-grid gap-2 ">
-                                    <button
-                                            class="btn btn-danger"
-                                            onclick="setActionValue('mark_tasks_done')"
-                                            type="submit">
-                                        Mark Tasks Done
-                                    </button>
-                                </div>
-                            </div>
                             <div class="col-md-3">
                                 <div class="d-grid gap-2">
                                     <select name='heuristic_algorithm'
@@ -160,6 +128,27 @@
                                             class="btn btn-primary"
                                             onclick="setActionValue('execute_algorithm')"
                                             type="submit">Execute Algorithm
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-7"></div>
+                            <div class="col-md-3">
+                                <div class="d-grid gap-2 ">
+                                    <button
+                                            class="btn btn-warning"
+                                            onclick="setActionValue('clear_assigned_tasks')"
+                                            type="submit">
+                                        Clear Assigned Tasks
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="d-grid gap-2 ">
+                                    <button
+                                            class="btn btn-danger"
+                                            onclick="setActionValue('mark_tasks_done')"
+                                            type="submit">
+                                        Mark Tasks Done
                                     </button>
                                 </div>
                             </div>

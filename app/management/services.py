@@ -1,4 +1,5 @@
 from management.factories import Factory
+from src.services.max_matching_finder import MaxMatching
 from tasks.selectors import TaskSelectors
 
 
@@ -12,9 +13,8 @@ class Services:
     @staticmethod
     def execute_algorithm(request):
         heuristic_algorithm = request.POST['heuristic_algorithm']
-        heuristic_inst = Factory.get_algorithms(heuristic_algorithm)
-        print(heuristic_inst)
-        print(heuristic_algorithm)
+        solver = MaxMatching(user=request.user, heuristic_algorithm=heuristic_algorithm)
+        solver.execute()
 
     @staticmethod
     def clear_assigned_tasks(request):

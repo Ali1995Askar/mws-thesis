@@ -1,7 +1,6 @@
 from networkx import Graph
 from typing import Tuple, Dict, Any
-from abc import abstractmethod
-from app.src.solvers.max_flow.ford_fulkerson import ford_fulkerson
+from src.solvers.max_flow.ford_fulkerson import ford_fulkerson
 
 
 class MaxFLowSolver:

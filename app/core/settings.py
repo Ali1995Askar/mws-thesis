@@ -88,7 +88,7 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DJANGO_LOG_FILE = env.str("DJANGO_LOG_FILE", "../logs/server.log")
+DJANGO_LOG_FILE = env.str("DJANGO_LOG_FILE", os.path.join(BASE_DIR, 'mws-thesis/logs', 'server.log'))
 os.makedirs(os.path.dirname(DJANGO_LOG_FILE), exist_ok=True)
 
 STATIC_URL = '/static/'
@@ -125,4 +125,4 @@ DATABASES = {
     }
 }
 
-DISPATCH_ENABLED = False
+DISPATCH_ENABLED = True  # False
