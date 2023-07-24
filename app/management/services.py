@@ -1,4 +1,5 @@
 from management.factories import Factory
+from tasks.selectors import TaskSelectors
 
 
 class Services:
@@ -17,13 +18,11 @@ class Services:
 
     @staticmethod
     def clear_assigned_tasks(request):
-        print(request.POST)
-        print('clear_assigned_tasks')
+        TaskSelectors.update_progress_tasks_to_open(user=request.user)
 
     @staticmethod
     def mark_tasks_done(request):
-        print(request.POST)
-        print('mark_tasks_done')
+        TaskSelectors.update_progress_tasks_to_done(user=request.user)
 
     @staticmethod
     def get_task_assigner_action_func(action: str):

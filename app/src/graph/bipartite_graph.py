@@ -54,3 +54,7 @@ class BipartiteGraph(Graph):
             edges.append((j, i, {'capacity': 1}))
 
         self.build_manually(nodes=list(nodes), edges=edges)
+
+    def print(self):
+        for edge in self.graph.edges:
+            print(edge)

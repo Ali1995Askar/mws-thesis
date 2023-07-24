@@ -14,7 +14,6 @@ class AbstractHeuristic:
 
     def execute(self):
         self.matching_edges = self.get_matching_edges()
-        # initial_flow_network = self.build_initial_flow()
         return self.matching_edges
 
     @abstractmethod

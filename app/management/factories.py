@@ -1,3 +1,4 @@
+from typing import Type
 from src.solvers.max_matching.heuristics.modified_greedy import ModifiedGreedy
 from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 from src.solvers.max_matching.heuristics.min_degree.limit import LimitMinDegreeHeuristic
@@ -20,5 +21,5 @@ class Factory:
     }
 
     @staticmethod
-    def get_algorithms(algorithm_name: str) -> AbstractHeuristic:
+    def get_algorithms(algorithm_name: str) -> Type[AbstractHeuristic]:
         return Factory.algorithms[algorithm_name.upper()]

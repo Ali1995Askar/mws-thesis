@@ -50,7 +50,7 @@ def react_category(pytech_user) -> Category:
 @pytest.mark.django_db(transaction=True)
 def pytech_user_categories(pytech_user) -> QuerySet[Category]:
     objects = []
-    for i in range(100):
+    for i in range(10000):
         name = f'category_{i}'
         obj = Category(user=pytech_user, name=name)
         objects.append(obj)

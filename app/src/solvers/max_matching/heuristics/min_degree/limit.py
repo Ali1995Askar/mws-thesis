@@ -16,9 +16,6 @@ class LimitMinDegreeHeuristic(AbstractHeuristic):
         limit_val = (max_tuple[1] - min_tuple[1]) // 2
 
         if min_tuple[1] > max_tuple[1]:
-            print(degrees)
-            print(max_tuple)
-            print(min_tuple)
             raise Exception
 
         return limit_val

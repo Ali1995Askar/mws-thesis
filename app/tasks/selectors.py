@@ -1,7 +1,7 @@
 from tasks.models import Task
 from workers.models import Worker
 from management.models import Edge
-from django.db.models import QuerySet, OuterRef, Subquery, Count, Exists, Q
+from django.db.models import QuerySet, OuterRef, Subquery, Count, Exists, Q, Prefetch
 
 
 class TaskSelectors:
@@ -30,6 +30,26 @@ class TaskSelectors:
         return connected_workers
 
     @staticmethod
+    def get_connected_workers_for_all_tasks() -> dict:
+        # Fetch all tasks and their connected workers using prefetch_related and annotations
+        tasks = Task.objects.all().prefetch_related(
+            Prefetch(
+                'user__worker_set',
+                queryset=Worker.objects.annotate(
+                    category_count=Count('categories')
+                ),
+                to_attr='connected_workers'
+            )
+        )
+
+        # Build a dictionary to store the results {'task': [connected_workers]}
+        result = {}
+        for task in tasks:
+            result[task] = task.connected_workers
+
+        return result
+
+    @staticmethod
     def get_tasks_count_by_status(user):
         status_choices = Task.Status.choices
 
@@ -44,3 +64,15 @@ class TaskSelectors:
                 status_dict[choice] = 0
 
         return status_dict
+
+    @staticmethod
+    def update_progress_tasks_to_open(user) -> None:
+        tasks_in_progress = Task.objects.filter(user=user, status=Task.Status.PROGRESS)
+        tasks_in_progress.update(assigned_to=None, status=Task.Status.OPEN)
+        Worker.objects.filter(user=user).update(status=Worker.Status.FREE)
+
+    @staticmethod
+    def update_progress_tasks_to_done(user) -> None:
+        tasks_in_progress = Task.objects.filter(user=user, status=Task.Status.PROGRESS)
+        tasks_in_progress.update(status=Task.Status.DONE)
+        Worker.objects.filter(user=user).update(status=Worker.Status.FREE)

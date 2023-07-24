@@ -40,7 +40,7 @@ class MaxMatchingSolver:
             residual_network[u]['source']['flow'] -= 1
             residual_network['sink'][v]['flow'] -= 1
 
-        return residual_network
+        self.initial_flow_graph = residual_network
 
     def init_heuristic_algorithm(self, heuristic_algorithm: Type[AbstractHeuristic]):
         self.heuristic_algorithm = heuristic_algorithm(bipartite_graph=self.bipartite_graph)
@@ -94,7 +94,7 @@ class MaxMatchingSolver:
     def find_max_matching(self):
         kwargs = {}
         if self.initial_flow_graph:
-            kwargs.update({'initial_solution': self.initial_flow_graph})
+            kwargs.update({'initial_flow': self.initial_flow_graph})
 
         _, flow_network = self.solver.find_max_flow(**kwargs)
         for k, v in flow_network.items():

@@ -2,6 +2,7 @@ import networkx as nx
 from networkx.algorithms.flow.utils import build_residual_network
 
 __all__ = ["ford_fulkerson"]
+counter = 0
 
 
 def ford_fulkerson_core(R, s, t, cutoff):
@@ -30,6 +31,8 @@ def ford_fulkerson_core(R, s, t, cutoff):
         return flow
 
     def dfs():
+        global counter
+        counter += 1
         # print('Regular breadth-first search for an augmenting path.')
         """Regular breadth-first search for an augmenting path."""
         pred = {s: None}
@@ -96,4 +99,8 @@ def ford_fulkerson(
 ):
     R = ford_fulkerson_impl(G, s, t, capacity, residual, cutoff)
     R.graph["algorithm"] = "ford_fulkerson"
+    print(residual)
+    global counter
+    print('Counter ', counter)
+    counter = 0
     return R
