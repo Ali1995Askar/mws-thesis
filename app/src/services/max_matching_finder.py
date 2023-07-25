@@ -1,23 +1,12 @@
-import time
+from typing import Type
 from tasks.models import Task
-from dataclasses import dataclass
 from workers.models import Worker
-from typing import List, Tuple, Type
 from management.factories import Factory
 from django.contrib.auth.models import User
 from src.graph.bipartite_graph import BipartiteGraph
 from src.solvers.max_matching.max_matching_solver import MaxMatchingSolver
 from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 from management.models import ExecutionHistory, MaxMatching as MaxMatchingModel, HeuristicMatching
-
-
-@dataclass
-class Edge:
-    worker_id: str
-    task_id: str
-
-    def as_tuple(self) -> Tuple[str, str]:
-        return self.worker_id, self.task_id
 
 
 class MaxMatching:

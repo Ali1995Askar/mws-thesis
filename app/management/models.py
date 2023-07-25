@@ -14,6 +14,7 @@ class HeuristicMatching(models.Model):
 
         MODIFIED_GREEDY = 'MODIFIED_GREEDY'
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     heuristic_matching_edges = models.JSONField(null=True, blank=True)
     execution_time = models.FloatField(null=False, blank=False)
     heuristic_matching = models.IntegerField(null=False, blank=False)
@@ -26,6 +27,7 @@ class HeuristicMatching(models.Model):
 
 
 class MaxMatching(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     max_matching_edges = models.JSONField(null=True, blank=True)
     execution_time = models.FloatField(null=False, blank=False)
     max_matching = models.IntegerField(null=False, blank=False)

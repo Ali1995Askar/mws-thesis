@@ -1,6 +1,5 @@
 from tasks.models import Task
 from workers.models import Worker
-
 from django.db.models import QuerySet, Count, Subquery, Q
 
 

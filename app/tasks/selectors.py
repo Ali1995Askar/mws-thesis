@@ -1,6 +1,12 @@
+from typing import Dict
+
+from django.contrib.auth.models import User
+
+from categories.models import Category
+from educations.models import Education
 from tasks.models import Task
 from workers.models import Worker
-from django.db.models import QuerySet, OuterRef, Subquery, Count, Exists, Q, Prefetch
+from django.db.models import QuerySet, Subquery, Count, Prefetch, OuterRef
 
 
 class TaskSelectors:
@@ -23,6 +29,38 @@ class TaskSelectors:
             connected_workers = connected_workers.filter(education__in=task_educations)
 
         return connected_workers
+
+    @staticmethod
+    def get_tasks_with_connected_workers(user: User) -> Dict[Task, QuerySet[Worker]]:
+        task_categories = Task.objects.filter(user=user).annotate(
+            category_pk=Subquery(Category.objects.filter(task=OuterRef('pk')).values('pk')[:1])
+        ).values('category_pk')
+
+        task_educations = Task.objects.filter(user=user).annotate(
+            education_pk=Subquery(Education.objects.filter(task=OuterRef('pk')).values('pk')[:1])
+        ).values('education_pk')
+
+        tasks = Task.objects.filter(user=user)
+        connected_workers_dict = {}
+
+        for task in tasks:
+            connected_workers_qs = Worker.objects.filter(user=user)
+
+            if task_categories.filter(category_pk=task.pk).exists():
+                connected_workers_qs = connected_workers_qs.filter(
+                    categories__in=Subquery(task_categories.filter(category_pk=task.pk))
+                ).annotate(
+                    category_count=Count('categories')
+                ).filter(category_count=task.categories.count())
+
+            if task_educations.filter(education_pk=task.pk).exists():
+                connected_workers_qs = connected_workers_qs.filter(
+                    education__in=Subquery(task_educations.filter(education_pk=task.pk))
+                )
+
+            connected_workers_dict[task] = connected_workers_qs
+
+        return connected_workers_dict
 
     @staticmethod
     def get_connected_workers_for_all_tasks() -> dict:

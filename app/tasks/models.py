@@ -34,7 +34,5 @@ class Task(models.Model):
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on_datetime = models.DateTimeField(auto_now=True, db_index=True)
 
-    connected_workers = models.ManyToManyField('workers.Worker', related_name='tasks', blank=True)
-
     def __str__(self):
         return f'{self.title}'

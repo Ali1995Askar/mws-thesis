@@ -42,12 +42,22 @@ class TestMaxMatchingFinder:
         # print(res)
 
     @pytest.mark.django_db(transaction=True)
-    def test_execute_2(self, pytech_user, pytech_user_workers, pytech_user_tasks):
-        start = time.time()
-        graph_builder = GraphBuilder(user=pytech_user)
-        graph = graph_builder.get_bipartite_graph()
-        end = time.time()
-        print(end - start)
+    def test_execute_2(self, pytech_user, aws_category, pytech_user_workers, pytech_user_tasks):
+        # start = time.time()
+        # graph_builder = GraphBuilder(user=pytech_user)
+        # graph = graph_builder.get_bipartite_graph()
+        # end = time.time()
+        # print(end - start)
+        s: Task = pytech_user_tasks.first()
+        s.categories.add(aws_category)
+        d = TaskSelectors.get_tasks_with_connected_workers(user=pytech_user)
+        d = list(d.values())
+        v = d[0]
+        assert len(v) == 0
+        v = d[1]
+        assert len(v) == len(pytech_user_workers)
+        v = d[2]
+        assert len(v) == len(pytech_user_workers)
 
         # solver = MaxMatching(user=pytech_user, heuristic_algorithm='limit_min_degree', graph=graph)
         # solver.execute()

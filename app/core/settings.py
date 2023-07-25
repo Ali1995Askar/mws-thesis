@@ -125,4 +125,4 @@ DATABASES = {
     }
 }
 
-DISPATCH_ENABLED = True  # False
+DISPATCH_ENABLED = False  # False
