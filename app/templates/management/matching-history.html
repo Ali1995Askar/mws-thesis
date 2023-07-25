@@ -28,45 +28,30 @@
                             <div id="lineChart"></div>
 
                             <script>
+                                let timeDictJsonString = '{{ time_dict|escapejs|safe }}';
+                                let timeDictParsedData = JSON.parse(timeDictJsonString);
+                                let timeDictLabels = [];
+                                let heuristicMatchingTime = [];
+                                let maxMatchingTime = [];
+
+                                for (let i = 0; i < timeDictParsedData.length; i++) {
+                                    timeDictLabels.push(timeDictParsedData[i].graph_density.toString());
+                                    heuristicMatchingTime.push(timeDictParsedData[i].heuristic_matching);
+                                    maxMatchingTime.push(timeDictParsedData[i].max_matching);
+
+                                }
+
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#lineChart"), {
-                                        series: [{
-                                            name: "Max-Matching",
-                                            data: [
-                                                10,
-                                                41,
-                                                35,
-                                                51,
-                                                49,
-                                                62,
-                                                69,
-                                                91,
-                                                148,
-                                                121,
-
-                                                35,
-                                                41,
-                                                35,
-                                                51,
-                                                49,
-                                                62,
-                                                69,
-                                                91,
-                                                148,
-                                                121,
-
-                                                35,
-                                                41,
-                                                35,
-                                                51,
-                                                49,
-                                                62,
-                                                69,
-                                                91,
-                                                148,
-                                                121,
-                                            ]
-                                        },
+                                        series: [
+                                            {
+                                                name: "Max-Matching",
+                                                data: maxMatchingTime
+                                            },
+                                            {
+                                                name: "Heuristic-Matching",
+                                                data: heuristicMatchingTime
+                                            },
 
                                         ],
                                         chart: {
@@ -89,41 +74,15 @@
                                             },
                                         },
                                         xaxis: {
-                                            categories: [
-                                                '25-09',
-                                                '26-09',
-                                                '27-09',
-                                                '28-09',
-                                                '29-09',
-                                                '01-10',
-                                                '02-10',
-                                                '03-10',
-                                                '04-10',
-                                                '05-10',
-
-                                                '25-11',
-                                                '26-12',
-                                                '27-01',
-                                                '28-01',
-                                                '29-01',
-                                                '01-02',
-                                                '02-02',
-                                                '03-02',
-                                                '04-02',
-                                                '05-02',
-
-                                                '25-03',
-                                                '26-03',
-                                                '27-03',
-                                                '28-03',
-                                                '29-03',
-                                                '01-04',
-                                                '02-04',
-                                                '03-04',
-                                                '04-04',
-                                                '05-04',
-
-                                            ],
+                                            title: {
+                                                text: 'Graph Density'
+                                            },
+                                            categories: timeDictLabels,
+                                        },
+                                        yaxis: {
+                                            title: {
+                                                text: 'Run-Time (s)'
+                                            },
                                         }
                                     }).render();
                                 });
@@ -140,82 +99,27 @@
                             <div id="columnChart"></div>
 
                             <script>
+                                let accuracyDictJsonString = '{{ accuracy_dict|escapejs|safe }}';
+                                let accuracyParsedData = JSON.parse(accuracyDictJsonString);
+                                let accuracyLabels = [];
+                                let heuristicMatching = [];
+                                let maxMatching = [];
+
+                                for (let i = 0; i < accuracyParsedData.length; i++) {
+                                    accuracyLabels.push(accuracyParsedData[i].graph_density.toString());
+                                    heuristicMatching.push(accuracyParsedData[i].heuristic_matching);
+                                    maxMatching.push(accuracyParsedData[i].max_matching);
+                                }
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#columnChart"), {
                                         series: [
                                             {
                                                 name: 'Heuristic Matching',
-                                                data: [
-                                                    70,
-                                                    80,
-                                                    100,
-                                                    94,
-                                                    86,
-                                                    104,
-                                                    90,
-                                                    112,
-                                                    92,
-                                                    72,
-
-                                                    70,
-                                                    80,
-                                                    100,
-                                                    94,
-                                                    86,
-                                                    104,
-                                                    90,
-                                                    112,
-                                                    92,
-                                                    72,
-
-                                                    70,
-                                                    80,
-                                                    100,
-                                                    94,
-                                                    86,
-                                                    104,
-                                                    90,
-                                                    112,
-                                                    92,
-                                                    72,
-                                                ]
+                                                data: heuristicMatching
                                             },
                                             {
                                                 name: 'Max Matching',
-                                                data: [
-                                                    76,
-                                                    85,
-                                                    101,
-                                                    98,
-                                                    87,
-                                                    105,
-                                                    91,
-                                                    114,
-                                                    94,
-                                                    62,
-
-                                                    76,
-                                                    85,
-                                                    101,
-                                                    98,
-                                                    87,
-                                                    105,
-                                                    91,
-                                                    114,
-                                                    94,
-                                                    62,
-
-                                                    76,
-                                                    85,
-                                                    101,
-                                                    98,
-                                                    87,
-                                                    105,
-                                                    91,
-                                                    114,
-                                                    94,
-                                                    62,
-                                                ]
+                                                data: maxMatching
                                             },
                                         ],
                                         chart: {
@@ -238,45 +142,14 @@
                                             colors: ['transparent']
                                         },
                                         xaxis: {
-                                            categories: [
-                                                '25-09',
-                                                '26-09',
-                                                '27-09',
-                                                '28-09',
-                                                '29-09',
-                                                '01-10',
-                                                '02-10',
-                                                '03-10',
-                                                '04-10',
-                                                '05-10',
-
-                                                '25-11',
-                                                '26-12',
-                                                '27-01',
-                                                '28-01',
-                                                '29-01',
-                                                '01-02',
-                                                '02-02',
-                                                '03-02',
-                                                '04-02',
-                                                '05-02',
-
-                                                '25-03',
-                                                '26-03',
-                                                '27-03',
-                                                '28-03',
-                                                '29-03',
-                                                '01-04',
-                                                '02-04',
-                                                '03-04',
-                                                '04-04',
-                                                '05-04',
-
-                                            ],
+                                            title: {
+                                                text: 'Graph Density'
+                                            },
+                                            categories: accuracyLabels,
                                         },
                                         yaxis: {
                                             title: {
-                                                text: '$ (thousands)'
+                                                text: 'Matching Result'
                                             }
                                         },
                                         fill: {
@@ -302,7 +175,8 @@
             <div class="row">
                 <div class="col-xxl-12 col-md-12">
                     <div class="card top-selling overflow-auto">
-                        <div class="card-body pb-0">
+
+                        <div class="card-body pb-0">execution_time_data
                             <h5 class="card-title">Execution History <span>| Last 15 Records</span></h5>
                             <table class="table table-borderless">
                                 <thead>

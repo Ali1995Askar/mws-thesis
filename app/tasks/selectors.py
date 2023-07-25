@@ -4,10 +4,6 @@ from django.db.models import QuerySet, OuterRef, Subquery, Count, Exists, Q, Pre
 
 
 class TaskSelectors:
-    @staticmethod
-    def delete_related_task_edges(task: Task) -> None:
-        edges = Edge.objects.filter(user=task.user, task=task)
-        edges.delete()
 
     @staticmethod
     def get_connected_workers(task: Task) -> QuerySet[Worker]:

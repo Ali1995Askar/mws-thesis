@@ -104,7 +104,7 @@ def task_hire_new_employee(pytech_user) -> Task:
 @pytest.mark.django_db(transaction=True)
 def pytech_user_tasks(pytech_user) -> QuerySet[Task]:
     objects = []
-    for i in range(200):
+    for i in range(3000):
         title = f'task_title_{i}'
         description = f'task_description_{i}'
         obj = Task.objects.create(title=title,

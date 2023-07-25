@@ -4,9 +4,6 @@ from workers.selectors import WorkerSelectors
 
 
 class TestWorkerSelectors:
-    @pytest.mark.django_db(transaction=True)
-    def test_delete_related_worker_edges(self, worker_omar):
-        WorkerSelectors.delete_related_worker_edges(worker=worker_omar)
 
     @pytest.mark.django_db(transaction=True)
     def test_get_connected_tasks(self,

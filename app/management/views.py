@@ -154,7 +154,7 @@ class MatchingHistoryView(generic.ListView):
 
     @staticmethod
     def get_context(request):
-        context = ExecutionHistorySelectors.get_last_15_execution_history(user=request.user)
+        context = ExecutionHistorySelectors.get_last_15_execution_history_statistics(user=request.user)
         return context
 
     def get(self, request, *args, **kwargs):

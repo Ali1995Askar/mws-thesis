@@ -1,15 +1,6 @@
 import pytest
 
 
-class TestEdgeModel:
-    @pytest.mark.django_db(transaction=True)
-    def test_model(self, edge_pytech_fix_tests):
-        inst = edge_pytech_fix_tests
-        assert inst.pk
-        assert inst.__str__()
-        inst.delete()
-
-
 class TestHeuristicMatchingModel:
     @pytest.mark.django_db(transaction=True)
     def test_model(self, heuristic_matching_1):
@@ -38,5 +29,5 @@ class TestExecutionHistoryModel:
         inst.max_matching = None
         inst.save()
         assert inst.max_matching is None
-        
+
         inst.delete()

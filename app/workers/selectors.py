@@ -5,10 +5,6 @@ from django.db.models import QuerySet, Count, Subquery, Q
 
 
 class WorkerSelectors:
-    @staticmethod
-    def delete_related_worker_edges(worker: Worker):
-        edges = Edge.objects.filter(worker=worker)
-        edges.delete()
 
     @staticmethod
     def get_connected_tasks(worker: Worker) -> QuerySet[Task]:

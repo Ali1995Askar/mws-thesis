@@ -79,7 +79,7 @@ class MaxMatching:
         return heuristic_matching
 
     def save_execution_history(self, max_matching_model: MaxMatchingModel, heuristic_matching_model: HeuristicMatching):
-        graph_density = self.max_matching_solver.get_graph_density()
+        graph_density = 0.002
         execution_history = ExecutionHistory.objects.create(
             user=self.user,
             max_matching=max_matching_model,
