@@ -1,5 +1,5 @@
 import time
-from copy import deepcopy
+from copy import deepcopy, copy
 from abc import abstractmethod
 from typing import Tuple, List, Set
 from src.graph.bipartite_graph import BipartiteGraph
@@ -9,7 +9,8 @@ class AbstractHeuristic:
     source_sink = ['source', 'sink']
 
     def __init__(self, bipartite_graph: BipartiteGraph):
-        self.bipartite_graph: BipartiteGraph = deepcopy(bipartite_graph)
+        # self.bipartite_graph: BipartiteGraph = deepcopy(bipartite_graph)
+        self.bipartite_graph: BipartiteGraph = bipartite_graph.get_instance_copy()
         self.matching_edges: List = []
         self.execution_time: float = 0
 

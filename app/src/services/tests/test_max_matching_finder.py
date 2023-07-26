@@ -11,54 +11,30 @@ from tasks.selectors import TaskSelectors
 class TestMaxMatchingFinder:
     @pytest.mark.django_db(transaction=True)
     def test_execute(self, pytech_user, task_fix_tests, task_send_emails, worker_omar, aws_category, worker_ahmad):
-        task_fix_tests.categories.add(aws_category)
-        print(worker_omar.status)
-        print(worker_ahmad.status)
-        print(task_fix_tests.status)
-        print(task_send_emails.status)
-        print(task_fix_tests.assigned_to)
-        print(task_send_emails.assigned_to)
-        print(worker_omar.task_set.all())
-        print(worker_ahmad.task_set.all())
         graph_builder = GraphBuilder(user=pytech_user)
         graph = graph_builder.get_bipartite_graph()
         solver = MaxMatching(user=pytech_user, heuristic_algorithm='limit_min_degree', graph=graph)
         solver.execute()
-        print('==================================')
-        worker_omar.refresh_from_db()
-        worker_ahmad.refresh_from_db()
-        task_fix_tests.refresh_from_db()
-        task_send_emails.refresh_from_db()
-        print(worker_omar.status)
-
-        print(worker_ahmad.status)
-        print(task_fix_tests.status)
-        print(task_send_emails.status)
-        print(task_fix_tests.assigned_to)
-        print(task_send_emails.assigned_to)
-        print(worker_omar.task_set.all())
-        print(worker_ahmad.task_set.all())
-        # res = TaskSelectors.get_connected_workers_for_all_tasks()
-        # print(res)
+        print(solver.max_matching_solver.get_max_matching_edges())
 
     @pytest.mark.django_db(transaction=True)
     def test_execute_2(self, pytech_user, aws_category, pytech_user_workers, pytech_user_tasks):
-        # start = time.time()
-        # graph_builder = GraphBuilder(user=pytech_user)
-        # graph = graph_builder.get_bipartite_graph()
-        # end = time.time()
-        # print(end - start)
-        s: Task = pytech_user_tasks.first()
-        s.categories.add(aws_category)
-        d = TaskSelectors.get_tasks_with_connected_workers(user=pytech_user)
-        d = list(d.values())
-        v = d[0]
-        assert len(v) == 0
-        v = d[1]
-        assert len(v) == len(pytech_user_workers)
-        v = d[2]
-        assert len(v) == len(pytech_user_workers)
+        start = time.time()
+        graph_builder = GraphBuilder(user=pytech_user)
+        graph = graph_builder.get_bipartite_graph()
+        end = time.time()
+        print(end - start)
+        start = time.time()
+        solver = MaxMatching(user=pytech_user, heuristic_algorithm='static_min_degree', graph=graph)
+        solver.execute()
+        end = time.time()
+        print(end - start)
+        print(graph_builder.graph_density)
+        print(solver.max_matching_solver.get_matching_value())
 
-        # solver = MaxMatching(user=pytech_user, heuristic_algorithm='limit_min_degree', graph=graph)
-        # solver.execute()
-        # print(solver.max_matching_solver.get_matching_value())
+    # """
+    #  set_bipartite_graph 4.748383283615112
+    #  reduce_to_max_flow 6.089530944824219
+    #  init_heuristic_algorithm 4.552169561386108
+    #  build_initial_flow 4.811524868011475
+    # """

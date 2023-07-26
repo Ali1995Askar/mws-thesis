@@ -11,12 +11,13 @@ class LimitMinDegreeHeuristic(AbstractHeuristic):
 
     def get_limit_value(self) -> int:
         degrees = list(self.bipartite_graph.graph.out_degree)
-        max_tuple = max(degrees, key=lambda x: x[1])
-        min_tuple = min(degrees, key=lambda x: x[1])
-        limit_val = (max_tuple[1] - min_tuple[1]) // 2
+        if degrees:
+            max_tuple = max(degrees, key=lambda x: x[1])
+            min_tuple = min(degrees, key=lambda x: x[1])
+            limit_val = (max_tuple[1] - min_tuple[1]) // 2
 
-        if min_tuple[1] > max_tuple[1]:
-            raise Exception
+        else:
+            limit_val = 0
 
         return limit_val
 

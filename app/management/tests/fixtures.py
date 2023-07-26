@@ -8,6 +8,7 @@ from management import models
 @pytest.mark.django_db(transaction=True)
 def heuristic_matching_1(pytech_user, task_fix_tests, worker_ali_askar) -> models.HeuristicMatching:
     heuristic_matching = models.HeuristicMatching.objects.create(
+        user=pytech_user,
         execution_time=1.5,
         heuristic_matching=0,
         heuristic_algorithm=models.HeuristicMatching.HeuristicAlgorithm.STATIC_MIN_DEGREE.value
@@ -19,6 +20,7 @@ def heuristic_matching_1(pytech_user, task_fix_tests, worker_ali_askar) -> model
 @pytest.mark.django_db(transaction=True)
 def max_matching_1(pytech_user, task_fix_tests, worker_ali_askar) -> models.MaxMatching:
     max_matching = models.MaxMatching.objects.create(
+        user=pytech_user,
         execution_time=1.5,
         max_matching=0,
     )

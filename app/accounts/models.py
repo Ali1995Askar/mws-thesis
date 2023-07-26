@@ -13,8 +13,8 @@ class Profile(models.Model):
     address = models.CharField(max_length=255, blank=True, null=True)
     logo = models.ImageField(upload_to='images/companies-logos', blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, null=False, blank=True)
-    about = models.CharField(max_length=500, null=False, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+    about = models.CharField(max_length=500, null=True, blank=True)
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, null=True)
 
     created_on_datetime = models.DateTimeField(auto_now_add=True, db_index=True)

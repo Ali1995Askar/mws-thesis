@@ -1,6 +1,11 @@
+from typing import List
+
+from django.contrib.auth.models import User
+
 from tasks.models import Task
 from workers.models import Worker
-from django.db.models import QuerySet, Count, Subquery, Q
+from django.db.models.functions import Concat
+from django.db.models import QuerySet, Subquery, Count, OuterRef, CharField, Value, F
 
 
 class WorkerSelectors:
@@ -14,7 +19,7 @@ class WorkerSelectors:
         return connected_tasks
 
     @staticmethod
-    def get_workers_count_by_status(user):
+    def get_workers_count_by_status(user: User):
         status_choices = Worker.Status.choices
 
         workers_status_counts = Worker.objects.filter(
@@ -27,3 +32,13 @@ class WorkerSelectors:
                 status_dict[choice] = 0
 
         return status_dict
+
+    @staticmethod
+    def get_free_workers_with_annotated_id(user: User) -> List[str]:
+        free_workers = Worker.objects.filter(
+            user=user, status=Worker.Status.FREE
+        ).annotate(
+            worker_id=Concat(Value('worker-'), F('id'), output_field=CharField())
+        ).values_list('worker_id', flat=True)
+
+        return list(free_workers)

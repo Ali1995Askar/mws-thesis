@@ -26,7 +26,10 @@ class MaxMatchingSolver:
         self.solver = MaxFLowSolver(graph=self.temp_graph.graph)
 
     def build_initial_flow(self):
+        s = time.time()
         matching_edges = self.heuristic_algorithm.execute()
+        e = time.time()
+        print(f'self.heuristic_algorithm.execute() {e - s}')
         residual_network = self.temp_graph.get_graph_copy()
         residual_network.graph["inf"] = float("inf")
 
@@ -63,35 +66,45 @@ class MaxMatchingSolver:
 
             if v in red_nodes and u in blue_nodes:
                 self.temp_graph.graph[u][v]['capacity'] = 0
+                self.temp_graph.graph[v][u]['capacity'] = 1
 
-            if u in red_nodes:
-                self.temp_graph.add_edge('source', u)
-                self.temp_graph.add_edge(u, 'source', capacity=0)
+        source_red_blue_sink_edges = []
 
-            if v in blue_nodes:
-                self.temp_graph.add_edge(v, 'sink')
-                self.temp_graph.add_edge('sink', v, capacity=0)
+        for u in red_nodes:
+            source_red_blue_sink_edges.append(('source', u, {'capacity': 1}))
+            source_red_blue_sink_edges.append((u, 'source', {'capacity': 0}))
 
-            if u in blue_nodes:
-                self.temp_graph.add_edge(u, 'sink')
-                self.temp_graph.add_edge('sink', u, capacity=0)
+        for v in blue_nodes:
+            source_red_blue_sink_edges.append((v, 'sink', {'capacity': 1}))
+            source_red_blue_sink_edges.append(('sink', v, {'capacity': 0}))
 
-            if v in blue_nodes:
-                self.temp_graph.add_edge(v, 'sink')
-                self.temp_graph.add_edge('sink', v, capacity=0)
+        self.temp_graph.graph.add_edges_from(source_red_blue_sink_edges)
 
     def reduce_to_max_flow(self):
+        s = time.time()
         if not self.bipartite_graph.is_bipartite():
             raise Exception('Graph is not Bipartite')
 
         self.bipartite_graph.split_nodes()
-
+        e = time.time()
+        print(f'is_bipartite checking {e - s}')
         self.temp_graph.red_nodes = self.bipartite_graph.red_nodes
         self.temp_graph.blue_nodes = self.bipartite_graph.blue_nodes
 
+        s = time.time()
         self.add_source()
+        e = time.time()
+        print(f'add_source  {e - s}')
+
+        s = time.time()
         self.add_sink()
+        e = time.time()
+        print(f'add_sink  {e - s}')
+
+        s = time.time()
         self.direct_bipartite_graph()
+        e = time.time()
+        print(f'direct_bipartite_graph  {e - s}')
 
     def find_max_matching(self):
 

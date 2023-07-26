@@ -356,3 +356,33 @@ if __name__ == '__main__':
 # [5000, 0.008, 2500] ===> [2493, 0.006, 2443, 0.008, 2492, 2.09553, 2492, 2.06898, 2416, 0.003, 1271, 0.003, 2412, 0.05052]
 # [5000, 0.009, 2500] ===> [2496, 0.005, 2451, 0.006, 2494, 2.77371, 2494, 2.31405, 2424, 0.00308, 1279, 0.003, 2431, 0.053]
 # [5000, 0.01, 2500] ===> [2498, 0.00499, 2452, 0.00797, 2437, 0.68475, 2491, 2.14187, 2435, 0.003, 1248, 0.0011, 2429, 0.0756]
+
+
+# edges = self.bipartite_graph.graph.edges(data=True)
+#
+#       red_nodes = self.bipartite_graph.red_nodes
+#       blue_nodes = self.bipartite_graph.blue_nodes
+#
+#       for u, v, d in edges:
+#
+#           if v in red_nodes and u in blue_nodes:
+#               self.temp_graph.graph[u][v]['capacity'] = 0
+#
+#       #     if u in red_nodes:
+#       #         self.temp_graph.add_edge('source', u)
+#       #         self.temp_graph.add_edge(u, 'source', capacity=0)
+#       #
+#       #     if v in blue_nodes:
+#       #         self.temp_graph.add_edge(v, 'sink')
+#       #         self.temp_graph.add_edge('sink', v, capacity=0)
+#       #
+#       #     if u in blue_nodes:
+#       #         self.temp_graph.add_edge(u, 'sink')
+#       #         self.temp_graph.add_edge('sink', u, capacity=0)
+#       #
+#       #     if v in blue_nodes:
+#       #         self.temp_graph.add_edge(v, 'sink')
+#       #         self.temp_graph.add_edge('sink', v, capacity=0)
+#       #
+#       # source_red_edges = [('source', u) for u in red_nodes]
+#       # self.temp_graph.graph.add_edges_from(source_red_edges, capacity=0)

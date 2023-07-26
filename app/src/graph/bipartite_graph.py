@@ -1,5 +1,6 @@
 import math
 import random
+from copy import copy
 from typing import Set
 from networkx import DiGraph
 from src.graph.graph import Graph
@@ -58,3 +59,10 @@ class BipartiteGraph(Graph):
     def print(self):
         for edge in self.graph.edges:
             print(edge)
+
+    def get_instance_copy(self):
+        inst = BipartiteGraph()
+        inst.red_nodes = copy(self.red_nodes)
+        inst.blue_nodes = copy(self.blue_nodes)
+        inst.graph = self.get_graph_copy()
+        return inst

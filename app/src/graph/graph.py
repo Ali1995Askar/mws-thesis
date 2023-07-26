@@ -1,6 +1,6 @@
 import networkx as nx
 from typing import List
-from copy import deepcopy
+from copy import deepcopy, copy
 
 
 class Graph:
@@ -33,7 +33,7 @@ class Graph:
         self.graph.add_nodes_from(nodes)
 
     def build_manually(self, nodes: List, edges: List, directed: bool = False):
-        self.graph.clear()
+        # self.graph.clear()
         self.add_nodes(nodes=nodes)
         self.add_edges(edges=edges, directed=directed)
 
@@ -47,9 +47,10 @@ class Graph:
         return temp
 
     def get_graph_copy(self):
-        graph = deepcopy(self.graph)
+        graph = self.graph.copy()
         return graph
 
     def get_instance_copy(self):
-        inst = deepcopy(self)
+        inst = Graph()
+        inst.graph = self.get_graph_copy()
         return inst

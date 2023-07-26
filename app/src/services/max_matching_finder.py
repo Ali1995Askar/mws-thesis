@@ -1,3 +1,4 @@
+import time
 from typing import Type
 from tasks.models import Task
 from workers.models import Worker
@@ -25,12 +26,35 @@ class MaxMatching:
         self.update_nodes_status()
 
     def solve(self, heuristic_solver: Type[AbstractHeuristic], bipartite_graph: BipartiteGraph):
+        start = time.time()
         self.max_matching_solver.set_bipartite_graph(bipartite_graph)
+        end = time.time()
+        print(f'set_bipartite_graph {end - start}')
+
+        start = time.time()
         self.max_matching_solver.reduce_to_max_flow()
+        end = time.time()
+        print(f'reduce_to_max_flow {end - start}')
+
+        start = time.time()
         self.max_matching_solver.init_heuristic_algorithm(heuristic_solver)
+        end = time.time()
+        print(f'init_heuristic_algorithm {end - start}')
+
+        start = time.time()
         self.max_matching_solver.build_initial_flow()
+        end = time.time()
+        print(f'build_initial_flow {end - start}')
+
+        start = time.time()
         self.max_matching_solver.init_ford_fulkerson_solver()
+        end = time.time()
+        print(f'init_ford_fulkerson_solver {end - start}')
+
+        start = time.time()
         self.max_matching_solver.find_max_matching()
+        end = time.time()
+        print(f'find_max_matching {end - start}')
 
     def get_heuristic_solver(self):
         heuristic_solver: Type[AbstractHeuristic] = Factory.get_algorithms(self.heuristic_algorithm)
@@ -50,6 +74,7 @@ class MaxMatching:
 
     def save_max_matching_model(self):
         max_matching = MaxMatchingModel.objects.create(
+            user=self.user,
             max_matching_edges=self.max_matching_solver.get_max_matching_edges(),
             execution_time=self.max_matching_solver.execution_time,
             max_matching=self.max_matching_solver.get_matching_value(),
@@ -59,6 +84,7 @@ class MaxMatching:
 
     def save_heuristic_matching_model(self):
         heuristic_matching = HeuristicMatching.objects.create(
+            user=self.user,
             heuristic_matching_edges=self.max_matching_solver.get_max_matching_edges(),
             heuristic_matching=len(self.max_matching_solver.heuristic_algorithm.matching_edges),
             execution_time=self.max_matching_solver.heuristic_algorithm.execution_time,
