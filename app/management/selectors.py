@@ -75,3 +75,7 @@ class ExecutionHistorySelectors:
 
         }
         return context
+
+    @staticmethod
+    def build_random_graph_by_density(density: float, username: str = 'admin'):
+        pass

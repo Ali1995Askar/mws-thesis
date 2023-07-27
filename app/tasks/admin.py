@@ -12,7 +12,7 @@ class TaskAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
         'title',
         'level',
         'status',
-        'assigned_to_link'
-        'created_on_datetime'
+        'assigned_to_link',
+        'created_on_datetime',
         'updated_on_datetime'
     ]
