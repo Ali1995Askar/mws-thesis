@@ -99,3 +99,19 @@ class TaskSelectors:
             task_id=Concat(Value('task-'), F('id'), output_field=CharField())
         ).values_list('task_id', flat=True)
         return list(open_tasks)
+
+    @staticmethod
+    def get_task_details(task: Task):
+        categories = list(task.categories.all().values_list('name', flat=True))
+        educations = list(task.educations.all().values_list('name', flat=True))
+        context = {
+            'title': task.title,
+            'description': task.description,
+            'deadline': task.deadline,
+            'status': task.status,
+            'assigned_to': f'{task.assigned_to.first_name} {task.assigned_to.last_name}',
+            'educations': educations,
+            'categories': categories,
+        }
+
+        return context

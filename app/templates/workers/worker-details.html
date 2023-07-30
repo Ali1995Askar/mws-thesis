@@ -43,12 +43,12 @@
                                 </li>
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-experience">
-                                        Skills
+                                        Categories
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">
-                                        Assign Task
+                                        Last Assigned Task
                                     </button>
                                 </li>
 
@@ -65,14 +65,12 @@
                                         <div class="col-lg-9 col-md-8">{{ first_name }} {{ last_name }}</div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Level</div>
-                                        <div class="col-lg-9 col-md-8">{{ level }}</div>
-                                    </div>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Status</div>
-                                        <div class="col-lg-9 col-md-8">{{ status }}</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            <span class="badge bg-success">{{ status }}</span>
+                                        </div>
                                     </div>
 
                                     <div class="row">
@@ -89,30 +87,23 @@
                                 </div>
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-experience">
 
-                                    {% for skill in skills %}
+                                    {% for category in categories %}
                                         <span class="fs-6 mb-3 {% cycle 'badge bg-primary'  'badge bg-secondary'   'badge bg-danger' 'badge bg-warning text-dark' 'badge bg-info text-dark' %}">
-                                               {{ skill }}
+                                               {{ category }}
                                         </span>
                                     {% endfor %}
                                 </div>
                                 <div class=" tab-pane fade profile-edit pt-3" id="profile-edit">
-                                    <form>
-                                        <div class="row mb-3">
-                                            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Choose
-                                                Worker</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <select class="form-select" aria-label="Default select example">
-                                                    {% for task in suitable_tasks %}
-                                                        <option value={{ task.id }}>{{ task.title }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-danger">Assign</button>
-                                        </div>
-                                    </form>
+
+                                    {% if assigned_task %}
+                                        <span class="fs-6 mb-3 badge bg-primary">
+                                             {{ assigned_task }}
+                                        </span>
+                                    {% else %}
+                                        <span class="fs-6 mb-3 badge bg-danger">
+                                          None
+                                        </span>
+                                    {% endif %}
 
                                 </div>
                             </div>

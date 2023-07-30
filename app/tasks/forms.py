@@ -11,7 +11,6 @@ class MultiSelectTagField(forms.ModelMultipleChoiceField):
 
 
 class TaskForm(forms.ModelForm):
-    # level = forms.ChoiceField(choices=Task.Level.choices)
     categories = MultiSelectTagField(required=False, queryset=Category.objects.all())
     educations = MultiSelectTagField(required=False, queryset=Education.objects.all())
 
@@ -39,14 +38,6 @@ class TaskForm(forms.ModelForm):
             'name': 'deadline',
             'id': 'deadline',
         })
-
-        self.fields['level'].widget = forms.Select(
-            choices=Task.Level.choices,
-            attrs={
-                'class': 'form-control',
-                'name': 'level',
-                'id': 'level',
-            })
 
         self.fields['status'].widget = forms.Select(
             choices=Task.Status.choices,

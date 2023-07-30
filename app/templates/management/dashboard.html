@@ -51,14 +51,10 @@
 
                             </div>
                         </div>
-
                     </div>
                 </div><!-- End Tasks Card -->
 
-                <!-- Departments Card -->
 
-
-                <!-- Positions Card -->
                 <div class="col-xxl-4 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
@@ -66,12 +62,9 @@
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <a href={% url 'categories:list' %}> <i class="bi bi-tags-fill"></i></a>
-
-
                                 </div>
                                 <div class="ps-3">
                                     <h6>{{ categories_count }}</h6>
-
                                 </div>
 
                             </div>
@@ -94,9 +87,7 @@
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Education</th>
-                                    <th scope="col">Level</th>
                                     <th scope="col">Status</th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -108,8 +99,8 @@
                                         </th>
                                         <td class="text-primary fw-bold">{{ worker.full_name }}</td>
                                         <td>{{ worker.email }}</td>
-                                        <td>{{ worker.education }}</td>
-                                        <td>{{ worker.level }}</td>
+                                        <td>{{ worker.education_name }}</td>
+                                    
                                         <td>
                                             {% if worker.status == "OCCUPIED" %}
                                                 <span class="badge bg-success">
@@ -136,31 +127,68 @@
                     <div class="card">
 
                         <div class="card-body pb-0">
-                            <h5 class="card-title">Tasks Per Category<span></span></h5>
-
-                            <div id="pieChart" style="min-height: 400px;" class="echart"></div>
-
+                            <h5 class="card-title">Tasks count Per Category<span></span></h5>
+                            <div id="TasksPerCategoriesChart" style="min-height: 400px;" class="echart"></div>
                             <script>
+                                const barChartColors = [
+
+                                    '#ff7f0e', // Orange
+                                    '#2ca02c', // Green
+                                    '#d62728', // Red
+                                    '#9467bd', // Purple
+                                    '#8c564b', // Brown
+                                    '#e377c2', // Pink
+                                    '#7f7f7f', // Gray
+                                    '#bcbd22', // Olive
+                                    '#17becf'  // Cyan
+                                ];
                                 let tasksJsonString = '{{ tasks_per_category|escapejs|safe }}';
                                 let tasksParsedData = JSON.parse(tasksJsonString);
                                 let tasksData = [];
-                                let tasksLabels = [];
-                                for (let key in tasksParsedData) {
-                                    tasksLabels.push(key);
-                                    tasksData.push(tasksParsedData[key]);
+                                let tasksCategories = [];
+
+
+                                for (let item in tasksParsedData) {
+                                    tasksCategories.push(tasksParsedData[item].name);
+                                    tasksData.push(tasksParsedData[item].num_tasks);
                                 }
+                                console.log(tasksData)
 
                                 document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#pieChart"), {
-                                        series: tasksData,
+                                    new ApexCharts(document.querySelector("#TasksPerCategoriesChart"), {
+                                        series: [{
+                                            data: tasksData,
+                                        }],
                                         chart: {
-                                            height: 350,
-                                            type: 'pie',
-                                            toolbar: {
-                                                show: true
+                                            type: 'bar',
+                                            height: 350
+                                        },
+
+                                        plotOptions: {
+                                            bar: {
+                                                borderRadius: 4,
                                             }
                                         },
-                                        labels: tasksLabels
+                                        dataLabels: {
+                                            enabled: false
+                                        },
+
+                                        xaxis: {
+                                            categories: tasksCategories,
+                                        },
+                                        yaxis: [
+                                            {
+                                                labels: {
+                                                    formatter: function (val) {
+                                                        return val.toFixed(0);
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        fill: {
+                                            colors: ['#9467bd']
+                                        }
+
                                     }).render();
                                 });
                             </script>
@@ -180,7 +208,7 @@
                                     <th scope="col"></th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Tasks Count</th>
-                                    <th scope="col">Employees Count</th>
+                                    <th scope="col">Workers Count</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -192,8 +220,8 @@
                                             </div>
                                         </th>
                                         <td class="text-primary fw-bold fs-5">{{ category.name }}</td>
-                                        <td class="fs-5">{{ category.number_of_tasks }}</td>
-                                        <td class="fs-5">{{ category.total_employees }}</td>
+                                        <td class="fs-5">{{ category.tasks_count }}</td>
+                                        <td class="fs-5">{{ category.workers_count }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -206,41 +234,52 @@
                         <div class="card-body">
                             {{ tasks_per_category.software }}
 
-                            <h5 class="card-title">Workers Per Categories</h5>
-                            <div id="barChart"></div>
+                            <h5 class="card-title">Workers count Per Categories</h5>
+                            <div id="workersCountPerCategoriesChart"></div>
+
                             <script>
                                 let workersJsonString = '{{ workers_per_category|escapejs|safe }}';
                                 let workersParsedData = JSON.parse(workersJsonString);
-
                                 let workersData = [];
                                 let workersCategories = [];
-                                for (let key in workersParsedData) {
-                                    workersCategories.push(key);
-                                    workersData.push(workersParsedData[key]);
+                                for (let item in workersParsedData) {
+                                    workersCategories.push(workersParsedData[item].name);
+                                    workersData.push(workersParsedData[item].num_workers);
                                 }
-
+                                console.log(workersData)
 
                                 document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#barChart"), {
+                                    new ApexCharts(document.querySelector("#workersCountPerCategoriesChart"), {
                                         series: [{
-                                            data: workersData
+                                            data: workersData,
                                         }],
                                         chart: {
                                             type: 'bar',
                                             height: 350
                                         },
+
                                         plotOptions: {
                                             bar: {
                                                 borderRadius: 4,
-                                                horizontal: true,
                                             }
                                         },
                                         dataLabels: {
                                             enabled: false
                                         },
+
                                         xaxis: {
                                             categories: workersCategories,
-                                        }
+                                        },
+                                        yaxis: [
+                                            {
+                                                labels: {
+                                                    formatter: function (val) {
+                                                        return val.toFixed(0);
+                                                    }
+                                                }
+                                            }
+                                        ],
+
                                     }).render();
                                 });
                             </script>

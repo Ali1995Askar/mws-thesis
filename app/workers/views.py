@@ -7,6 +7,8 @@ from django.shortcuts import render
 from workers.forms import WorkerForm
 from django.http import HttpResponseRedirect
 
+from workers.selectors import WorkerSelectors
+
 
 class WorkerListView(generic.ListView):
     model = Worker
@@ -14,7 +16,7 @@ class WorkerListView(generic.ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.filter(user=self.request.user)
+        qs = qs.filter(user=self.request.user).order_by('created_on_datetime')
         return qs
 
 
@@ -84,17 +86,5 @@ class WorkerDetailsView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         obj: Worker = self.get_object(queryset=self.get_queryset())
-        skills = list(obj.categories.all().values_list('name', flat=True))
-        suitable_tasks = Task.objects.filter(user=self.request.user).only('id', 'title')
-
-        context = {
-            'first_name': obj.first_name,
-            'last_name': obj.last_name,
-            'level': obj.level,
-            'status': obj.status,
-            'email': obj.email,
-            'education': obj.education,
-            'skills': skills,
-            'suitable_tasks': suitable_tasks
-        }
+        context = WorkerSelectors.get_worker_details(worker=obj)
         return render(request, f"{self.template_name}", context=context)

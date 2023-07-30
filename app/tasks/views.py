@@ -3,11 +3,10 @@ from django.urls import reverse
 from tasks.forms import TaskForm
 from django.views import generic
 from django.shortcuts import render
+from tasks.selectors import TaskSelectors
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-
-from workers.models import Worker
 
 
 class TaskListView(generic.ListView):
@@ -16,7 +15,7 @@ class TaskListView(generic.ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.filter(user=self.request.user)
+        qs = qs.filter(user=self.request.user).order_by('created_on_datetime')
         return qs
 
 
@@ -86,18 +85,5 @@ class TaskDetailsView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         obj: Task = self.get_object(queryset=self.get_queryset())
-
-        suitable_workers = Worker.objects.filter(user=self.request.user).only('id', 'first_name', 'last_name')
-        skills = list(obj.categories.all().values_list('name', flat=True))
-        educations = list(obj.educations.all().values_list('name', flat=True))
-        context = {
-            'title': obj.title,
-            'description': obj.description,
-            'deadline': obj.deadline,
-            'status': obj.status,
-            'level': obj.level,
-            'educations': educations,
-            'skills': skills,
-            'suitable_workers': suitable_workers
-        }
+        context = TaskSelectors.get_task_details(task=obj)
         return render(request, f"{self.template_name}", context=context)

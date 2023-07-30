@@ -31,7 +31,6 @@
                                     <th scope="col" data-sortable="false">Last Name</th>
                                     <th scope="col" data-sortable="false">Email</th>
                                     <th scope="col" data-sortable="false">Education</th>
-                                    <th scope="col" data-sortable="false">Level</th>
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
@@ -60,7 +59,6 @@
                                                 -
                                             {% endif %}
                                         </td>
-                                        <td>{{ worker.level }}</td>
 
                                         <td>
                                             <a href={% url 'workers:details' worker.id %}>

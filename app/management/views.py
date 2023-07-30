@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import generic, View
 from management.services import Services
-from management.selectors import ExecutionHistorySelectors
+from management.selectors import ExecutionHistorySelectors, DashboardSelectors
 from tasks.selectors import TaskSelectors
 from workers.selectors import WorkerSelectors
 
@@ -13,14 +13,15 @@ class DashboardView(View):
     template_name = "management/dashboard.html"
 
     def get(self, request, *args, **kwargs):
-        workers_count = self.get_workers_count()
-        tasks_count = self.get_tasks_count()
-        categories_count = self.get_categories_count()
+        user = request.user
+        workers_count = DashboardSelectors.get_workers_count(user)
+        tasks_count = DashboardSelectors.get_tasks_count(user)
+        categories_count = DashboardSelectors.get_categories_count(user)
 
-        tasks_per_category = self.get_tasks_per_category()
-        workers_per_category = self.get_workers_per_category()
-        top_5_workers = self.get_top_5_workers()
-        top_10_categories = self.get_top_10_categories()
+        tasks_per_category = DashboardSelectors.get_tasks_per_category(user)
+        workers_per_category = DashboardSelectors.get_workers_per_category(user)
+        top_10_workers = DashboardSelectors.get_top_10_workers(user)
+        top_10_categories = DashboardSelectors.get_top_10_categories(user)
 
         context = {
             'workers_count': workers_count,
@@ -28,82 +29,10 @@ class DashboardView(View):
             'categories_count': categories_count,
             'tasks_per_category': json.dumps(tasks_per_category),
             'workers_per_category': json.dumps(workers_per_category),
-            'top_5_workers': top_5_workers,
+            'top_5_workers': top_10_workers,
             'top_10_categories': top_10_categories,
         }
         return render(request, f"{self.template_name}", context=context)
-
-    @staticmethod
-    def get_workers_count():
-        return 10000
-
-    @staticmethod
-    def get_tasks_count():
-        return 20000
-
-    @staticmethod
-    def get_categories_count():
-        return 1500
-
-    @staticmethod
-    def get_tasks_per_category():
-        tasks_per_category = {
-            'software': 50,
-            'marketing': 10,
-            'data_analysis': 25,
-
-            'other': 15
-        }
-        return tasks_per_category
-
-    @staticmethod
-    def get_workers_per_category():
-        workers_per_category = {
-            'django': 111,
-            'node-js': 25,
-            'aws': 15,
-            'devOps': 25,
-            'other': 41
-        }
-        return workers_per_category
-
-    @staticmethod
-    def get_top_5_workers():
-        top_5_workers = [
-            {
-                'full_name': 'ali askar',
-                'email': 'ali1995askar@gmail.com',
-                'education': 'software engineer',
-                'level': 'Senior',
-                'status': 'OCCUPIED',
-            },
-            {
-                'full_name': 'ali askar',
-                'email': 'ali1995askar@gmail.com',
-                'education': 'software engineer',
-                'level': 'Senior',
-                'status': 'FREE',
-            }
-        ]
-        return top_5_workers
-
-    @staticmethod
-    def get_top_10_categories():
-        top_10_categories = [
-            {
-                'name': 'Django',
-                'number_of_tasks': 500,
-                'total_employees': 24,
-
-            },
-            {
-                'name': 'Asp.net',
-                'number_of_tasks': 500,
-                'total_employees': 24,
-
-            }
-        ]
-        return top_10_categories
 
 
 class AssignTasksView(View):

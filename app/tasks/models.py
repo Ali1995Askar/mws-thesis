@@ -9,11 +9,6 @@ class Task(models.Model):
         DONE = 'DONE'
         PROGRESS = 'PROGRESS'
 
-    class Level(models.Choices):
-        JUNIOR = 'JUNIOR'
-        MID = 'MID'
-        SENIOR = 'SENIOR'
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.dispatch_enabled = settings.DISPATCH_ENABLED
@@ -22,7 +17,6 @@ class Task(models.Model):
     description = models.TextField(null=False, blank=False)
     deadline = models.DateField(null=True, blank=True)
 
-    level = models.CharField(max_length=50, db_index=True, choices=Level.choices)
     status = models.CharField(max_length=50, db_index=True, choices=Status.choices)
 
     categories = models.ManyToManyField('categories.Category', blank=True)

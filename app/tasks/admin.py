@@ -8,10 +8,9 @@ class TaskAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
     change_links = ['user', 'assigned_to']
 
     list_display = [
-        'user_link',
         'title',
-        'level',
         'status',
+        'user_link',
         'assigned_to_link',
         'created_on_datetime',
         'updated_on_datetime'

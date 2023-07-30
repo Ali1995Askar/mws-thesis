@@ -11,7 +11,6 @@ def worker_ali_askar(pytech_user) -> Worker:
         first_name='ali',
         last_name='askar',
         email='ali1995askar@gmail.com',
-        level=Worker.Level.MID.value,
         status=Worker.Status.FREE.value,
     )
 
@@ -26,7 +25,6 @@ def worker_ahmad(pytech_user) -> Worker:
         first_name='ahmad',
         last_name='askar',
         email='ali1995askar@gmail.com',
-        level=Worker.Level.MID.value,
         status=Worker.Status.FREE.value,
     )
 
@@ -41,7 +39,6 @@ def worker_omar(pytech_user) -> Worker:
         first_name='omar',
         last_name='askar',
         email='ali1995askar@gmail.com',
-        level=Worker.Level.MID.value,
         status=Worker.Status.FREE.value,
     )
 
@@ -56,7 +53,6 @@ def worker_tommy(pytech_user) -> Worker:
         first_name='tommy',
         last_name='askar',
         email='ali1995askar@gmail.com',
-        level=Worker.Level.MID.value,
         status=Worker.Status.FREE.value,
     )
 
@@ -71,7 +67,6 @@ def worker_bruno(pytech_user) -> Worker:
         first_name='bruno',
         last_name='askar',
         email='ali1995askar@gmail.com',
-        level=Worker.Level.MID.value,
         status=Worker.Status.FREE.value,
     )
 
@@ -89,7 +84,6 @@ def pytech_user_workers(pytech_user) -> QuerySet[Worker]:
                               first_name=first_name,
                               last_name=last_name,
                               email=email,
-                              level=Worker.Level.MID.value,
                               status=Worker.Status.FREE.value)
 
     return Worker.objects.all()

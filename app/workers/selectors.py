@@ -1,11 +1,9 @@
 from typing import List
-
-from django.contrib.auth.models import User
-
 from tasks.models import Task
 from workers.models import Worker
+from django.contrib.auth.models import User
 from django.db.models.functions import Concat
-from django.db.models import QuerySet, Subquery, Count, OuterRef, CharField, Value, F
+from django.db.models import QuerySet, Subquery, Count, CharField, Value, F, Q
 
 
 class WorkerSelectors:
@@ -13,9 +11,15 @@ class WorkerSelectors:
     @staticmethod
     def get_connected_tasks(worker: Worker) -> QuerySet[Task]:
         worker_categories = worker.categories.all().values('pk')
-        connected_tasks = Task.objects.filter(Q(educations=worker.education) | Q(educations=None), user=worker.user)
-        connected_tasks = connected_tasks.filter(Q(categories=None) | Q(categories__in=Subquery(worker_categories)))
-
+        connected_tasks = Task.objects.filter(
+            status=Task.Status.OPEN,
+            user=worker.user
+        ).filter(
+            Q(educations=worker.education) | Q(educations=None)
+        )
+        connected_tasks = connected_tasks.filter(
+            Q(categories=None) | Q(categories__in=Subquery(worker_categories))
+        )
         return connected_tasks
 
     @staticmethod
@@ -42,3 +46,20 @@ class WorkerSelectors:
         ).values_list('worker_id', flat=True)
 
         return list(free_workers)
+
+    @staticmethod
+    def get_worker_details(worker: Worker):
+        categories = list(worker.categories.all().values_list('name', flat=True))
+        assigned_task = Task.objects.filter(user=worker.user, assigned_to=worker).last()
+
+        context = {
+            'first_name': worker.first_name,
+            'last_name': worker.last_name,
+            'status': worker.status,
+            'email': worker.email,
+            'education': worker.education,
+            'categories': categories,
+            'assigned_task': assigned_task
+        }
+
+        return context

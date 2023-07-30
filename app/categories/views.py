@@ -14,7 +14,7 @@ class CategoryListView(generic.ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.filter(user=self.request.user)
+        qs = qs.filter(user=self.request.user).order_by('created_on_datetime')
         return qs
 
 

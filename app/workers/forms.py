@@ -38,14 +38,6 @@ class WorkerForm(forms.ModelForm):
             'id': 'email',
         })
 
-        self.fields['level'].widget = forms.Select(
-            choices=Worker.Level.choices,
-            attrs={
-                'class': 'form-control',
-                'name': 'level',
-                'id': 'level',
-            })
-
         self.fields['status'].widget = forms.Select(
             choices=Worker.Status.choices,
             attrs={

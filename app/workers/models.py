@@ -8,11 +8,6 @@ class Worker(models.Model):
         FREE = 'FREE'
         OCCUPIED = 'OCCUPIED'
 
-    class Level(models.Choices):
-        JUNIOR = 'JUNIOR'
-        MID = 'MID'
-        SENIOR = 'SENIOR'
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.dispatch_enabled = settings.DISPATCH_ENABLED
@@ -26,7 +21,6 @@ class Worker(models.Model):
     categories = models.ManyToManyField('categories.Category', blank=True)
     education = models.ForeignKey('educations.Education', null=True, blank=True, on_delete=models.CASCADE)
 
-    level = models.CharField(max_length=50, db_index=True, choices=Level.choices)
     status = models.CharField(max_length=50, db_index=True, choices=Status.choices)
 
     # Company Relation

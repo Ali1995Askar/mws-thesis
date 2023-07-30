@@ -94,7 +94,13 @@ class MaxMatching:
         return heuristic_matching
 
     def save_execution_history(self, max_matching_model: MaxMatchingModel, heuristic_matching_model: HeuristicMatching):
-        graph_density = 0.002
+        edges_count = len(self.graph.graph.edges)
+        assert edges_count % 2 == 0
+        edges_count = edges_count // 2
+        red_nodes_count = len(self.graph.red_nodes)
+        blue_nodes_count = len(self.graph.blue_nodes)
+        graph_density = edges_count / (red_nodes_count * blue_nodes_count)
+
         execution_history = ExecutionHistory.objects.create(
             user=self.user,
             max_matching=max_matching_model,

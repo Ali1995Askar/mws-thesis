@@ -1,6 +1,15 @@
 import json
+import math
 
+from django.contrib.auth.models import User
+from django.db.models import Count, F, Value, Subquery, OuterRef
+
+from categories.models import Category
+from educations.models import Education
+from tasks.models import Task
+from workers.models import Worker
 from management.models import ExecutionHistory
+from django.db.models.functions import Coalesce, Concat, Round
 
 
 class ExecutionHistorySelectors:
@@ -77,5 +86,107 @@ class ExecutionHistorySelectors:
         return context
 
     @staticmethod
-    def build_random_graph_by_density(density: float, username: str = 'admin'):
-        pass
+    def build_random_graph_by_density(nodes: int, density: float, username: str = 'admin'):
+
+        user: User = User.objects.get(username=username)
+
+        tasks_nodes = set(range(0, math.ceil(nodes / 2)))
+        workers_nodes = set(range(len(tasks_nodes), nodes))
+
+        number_of_possible_edges = len(tasks_nodes) * len(workers_nodes)
+        number_of_edges = math.ceil(number_of_possible_edges * density)
+
+        Task.objects.filter(user=user).delete()
+        Worker.objects.filter(user=user).delete()
+        Category.objects.filter(user=user).delete()
+        Education.objects.filter(user=user).delete()
+
+        category = Category.objects.create(user=user, name='programming')
+        education = Education.objects.create(user=user, name='software engineering')
+
+        tasks_objects = []
+        for task_num in tasks_nodes:
+            title = f'title_{task_num}'
+            description = f'description_{task_num}'
+            obj = Task(title=title, description=description, status=Task.Status.OPEN.value, user=user)
+            tasks_objects.append(obj)
+        Task.objects.bulk_create(tasks_objects)
+
+        workers_objects = []
+        for worker_num in workers_nodes:
+            first_name = f'worker'
+            last_name = f'{worker_num}'
+            email = f'worker_email_{worker_num}@max-matching.com'
+            status = Worker.Status.FREE.value
+            obj = Worker(user=user, first_name=first_name, last_name=last_name, email=email, status=status)
+            workers_objects.append(obj)
+
+        Worker.objects.bulk_create(workers_objects)
+        Worker.objects.filter(user=user).update(education=education)
+
+        tasks_to_update = Task.objects.filter(user=user)[:number_of_edges]
+
+        for task in tasks_to_update:
+            task.educations.add(education)
+
+
+class DashboardSelectors:
+    @staticmethod
+    def get_workers_count(user):
+        workers_count = Worker.objects.filter(user=user).count()
+        return workers_count
+
+    @staticmethod
+    def get_tasks_count(user):
+        tasks_count = Task.objects.filter(user=user).count()
+        return tasks_count
+
+    @staticmethod
+    def get_categories_count(user):
+        categories_count = Category.objects.filter(user=user).count()
+        return categories_count
+
+    @staticmethod
+    def get_tasks_per_category(user):
+        top_tasks = Category.objects.filter(user=user).annotate(
+            num_tasks=Count('task')
+        ).filter(
+            num_tasks__gt=0
+        ).order_by('-num_tasks').values('name', 'num_tasks')[:5]
+
+        return list(top_tasks)
+
+    @staticmethod
+    def get_workers_per_category(user):
+        top_workers = Category.objects.filter(user=user).annotate(
+            num_workers=Count('worker')
+        ).filter(
+
+            num_workers__gt=0
+        ).order_by('-num_workers').values('name', 'num_workers')[:5]
+        return list(top_workers)
+
+    @staticmethod
+    def get_top_10_workers(user):
+        top_10_workers = Worker.objects.filter(
+            user=user
+        ).annotate(
+            categories_count=Count('categories'),
+            full_name=Concat(F('first_name'), Value(' '), F('last_name')),
+            education_name=F('education__name')
+        ).order_by('categories_count')
+
+        return list(top_10_workers)
+
+    @staticmethod
+    def get_top_10_categories(user):
+        top_10_categories = Category.objects.filter(
+            user=user,
+        ).annotate(
+            tasks_count=Count('task', distinct=True),
+            workers_count=Count('worker', distinct=True),
+        ).order_by(
+            '-tasks_count'
+        ).values('name', 'tasks_count', 'workers_count')
+
+        return list(top_10_categories)

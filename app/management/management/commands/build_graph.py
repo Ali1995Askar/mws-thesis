@@ -8,6 +8,13 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
+            '-n',
+            '--nodes',
+            type=int,
+            default=100
+        )
+
+        parser.add_argument(
             '-d',
             '--density',
             type=float,
@@ -23,8 +30,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         density = options.get('density')
+        nodes = options.get('nodes')
         username = options.get('username')
-        kwargs = {'density': density}
+        kwargs = {'nodes': nodes, 'density': density}
 
         if username:
             kwargs['username'] = username
