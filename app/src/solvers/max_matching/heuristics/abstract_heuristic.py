@@ -12,13 +12,9 @@ class AbstractHeuristic:
         # self.bipartite_graph: BipartiteGraph = deepcopy(bipartite_graph)
         self.bipartite_graph: BipartiteGraph = bipartite_graph.get_instance_copy()
         self.matching_edges: List = []
-        self.execution_time: float = 0
 
     def execute(self):
-        start_time = time.time()
         self.matching_edges = self.get_matching_edges()
-        end_time = time.time()
-        self.execution_time = round(end_time - start_time, 4)
         return self.matching_edges
 
     @abstractmethod

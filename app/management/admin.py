@@ -8,9 +8,9 @@ class HeuristicMatchingAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
     change_links = ['user']
 
     list_display = [
-        'user_link',
         'heuristic_algorithm',
         'heuristic_matching',
+        'user_link',
         'execution_time',
         'created_on_datetime',
         'updated_on_datetime'
@@ -22,8 +22,8 @@ class MaxMatchingAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
     change_links = ['user']
 
     list_display = [
-        'user_link',
         'max_matching',
+        'user_link',
         'execution_time',
         'created_on_datetime',
         'updated_on_datetime'
@@ -35,10 +35,10 @@ class ExecutionHistoryAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
     change_links = ['user', 'max_matching', 'heuristic_matching']
 
     list_display = [
-        'user_link',
         'max_matching_link',
         'heuristic_matching_link',
         'graph_density',
+        'user_link',
         'created_on_datetime',
         'updated_on_datetime'
     ]

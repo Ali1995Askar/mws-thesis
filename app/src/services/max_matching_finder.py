@@ -16,6 +16,8 @@ class MaxMatching:
         self.graph = graph
         self.heuristic_algorithm = heuristic_algorithm
         self.max_matching_solver = MaxMatchingSolver()
+        self.heuristic_execution_time: float = 0
+        self.max_matching_execution_time: float = 0
 
     def execute(self):
         heuristic_solver = self.get_heuristic_solver()
@@ -44,6 +46,7 @@ class MaxMatching:
         start = time.time()
         self.max_matching_solver.build_initial_flow()
         end = time.time()
+        self.heuristic_execution_time = round(end - start, 4)
         print(f'build_initial_flow {end - start}')
 
         start = time.time()
@@ -55,6 +58,7 @@ class MaxMatching:
         self.max_matching_solver.find_max_matching()
         end = time.time()
         print(f'find_max_matching {end - start}')
+        self.max_matching_execution_time = round(end - start, 4)
 
     def get_heuristic_solver(self):
         heuristic_solver: Type[AbstractHeuristic] = Factory.get_algorithms(self.heuristic_algorithm)
@@ -76,7 +80,7 @@ class MaxMatching:
         max_matching = MaxMatchingModel.objects.create(
             user=self.user,
             max_matching_edges=self.max_matching_solver.get_max_matching_edges(),
-            execution_time=self.max_matching_solver.execution_time,
+            execution_time=self.max_matching_execution_time,
             max_matching=self.max_matching_solver.get_matching_value(),
 
         )
@@ -87,7 +91,7 @@ class MaxMatching:
             user=self.user,
             heuristic_matching_edges=self.max_matching_solver.get_max_matching_edges(),
             heuristic_matching=len(self.max_matching_solver.heuristic_algorithm.matching_edges),
-            execution_time=self.max_matching_solver.heuristic_algorithm.execution_time,
+            execution_time=self.heuristic_execution_time,
             heuristic_algorithm=self.heuristic_algorithm.upper(),
         )
 

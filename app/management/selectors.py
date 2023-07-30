@@ -37,7 +37,7 @@ class ExecutionHistorySelectors:
 
     @staticmethod
     def get_last_15_execution_history_statistics(user):
-        execution_histories = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime')[:15]
+        execution_histories = ExecutionHistory.objects.filter(user=user).order_by('created_on_datetime')[:15]
         if not execution_histories:
             return {}
 
@@ -45,10 +45,9 @@ class ExecutionHistorySelectors:
         accuracy_data = []
         execution_time_data = []
         for obj in execution_histories:
-            used_heuristic_algorithm = obj.heuristic_matching.heuristic_algorithm.split("_")
-            used_heuristic_algorithm = " ".join(used_heuristic_algorithm)
-            heuristic_execution_time = round(obj.heuristic_matching.execution_time, 4)
-            max_matching_execution_time = round(obj.heuristic_matching.execution_time, 4) + heuristic_execution_time
+            used_heuristic_algorithm = " ".join(obj.heuristic_matching.heuristic_algorithm.split("_"))
+            heuristic_execution_time = obj.heuristic_matching.execution_time
+            max_matching_execution_time = obj.max_matching.execution_time
 
             heuristic_matching = obj.heuristic_matching.heuristic_matching
             max_matching = obj.max_matching.max_matching
@@ -60,7 +59,7 @@ class ExecutionHistorySelectors:
                 'heuristic_matching': heuristic_matching,
                 'heuristic_execution_time': heuristic_execution_time,
                 'max_matching': max_matching,
-                'max_matching_execution_time': max_matching_execution_time,
+                'max_matching_execution_time': heuristic_execution_time + max_matching_execution_time,
             }
             data.append(row)
 
@@ -71,7 +70,7 @@ class ExecutionHistorySelectors:
             }
             time_dict = {
                 'heuristic_matching': heuristic_execution_time,
-                'max_matching': max_matching_execution_time,
+                'max_matching': heuristic_execution_time + max_matching_execution_time,
                 'graph_density': graph_density
             }
 
@@ -102,6 +101,8 @@ class ExecutionHistorySelectors:
         Education.objects.filter(user=user).delete()
 
         education = Education.objects.create(user=user, name='software engineering')
+        programming_category = Category.objects.create(user=user, name='programming')
+        python_category = Category.objects.create(user=user, name='python')
 
         tasks_objects = []
         for task_num in tasks_nodes:
@@ -121,12 +122,18 @@ class ExecutionHistorySelectors:
             workers_objects.append(obj)
 
         Worker.objects.bulk_create(workers_objects)
-        Worker.objects.filter(user=user).update(education=education)
+        workers_to_update = Worker.objects.filter(user=user)
+
+        for worker in workers_to_update:
+            worker.categories.add(programming_category)
+            worker.categories.add(python_category)
+        workers_to_update.update(education=education)
 
         tasks_to_update = Task.objects.filter(user=user)[:number_of_edges]
-
         for task in tasks_to_update:
             task.educations.add(education)
+            task.categories.add(programming_category)
+            task.categories.add(python_category)
 
 
 class DashboardSelectors:
@@ -173,7 +180,7 @@ class DashboardSelectors:
             categories_count=Count('categories'),
             full_name=Concat(F('first_name'), Value(' '), F('last_name')),
             education_name=F('education__name')
-        ).order_by('categories_count')
+        ).order_by('categories_count')[:5]
 
         return list(top_10_workers)
 
@@ -187,5 +194,5 @@ class DashboardSelectors:
         ).order_by(
             '-tasks_count'
         ).values('name', 'tasks_count', 'workers_count')
-
+        print(top_10_categories)
         return list(top_10_categories)

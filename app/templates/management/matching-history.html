@@ -113,13 +113,14 @@
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#columnChart"), {
                                         series: [
-                                            {
-                                                name: 'Heuristic Matching',
-                                                data: heuristicMatching
-                                            },
+
                                             {
                                                 name: 'Max Matching',
                                                 data: maxMatching
+                                            },
+                                            {
+                                                name: 'Heuristic Matching',
+                                                data: heuristicMatching
                                             },
                                         ],
                                         chart: {
