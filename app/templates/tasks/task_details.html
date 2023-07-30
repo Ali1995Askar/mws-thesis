@@ -99,7 +99,7 @@
 
                                     {% if assigned_to %}
                                         <span class="fs-6 mb-3 badge bg-primary">
-                                             {{ assigned_to }}
+                                             {{ assigned_to.first_name }} {{ assigned_to.last_name }}
                                         </span>
                                     {% else %}
                                         <span class="fs-6 mb-3 badge bg-danger">
@@ -113,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            </div>
+
         </section>
 
     </main><!-- End #main -->

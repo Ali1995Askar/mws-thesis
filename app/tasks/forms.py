@@ -11,6 +11,7 @@ class MultiSelectTagField(forms.ModelMultipleChoiceField):
 
 
 class TaskForm(forms.ModelForm):
+    # level = forms.ChoiceField(choices=Task.Level.choices)
     categories = MultiSelectTagField(required=False, queryset=Category.objects.all())
     educations = MultiSelectTagField(required=False, queryset=Education.objects.all())
 

@@ -104,12 +104,13 @@ class TaskSelectors:
     def get_task_details(task: Task):
         categories = list(task.categories.all().values_list('name', flat=True))
         educations = list(task.educations.all().values_list('name', flat=True))
+
         context = {
             'title': task.title,
             'description': task.description,
             'deadline': task.deadline,
             'status': task.status,
-            'assigned_to': f'{task.assigned_to.first_name} {task.assigned_to.last_name}',
+            'assigned_to': task.assigned_to,
             'educations': educations,
             'categories': categories,
         }

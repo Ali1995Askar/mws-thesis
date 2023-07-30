@@ -28,7 +28,7 @@ class TaskCreateView(generic.CreateView):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

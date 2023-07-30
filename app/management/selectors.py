@@ -101,7 +101,6 @@ class ExecutionHistorySelectors:
         Category.objects.filter(user=user).delete()
         Education.objects.filter(user=user).delete()
 
-        category = Category.objects.create(user=user, name='programming')
         education = Education.objects.create(user=user, name='software engineering')
 
         tasks_objects = []
