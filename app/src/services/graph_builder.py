@@ -70,7 +70,8 @@ class GraphBuilder:
                 edge_obj = Edge(task_id=task_node_id, worker_id=worker_node_id)
                 edge = edge_obj.as_tuple()
                 edges.append(edge)
-
+                print(edge)
+        
         return edges
 
     def build_graph(self) -> BipartiteGraph:

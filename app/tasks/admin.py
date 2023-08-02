@@ -15,3 +15,12 @@ class TaskAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
         'created_on_datetime',
         'updated_on_datetime'
     ]
+
+    list_filter = [
+        'status',
+        'assigned_to',
+    ]
+
+    search_fields = [
+        'title'
+    ]

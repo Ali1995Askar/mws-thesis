@@ -1,18 +1,17 @@
 import json
 import math
-
-from django.contrib.auth.models import User
-from django.db.models import Count, F, Value, Subquery, OuterRef
-
-from categories.models import Category
-from educations.models import Education
 from tasks.models import Task
 from workers.models import Worker
+from categories.models import Category
+from educations.models import Education
+from django.db.models.functions import Concat
 from management.models import ExecutionHistory
-from django.db.models.functions import Coalesce, Concat, Round
+from django.contrib.auth.models import User
+from django.db.models import Count, F, Value
 
 
 class ExecutionHistorySelectors:
+
     @staticmethod
     def get_latest_execution_history(user):
         execution_history = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime').first()
@@ -36,8 +35,8 @@ class ExecutionHistorySelectors:
         }
 
     @staticmethod
-    def get_last_15_execution_history_statistics(user):
-        execution_histories = ExecutionHistory.objects.filter(user=user).order_by('created_on_datetime')[:15]
+    def get_last_10_execution_history_statistics(user):
+        execution_histories = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime')[:10]
         if not execution_histories:
             return {}
 
@@ -70,7 +69,7 @@ class ExecutionHistorySelectors:
             }
             time_dict = {
                 'heuristic_matching': heuristic_execution_time,
-                'max_matching': heuristic_execution_time + max_matching_execution_time,
+                'max_matching': round(heuristic_execution_time + max_matching_execution_time, 4),
                 'graph_density': graph_density
             }
 
@@ -85,12 +84,15 @@ class ExecutionHistorySelectors:
         return context
 
     @staticmethod
-    def build_random_graph_by_density(nodes: int, density: float, username: str = 'admin'):
-
+    def build_graph(nodes: int, density: float, username: str = 'admin'):
         user: User = User.objects.get(username=username)
 
-        tasks_nodes = set(range(0, math.ceil(nodes / 2)))
-        workers_nodes = set(range(len(tasks_nodes), nodes))
+        if nodes % 2 == 1:
+            tasks_nodes = set(range(0, math.ceil(nodes / 2)))
+            workers_nodes = set(range(0, len(tasks_nodes) - 1))
+        else:
+            tasks_nodes = set(range(0, math.ceil(nodes / 2)))
+            workers_nodes = set(range(0, len(tasks_nodes)))
 
         number_of_possible_edges = len(tasks_nodes) * len(workers_nodes)
         number_of_edges = math.ceil(number_of_possible_edges * density)
@@ -99,10 +101,6 @@ class ExecutionHistorySelectors:
         Worker.objects.filter(user=user).delete()
         Category.objects.filter(user=user).delete()
         Education.objects.filter(user=user).delete()
-
-        education = Education.objects.create(user=user, name='software engineering')
-        programming_category = Category.objects.create(user=user, name='programming')
-        python_category = Category.objects.create(user=user, name='python')
 
         tasks_objects = []
         for task_num in tasks_nodes:
@@ -117,23 +115,57 @@ class ExecutionHistorySelectors:
             first_name = f'worker'
             last_name = f'{worker_num}'
             email = f'worker_email_{worker_num}@max-matching.com'
-            status = Worker.Status.FREE.value
-            obj = Worker(user=user, first_name=first_name, last_name=last_name, email=email, status=status)
+
+            obj = Worker(user=user, first_name=first_name, last_name=last_name, email=email)
             workers_objects.append(obj)
 
         Worker.objects.bulk_create(workers_objects)
-        workers_to_update = Worker.objects.filter(user=user)
 
-        for worker in workers_to_update:
-            worker.categories.add(programming_category)
-            worker.categories.add(python_category)
-        workers_to_update.update(education=education)
+        all_tasks = list(Task.objects.filter(user=user, status=Task.Status.OPEN))
+        all_workers = list(Worker.objects.filter(user=user, status=Worker.Status.FREE))
+        tasks_count = len(all_tasks)
 
-        tasks_to_update = Task.objects.filter(user=user)[:number_of_edges]
-        for task in tasks_to_update:
+        education = Education.objects.create(user=user, name=f'MWS')
+        for idx, task in enumerate(all_tasks):
+            category = Category.objects.create(user=user, name=f'Category_{idx}')
             task.educations.add(education)
-            task.categories.add(programming_category)
-            task.categories.add(python_category)
+            task.categories.add(category)
+
+        built_edges_num = 0
+        assign_round = 0
+
+        while True:
+            if built_edges_num >= number_of_edges:
+                break
+
+            for idx, worker in enumerate(all_workers):
+                task_idx = (assign_round + idx) % tasks_count
+                task: Task = all_tasks[task_idx]
+                worker: Worker = all_workers[idx]
+                for category in task.categories.all():
+                    worker.categories.add(category)
+                worker.education = education
+                worker.save()
+                built_edges_num += 1
+                if built_edges_num > number_of_edges:
+                    break
+            assign_round += 1
+
+    @staticmethod
+    def get_last_matching_result(user):
+        execution_history = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime').first()
+        if not execution_history:
+            return {'rows': []}
+
+        edges = execution_history.max_matching.max_matching_edges
+
+        edges_list = []
+      
+        for edge in edges:
+            e = (edge[0].split('-')[1], edge[1].split('-')[1])
+            edges_list.append(e)
+
+        return {'rows': edges_list}
 
 
 class DashboardSelectors:
@@ -193,6 +225,5 @@ class DashboardSelectors:
             workers_count=Count('worker', distinct=True),
         ).order_by(
             '-tasks_count'
-        ).values('name', 'tasks_count', 'workers_count')
-        print(top_10_categories)
+        ).values('name', 'tasks_count', 'workers_count')[:10]
         return list(top_10_categories)

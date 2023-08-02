@@ -61,35 +61,34 @@ class TaskSelectors:
 
     @staticmethod
     def get_tasks_with_connected_workers(user: User) -> Dict[Task, List[str]]:
-        task_categories = Task.objects.filter(user=user, status=Task.Status.OPEN).annotate(
-            category_pk=Subquery(Category.objects.filter(task=OuterRef('pk')).values('pk')[:1])
-        ).values('category_pk')
 
-        task_educations = Task.objects.filter(user=user, status=Task.Status.OPEN).annotate(
-            education_pk=Subquery(Education.objects.filter(task=OuterRef('pk')).values('pk')[:1])
-        ).values('education_pk')
+        tasks = Task.objects.prefetch_related('categories', 'educations').filter(user=user, status=Task.Status.OPEN)
+        workers = Worker.objects.select_related(
+            'education'
+        ).prefetch_related(
+            'categories'
+        ).filter(
+            user=user,
+            status=Worker.Status.FREE,
+        )
 
-        tasks = Task.objects.filter(user=user, status=Task.Status.OPEN)
-        connected_workers_dict = {}
+        connection_data = {}
 
         for task in tasks:
-            connected_workers_qs = Worker.objects.filter(status=Worker.Status.FREE, user=user)
+            connected_workers = workers.all()
+            task_categories = list(task.categories.all().values_list('pk', flat=True))
+            task_educations = list(task.educations.all().values_list('pk', flat=True))
 
-            if task_categories.filter(category_pk=task.pk).exists():
-                connected_workers_qs = connected_workers_qs.filter(
-                    categories__in=Subquery(task_categories.filter(category_pk=task.pk))
-                ).annotate(
-                    category_count=Count('categories')
-                ).filter(category_count=task.categories.count())
+            if task_categories:
+                connected_workers = connected_workers.filter(categories__in=task_categories).annotate(
+                    categories_count=Count('categories')).filter(categories_count=len(task_categories))
+              
+            if task_educations:
+                connected_workers = connected_workers.filter(education_id__in=task_educations)
 
-            if task_educations.filter(education_pk=task.pk).exists():
-                connected_workers_qs = connected_workers_qs.filter(
-                    education__in=Subquery(task_educations.filter(education_pk=task.pk))
-                )
-            connected_workers_qs = connected_workers_qs.values_list('id', flat=True)
-            connected_workers_dict[task] = list(connected_workers_qs)
+            connection_data[task] = list(connected_workers.values_list('id', flat=True))
 
-        return connected_workers_dict
+        return connection_data
 
     @staticmethod
     def get_free_tasks_with_annotated_id(user: User) -> List[str]:

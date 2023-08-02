@@ -21,7 +21,7 @@ class Worker(models.Model):
     categories = models.ManyToManyField('categories.Category', blank=True)
     education = models.ForeignKey('educations.Education', null=True, blank=True, on_delete=models.CASCADE)
 
-    status = models.CharField(max_length=50, db_index=True, choices=Status.choices)
+    status = models.CharField(max_length=50, db_index=True, choices=Status.choices, default=Status.FREE)
 
     # Company Relation
     user = models.ForeignKey(User, on_delete=models.CASCADE)

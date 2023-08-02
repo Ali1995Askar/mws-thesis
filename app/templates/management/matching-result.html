@@ -1,0 +1,60 @@
+
+
+{% extends "dashboard-base.html" %}
+
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Educations Table</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
+                    <li class="breadcrumb-item active">Data Table</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table datatable">
+                                <thead>
+                                <tr>
+                                    <th id="#worker-table-thead" scope="col">Worker</th>
+                                    <th id="#img-table-thead"></th>
+                                    <th id="#task-table-thead" scope="col">Task</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for row in rows %}
+                                    <tr>
+                                        <td class="text-primary ">
+                                            <a href={% url 'workers:details' row.0 %}> worker-{{ row.0 }}</a>
+                                        </td>
+                                        <td>
+                                            <i style=" font-size: 30px" class="bi bi-arrow-left-right"></i>
+                                        </td>
+                                        <td class="text-primary ">
+                                            <a href={% url 'tasks:details' row.1 %}> task-{{ row.1 }}</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+
+{% endblock content %}

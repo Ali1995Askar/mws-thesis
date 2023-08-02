@@ -5,7 +5,8 @@ app_name = 'management'
 
 urlpatterns = [
     path('dashboard', views.DashboardView.as_view(), name='dashboard'),
-    path('matching-history', views.MatchingHistoryView.as_view(), name='matching-history'),
     path('task-assigner', views.AssignTasksView.as_view(), name='task-assigner'),
+    path('matching-result', views.MatchingResultView.as_view(), name='matching-result'),
+    path('matching-history', views.MatchingHistoryView.as_view(), name='matching-history'),
 
 ]

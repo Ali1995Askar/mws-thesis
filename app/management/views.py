@@ -1,14 +1,13 @@
 import json
-from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import generic, View
 from management.services import Services
-from management.selectors import ExecutionHistorySelectors, DashboardSelectors
 from tasks.selectors import TaskSelectors
 from workers.selectors import WorkerSelectors
+from django.shortcuts import render, redirect
+from management.selectors import ExecutionHistorySelectors, DashboardSelectors
 
 
-# Create your views here.
 class DashboardView(View):
     template_name = "management/dashboard.html"
 
@@ -83,7 +82,20 @@ class MatchingHistoryView(generic.ListView):
 
     @staticmethod
     def get_context(request):
-        context = ExecutionHistorySelectors.get_last_15_execution_history_statistics(user=request.user)
+        context = ExecutionHistorySelectors.get_last_10_execution_history_statistics(user=request.user)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context(request)
+        return render(request, f"{self.template_name}", context=context)
+
+
+class MatchingResultView(View):
+    template_name = "management/matching-result.html"
+
+    @staticmethod
+    def get_context(request):
+        context = ExecutionHistorySelectors.get_last_matching_result(user=request.user)
         return context
 
     def get(self, request, *args, **kwargs):
