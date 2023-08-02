@@ -33,7 +33,7 @@ class Graph:
         self.graph.add_nodes_from(nodes)
 
     def build_manually(self, nodes: List, edges: List, directed: bool = False):
-        # self.graph.clear()
+        self.graph.clear()
         self.add_nodes(nodes=nodes)
         self.add_edges(edges=edges, directed=directed)
 

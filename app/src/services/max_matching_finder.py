@@ -103,16 +103,7 @@ class MaxMatching:
         edges_count = edges_count // 2
         red_nodes_count = len(self.graph.red_nodes)
         blue_nodes_count = len(self.graph.blue_nodes)
-        print('===================================================*********************=============================')
-        print(red_nodes_count)
-        print(blue_nodes_count)
-        print(edges_count)
-        print(self.graph.red_nodes)
-        print(self.graph.blue_nodes)
-        print(self.graph.edges())
         graph_density = edges_count / (red_nodes_count * blue_nodes_count)
-        print(graph_density)
-        print('===================================================*********************=============================')
 
         execution_history = ExecutionHistory.objects.create(
             user=self.user,

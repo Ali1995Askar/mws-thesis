@@ -8,3 +8,4 @@ matplotlib
 joblib==1.2.0
 pytest-django
 django_admin_relation_links
+pytest-mock==3.10.0

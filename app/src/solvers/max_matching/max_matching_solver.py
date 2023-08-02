@@ -86,24 +86,24 @@ class MaxMatchingSolver:
 
         self.bipartite_graph.split_nodes()
         e = time.time()
-        print(f'is_bipartite checking {e - s}')
+        # print(f'is_bipartite checking {e - s}')
         self.temp_graph.red_nodes = self.bipartite_graph.red_nodes
         self.temp_graph.blue_nodes = self.bipartite_graph.blue_nodes
 
         s = time.time()
         self.add_source()
         e = time.time()
-        print(f'add_source  {e - s}')
+        # print(f'add_source  {e - s}')
 
         s = time.time()
         self.add_sink()
         e = time.time()
-        print(f'add_sink  {e - s}')
+        # print(f'add_sink  {e - s}')
 
         s = time.time()
         self.direct_bipartite_graph()
         e = time.time()
-        print(f'direct_bipartite_graph  {e - s}')
+        # print(f'direct_bipartite_graph  {e - s}')
 
     def find_max_matching(self):
         kwargs = {}

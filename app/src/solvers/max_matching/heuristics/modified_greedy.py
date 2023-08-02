@@ -9,7 +9,6 @@ class ModifiedGreedy(AbstractHeuristic):
         matched_nodes = set()
         matched_edges = set()
         red_nodes = self.bipartite_graph.red_nodes
-
         for node in red_nodes:
 
             blue_neighbors = list(self.bipartite_graph.graph.neighbors(node))
@@ -45,6 +44,7 @@ class ModifiedGreedy(AbstractHeuristic):
     def get_replace_data(self, matched_nodes, neighbors, matching_dict):
 
         for neighbor in neighbors:
+
             matched_red_node = matching_dict[neighbor]
             blue_neighbors = self.bipartite_graph.graph.neighbors(matched_red_node)
 

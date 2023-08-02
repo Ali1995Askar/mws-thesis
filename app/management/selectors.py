@@ -147,6 +147,7 @@ class ExecutionHistorySelectors:
                 worker.education = education
                 worker.save()
                 built_edges_num += 1
+                print(f'built_edges_num {built_edges_num} successfully.')
                 if built_edges_num > number_of_edges:
                     break
             assign_round += 1
@@ -160,7 +161,7 @@ class ExecutionHistorySelectors:
         edges = execution_history.max_matching.max_matching_edges
 
         edges_list = []
-      
+
         for edge in edges:
             e = (edge[0].split('-')[1], edge[1].split('-')[1])
             edges_list.append(e)

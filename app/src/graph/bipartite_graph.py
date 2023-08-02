@@ -61,6 +61,7 @@ class BipartiteGraph(Graph):
             print(edge)
 
     def get_instance_copy(self):
+    
         inst = BipartiteGraph()
         inst.red_nodes = copy(self.red_nodes)
         inst.blue_nodes = copy(self.blue_nodes)
