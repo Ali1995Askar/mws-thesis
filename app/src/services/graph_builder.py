@@ -19,26 +19,14 @@ class GraphBuilder:
         self.user: User = user
         self.nodes: List[str] = []
         self.edges: List[Tuple[str, str]] = []
-        self.graph_density = 0
 
     def get_bipartite_graph(self):
-        start = time.time()
+
         free_workers, open_tasks = self.get_workers_and_tasks()
-        end = time.time()
-        print(f'get_workers_and_tasks {end - start}')
-
         self.nodes = free_workers + open_tasks
-        start = time.time()
         self.edges = self.get_edges()
-        end = time.time()
-        print(f'get_edges {end - start}')
-
-        self.graph_density = len(self.edges) / (len(free_workers) * len(open_tasks))
-
-        start = time.time()
         bipartite_graph = self.build_graph()
-        end = time.time()
-        print(f'build_graph {end - start}')
+
         return bipartite_graph
 
     def get_free_workers(self) -> List[str]:
@@ -59,10 +47,9 @@ class GraphBuilder:
 
     def get_edges(self) -> List[Tuple[str, str]]:
         edges = []
-        start = time.time()
+
         tasks_workers_dict = TaskSelectors.get_tasks_with_connected_workers(user=self.user)
-        end = time.time()
-        print(f'get_tasks_with_connected_workers {end - start}')
+
         for task, workers_qs in tasks_workers_dict.items():
             task_node_id = f'task-{task.id}'
             for worker_id in workers_qs:
@@ -70,8 +57,7 @@ class GraphBuilder:
                 edge_obj = Edge(task_id=task_node_id, worker_id=worker_node_id)
                 edge = edge_obj.as_tuple()
                 edges.append(edge)
-                print(edge)
-        
+
         return edges
 
     def build_graph(self) -> BipartiteGraph:
