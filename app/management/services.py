@@ -1,4 +1,3 @@
-from management.factories import Factory
 from src.services.graph_builder import GraphBuilder
 from src.services.max_matching_finder import MaxMatching
 from tasks.selectors import TaskSelectors

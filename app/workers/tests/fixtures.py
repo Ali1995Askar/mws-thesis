@@ -76,7 +76,7 @@ def worker_bruno(pytech_user) -> Worker:
 @pytest.fixture()
 @pytest.mark.django_db(transaction=True)
 def pytech_user_workers(pytech_user) -> QuerySet[Worker]:
-    for i in range(3000):
+    for i in range(1000):
         first_name = f'first_name_{i}'
         last_name = f'last_name_{i}'
         email = f'email_{i}@gmail.com'

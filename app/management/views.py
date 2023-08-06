@@ -5,7 +5,7 @@ from management.services import Services
 from tasks.selectors import TaskSelectors
 from workers.selectors import WorkerSelectors
 from django.shortcuts import render, redirect
-from management.selectors import ExecutionHistorySelectors, DashboardSelectors
+from management.selectors import ManagementSelectors
 
 
 class DashboardView(View):
@@ -13,14 +13,14 @@ class DashboardView(View):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        workers_count = DashboardSelectors.get_workers_count(user)
-        tasks_count = DashboardSelectors.get_tasks_count(user)
-        categories_count = DashboardSelectors.get_categories_count(user)
+        workers_count = ManagementSelectors.get_workers_count(user)
+        tasks_count = ManagementSelectors.get_tasks_count(user)
+        categories_count = ManagementSelectors.get_categories_count(user)
 
-        tasks_per_category = DashboardSelectors.get_tasks_per_category(user)
-        workers_per_category = DashboardSelectors.get_workers_per_category(user)
-        top_10_workers = DashboardSelectors.get_top_10_workers(user)
-        top_10_categories = DashboardSelectors.get_top_10_categories(user)
+        tasks_per_category = ManagementSelectors.get_tasks_per_category(user)
+        workers_per_category = ManagementSelectors.get_workers_per_category(user)
+        top_10_workers = ManagementSelectors.get_top_10_workers(user)
+        top_10_categories = ManagementSelectors.get_top_10_categories(user)
 
         context = {
             'workers_count': workers_count,
@@ -41,7 +41,7 @@ class AssignTasksView(View):
     def get_context(request):
         tasks_counts_dict = TaskSelectors.get_tasks_count_by_status(request.user)
         workers_counts_dict = WorkerSelectors.get_workers_count_by_status(request.user)
-        execution_history_dict = ExecutionHistorySelectors.get_latest_execution_history(request.user)
+        execution_history_dict = ManagementSelectors.get_latest_execution_history(request.user)
 
         context = {
             'open_tasks': tasks_counts_dict['OPEN'],
@@ -82,7 +82,7 @@ class MatchingHistoryView(generic.ListView):
 
     @staticmethod
     def get_context(request):
-        context = ExecutionHistorySelectors.get_last_10_execution_history_statistics(user=request.user)
+        context = ManagementSelectors.get_last_10_execution_history_statistics(user=request.user)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -95,7 +95,7 @@ class MatchingResultView(View):
 
     @staticmethod
     def get_context(request):
-        context = ExecutionHistorySelectors.get_last_matching_result(user=request.user)
+        context = ManagementSelectors.get_last_matching_result(user=request.user)
         return context
 
     def get(self, request, *args, **kwargs):

@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.db.models import Count, F, Value
 
 
-class ExecutionHistorySelectors:
+class ManagementSelectors:
 
     @staticmethod
     def get_latest_execution_history(user):
@@ -168,8 +168,6 @@ class ExecutionHistorySelectors:
 
         return {'rows': edges_list}
 
-
-class DashboardSelectors:
     @staticmethod
     def get_workers_count(user):
         workers_count = Worker.objects.filter(user=user).count()

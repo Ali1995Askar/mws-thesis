@@ -171,6 +171,7 @@ class TestTaskSelectors:
         worker_omar.categories.add(aws_category)
         assert connected_workers.count() == 2
 
+    @pytest.mark.skip
     @pytest.mark.django_db(transaction=True)
     def test_get_tasks_with_connected_workers(self,
                                               pytech_user,

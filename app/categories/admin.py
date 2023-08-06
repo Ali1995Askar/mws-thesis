@@ -8,8 +8,8 @@ class CategoryAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
     change_links = ['user']
 
     list_display = [
-        'user_link',
         'name',
+        'user_link',
         'created_on_datetime',
         'updated_on_datetime',
     ]

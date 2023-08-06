@@ -34,7 +34,7 @@ class EducationCreateView(generic.CreateView):
         return reverse("educations:list")
 
 
-# @method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name='dispatch')
 class EducationUpdateView(generic.UpdateView):
     model = Education
     form_class = EducationForm

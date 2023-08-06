@@ -136,44 +136,7 @@
                                           enctype="multipart/form-data">
 
                                         {% csrf_token %}
-                                        <div class="row mb-3">
-                                            <label class="col-md-4 col-lg-3 col-form-label"> Company Logo </label>
-                                            <div class="col-md-8 col-lg-9">
 
-                                                {% if user.profile.logo %}
-                                                    <img id='profileImage'
-                                                         src="{% get_media_prefix %}{{ user.profile.logo }}"
-                                                         alt="Logo"/>
-
-
-                                                {% else %}
-                                                    <img id='profileImage'
-                                                         src="{% static 'img/default-company-logo.png' %}"
-                                                         alt="Profile">
-                                                {% endif %}
-
-
-                                                <div class="pt-2">
-                                                    <button class="btn btn-primary btn-sm"
-                                                            title="Upload new profile image"
-                                                            onclick="uploadPhoto();">
-                                                        <i class="bi bi-upload"></i>
-                                                    </button>
-                                                    <button href="#"
-                                                            class="btn btn-danger btn-sm"
-                                                            title="Remove my profile image"
-                                                            onclick="removePhoto();">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </div>
-                                                <input
-                                                        type='file'
-                                                        id="imgInp"
-                                                        class="d-none" ,
-                                                        value="{{ user.profile.logo }}"
-                                                        accept=".jpg, .jpeg, .png"/>
-                                            </div>
-                                        </div>
 
                                         <div class="row mb-3">
                                             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">
@@ -337,7 +300,7 @@
                 let data = new FormData();
 
                 data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
-                data.append("img", $("input[id^='imgInp']")[0].files[0]);
+            
                 data.append("name", $("#name").val());
                 data.append("about", $("#about").val());
                 data.append("address", $("#address").val());

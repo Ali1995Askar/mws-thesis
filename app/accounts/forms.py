@@ -30,14 +30,14 @@ class SignupForm(UserCreationForm):
 
         self.fields['password1'].widget = forms.PasswordInput(attrs={
             'class': 'form-control',
-            'type': 'Password1',
+            'type': 'password',
             'name': 'Password1',
             'id': 'Password1',
         })
 
         self.fields['password2'].widget = forms.PasswordInput(attrs={
             'class': 'form-control',
-            'type': 'Password2',
+            'type': 'password',
             'name': 'Password2',
             'id': 'Password2',
         })

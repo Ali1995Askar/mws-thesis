@@ -1,9 +1,7 @@
 import argparse
-
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-
-from management.selectors import ExecutionHistorySelectors
+from management.selectors import ManagementSelectors
 
 
 def validate_density(arg):
@@ -69,4 +67,4 @@ class Command(BaseCommand):
         if username:
             kwargs['username'] = username
 
-        ExecutionHistorySelectors.build_graph(**kwargs)
+        ManagementSelectors.build_graph(**kwargs)

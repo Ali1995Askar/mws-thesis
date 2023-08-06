@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views import generic, View
+from core.utils import prevent_logged_in
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -8,7 +9,8 @@ from django.contrib.auth import login, logout, update_session_auth_hash
 from accounts.forms import SignupForm, SigninForm, ChangePasswordForm, ProfileForm
 
 
-class SigninView(generic.UpdateView):
+@method_decorator(prevent_logged_in, name='dispatch')
+class SigninView(View):
     template_name = "accounts/signin.html"
 
     def get(self, request, *args, **kwargs):
@@ -27,7 +29,8 @@ class SigninView(generic.UpdateView):
         return redirect(reverse('management:dashboard'))
 
 
-class SignupView(generic.CreateView):
+@method_decorator(prevent_logged_in, name='dispatch')
+class SignupView(View):
     template_name = "accounts/signup.html"
 
     def get(self, request, *args, **kwargs):
@@ -102,10 +105,8 @@ class EditProfileView(View):
             return JsonResponse({'errors': form.errors}, status=400)
 
         profile = request.user.profile
-        img = request.FILES.get("img")
-        print(img)
         inst = form.save(commit=False)
-        profile.logo = img
+     
         profile.name = inst.name
         profile.about = inst.about
         profile.address = inst.address

@@ -41,11 +41,6 @@ class CategoryUpdateView(generic.UpdateView):
     template_name = "category/update-category.html"
     context_object_name = 'category'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(user=self.request.user)
