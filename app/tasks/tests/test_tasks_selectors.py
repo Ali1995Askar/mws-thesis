@@ -171,7 +171,6 @@ class TestTaskSelectors:
         worker_omar.categories.add(aws_category)
         assert connected_workers.count() == 2
 
-    @pytest.mark.skip
     @pytest.mark.django_db(transaction=True)
     def test_get_tasks_with_connected_workers(self,
                                               pytech_user,
@@ -183,50 +182,52 @@ class TestTaskSelectors:
                                               worker_omar,
                                               worker_ahmad):
         data = TaskSelectors.get_tasks_with_connected_workers(user=pytech_user)
+       
         for k, v in data.items():
             assert k in [task_fix_tests, task_pay_salaries]
-            assert v.count() == 2
+            assert len(v) == 2
 
         worker_omar.education = it_education
         worker_omar.save()
         data = TaskSelectors.get_tasks_with_connected_workers(user=pytech_user)
         for k, v in data.items():
             assert k in [task_fix_tests, task_pay_salaries]
-            assert v.count() == 2
+            assert len(v) == 2
 
         task_fix_tests.categories.add(asp_category)
         data = TaskSelectors.get_tasks_with_connected_workers(user=pytech_user)
 
         workers = data[task_fix_tests]
-        assert workers.count() == 0
+
+        assert len(workers) == 0
 
         workers = data[task_pay_salaries]
-        assert workers.count() == 2
+        assert len(workers) == 2
 
         worker_omar.categories.add(asp_category)
         data = TaskSelectors.get_tasks_with_connected_workers(user=pytech_user)
         workers = data[task_fix_tests]
-        assert workers.count() == 1
+        assert len(workers) == 1
 
         workers = data[task_pay_salaries]
-        assert workers.count() == 2
+        assert len(workers) == 2
 
         worker_ahmad.categories.add(asp_category)
         data = TaskSelectors.get_tasks_with_connected_workers(user=pytech_user)
         workers = data[task_fix_tests]
-        assert workers.count() == 2
+        assert len(workers) == 2
 
         workers = data[task_pay_salaries]
-        assert workers.count() == 2
+        assert len(workers) == 2
 
         worker_omar.status = Worker.Status.OCCUPIED
         worker_omar.save()
         data = TaskSelectors.get_tasks_with_connected_workers(user=pytech_user)
         workers = data[task_fix_tests]
-        assert workers.count() == 1
+        assert len(workers) == 1
 
         workers = data[task_pay_salaries]
-        assert workers.count() == 1
+        assert len(workers) == 1
 
     @pytest.mark.django_db(transaction=True)
     def test_load(self, pytech_user, pytech_user_tasks, pytech_user_workers):

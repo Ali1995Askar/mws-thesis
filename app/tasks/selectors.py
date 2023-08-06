@@ -1,13 +1,9 @@
 from typing import Dict, List
-
-from django.db.models.functions import Concat
-
 from tasks.models import Task
 from workers.models import Worker
-from categories.models import Category
-from educations.models import Education
+from django.db.models.functions import Concat
 from django.contrib.auth.models import User
-from django.db.models import QuerySet, Subquery, Count, Prefetch, OuterRef, CharField, Value, F
+from django.db.models import QuerySet, Subquery, Count, CharField, Value, F
 
 
 class TaskSelectors:
@@ -82,7 +78,7 @@ class TaskSelectors:
             if task_categories:
                 connected_workers = connected_workers.filter(categories__in=task_categories).annotate(
                     categories_count=Count('categories')).filter(categories_count=len(task_categories))
-              
+
             if task_educations:
                 connected_workers = connected_workers.filter(education_id__in=task_educations)
 
