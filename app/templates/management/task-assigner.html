@@ -101,7 +101,7 @@
             <br>
             <div class="row">
                 <h4>Last Execution Result</h4>
-                <div class="col-xxl-3 col-md-3">
+                <div class="col-xxl-4 col-md-4">
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <h5 class="card-title">Density<span></span></h5>
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-3 col-md-3">
+                <div class="col-xxl-4 col-md-4">
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <h5 class="card-title">Execution Time<span></span></h5>
@@ -137,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-3 col-md-3">
+                <div class="col-xxl-4 col-md-4">
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <h5 class="card-title">Matching Result<span></span></h5>
@@ -152,21 +152,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Used Heuristic Algorithm<span></span></h5>
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-bezier"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <p class="text-danger fs-5"><strong>{{ used_heuristic_algorithm }}</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <br>
@@ -174,36 +159,10 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Graph / Algorithm Actions</h5>
+                        <h5 class="card-title">Task Assignment Actions</h5>
                         <form method="post" action="{% url 'management:task-assigner' %}" class="row g-3">
                             {% csrf_token %}
                             <input type="hidden" id="actionValue" name="action" value="">
-                            <div class="col-md-3">
-                                <div class="d-grid gap-2">
-                                    <select name='heuristic_algorithm'
-                                            class="form-select"
-                                            aria-label="Default select">
-                                        <option value="modified_greedy">Modified Greedy</option>
-                                        <option value="simple_greedy">Simple Greedy</option>
-                                        <option value="randomized_rounding">Randomized Rounding</option>
-                                        <option value="monte_carlo">Monte Carlo</option>
-                                        <option value="static_min_degree">Static Min Degree</option>
-                                        <option value="dynamic_min_degree">Dynamic Min Degree</option>
-                                        <option value="limit_min_degree">Limit Min Degree</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4"></div>
-                            <div class="col-md-5">
-                                <div class="d-grid gap-2 ">
-                                    <button
-                                            class="btn btn-primary"
-                                            onclick="setActionValue('execute_algorithm')"
-                                            type="submit">Execute Algorithm
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-7"></div>
                             <div class="col-md-3">
                                 <div class="d-grid gap-2 ">
                                     <button
@@ -221,6 +180,16 @@
                                             onclick="setActionValue('mark_tasks_done')"
                                             type="submit">
                                         Mark Tasks Done
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <div class="d-grid gap-2 ">
+                                    <button
+                                            class="btn btn-primary"
+                                            onclick="setActionValue('execute_algorithm')"
+                                            type="submit">Execute Algorithm
                                     </button>
                                 </div>
                             </div>

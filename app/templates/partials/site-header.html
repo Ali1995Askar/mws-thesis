@@ -9,10 +9,10 @@
         </div>
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
                 <li><a class="nav-link scrollto" href="{% url 'management:dashboard' %}">Dashboard</a></li>
                 <li><a class="nav-link scrollto" href="{% url 'f-a-q' %}">FAQ</a></li>
-                <li><a class="nav-link scrollto" href="{% url 'contact-us' %}">Contact</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'management:contact-us' %}">Contact</a></li>
 
 
 

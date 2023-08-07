@@ -8,7 +8,6 @@ class HeuristicMatchingAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
     change_links = ['user']
 
     list_display = [
-        'heuristic_algorithm',
         'heuristic_matching',
         'user_link',
         'execution_time',
@@ -41,4 +40,13 @@ class ExecutionHistoryAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
         'user_link',
         'created_on_datetime',
         'updated_on_datetime'
+    ]
+
+
+@admin.register(models.ContactUs)
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = [
+        'name',
+        'email',
+        'subject',
     ]

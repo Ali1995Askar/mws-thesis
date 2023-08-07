@@ -1,6 +1,11 @@
 import json
+
+from django.http import HttpResponse
 from django.urls import reverse
 from django.views import generic, View
+
+from management.forms import ContactUsForm
+from management.models import ContactUs
 from management.services import Services
 from tasks.selectors import TaskSelectors
 from workers.selectors import WorkerSelectors
@@ -55,7 +60,6 @@ class AssignTasksView(View):
 
             'matching': execution_history_dict['matching'],
             'execution_time': execution_history_dict['execution_time'],
-            'used_heuristic_algorithm': execution_history_dict['used_heuristic_algorithm'],
 
         }
 
@@ -101,3 +105,16 @@ class MatchingResultView(View):
     def get(self, request, *args, **kwargs):
         context = self.get_context(request)
         return render(request, f"{self.template_name}", context=context)
+
+
+def contact_us_view(request):
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            success_message = "Your message has been sent. Thank you!"
+            context = {'form': form, 'message': success_message}
+            return render(request, 'management/contact-us.html', context)
+    else:
+        form = ContactUsForm()
+        return render(request, 'management/contact-us.html', {'form': form})

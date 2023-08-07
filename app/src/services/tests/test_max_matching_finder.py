@@ -13,15 +13,20 @@ class TestMaxMatchingFinder:
         solver.execute()
         print(solver.max_matching_solver.get_max_matching_edges())
 
-    @pytest.mark.django_db(transaction=True)
-    def test_execute_2(self, pytech_user, aws_category, pytech_user_workers, pytech_user_tasks):
-        start = time.time()
-        graph_builder = GraphBuilder(user=pytech_user)
-        graph = graph_builder.get_bipartite_graph()
-        end = time.time()
-        print(end - start)
-        start = time.time()
-        solver = MaxMatching(user=pytech_user, heuristic_algorithm='static_min_degree', graph=graph)
-        solver.execute()
-        end = time.time()
-        print(solver.max_matching_solver.get_matching_value())
+    def test_solve(self):
+        pass
+
+    def test_get_heuristic_solver(self):
+        pass
+
+    def test_update_nodes_status(self):
+        pass
+
+    def test_save_max_matching_model(self):
+        pass
+
+    def test_save_heuristic_matching_model(self):
+        pass
+
+    def test_save_execution_history(self):
+        pass

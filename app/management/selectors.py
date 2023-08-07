@@ -1,5 +1,7 @@
 import json
 import math
+import random
+
 from tasks.models import Task
 from workers.models import Worker
 from categories.models import Category
@@ -23,14 +25,12 @@ class ManagementSelectors:
                 'graph_density': None
             }
         max_matching = execution_history.max_matching
+        execution_time = max_matching.execution_time
         heuristic_matching = execution_history.heuristic_matching
-        execution_time = max_matching.execution_time + heuristic_matching.execution_time
-        used_heuristic_algorithm = heuristic_matching.heuristic_algorithm.split("_")
-        used_heuristic_algorithm = " ".join(used_heuristic_algorithm)
+
         return {
             'execution_time': execution_time,
             'matching': max_matching.max_matching,
-            'used_heuristic_algorithm': used_heuristic_algorithm,
             'graph_density': execution_history.graph_density,
         }
 
@@ -44,7 +44,6 @@ class ManagementSelectors:
         accuracy_data = []
         execution_time_data = []
         for obj in execution_histories:
-            used_heuristic_algorithm = " ".join(obj.heuristic_matching.heuristic_algorithm.split("_"))
             heuristic_execution_time = obj.heuristic_matching.execution_time
             max_matching_execution_time = obj.max_matching.execution_time
 
@@ -54,11 +53,10 @@ class ManagementSelectors:
             graph_density = obj.graph_density
             row = {
                 'graph_density': graph_density,
-                'used_heuristic_algorithm': used_heuristic_algorithm,
                 'heuristic_matching': heuristic_matching,
                 'heuristic_execution_time': heuristic_execution_time,
                 'max_matching': max_matching,
-                'max_matching_execution_time': heuristic_execution_time + max_matching_execution_time,
+                'max_matching_execution_time': max_matching_execution_time,
             }
             data.append(row)
 
@@ -69,7 +67,7 @@ class ManagementSelectors:
             }
             time_dict = {
                 'heuristic_matching': heuristic_execution_time,
-                'max_matching': round(heuristic_execution_time + max_matching_execution_time, 4),
+                'max_matching': max_matching_execution_time,
                 'graph_density': graph_density
             }
 
@@ -135,7 +133,7 @@ class ManagementSelectors:
         assign_round = 0
 
         while True:
-            if built_edges_num >= number_of_edges:
+            if built_edges_num == number_of_edges:
                 break
 
             for idx, worker in enumerate(all_workers):
@@ -147,10 +145,72 @@ class ManagementSelectors:
                 worker.education = education
                 worker.save()
                 built_edges_num += 1
-                print(f'built_edges_num {built_edges_num} successfully.')
-                if built_edges_num > number_of_edges:
+                print(f'Edge number({built_edges_num}) built successfully: {task.id} <=> {worker.id}')
+
+                if built_edges_num == number_of_edges:
                     break
             assign_round += 1
+
+    @staticmethod
+    def random_build_graph(nodes: int, density: float, username: str = 'admin'):
+        user: User = User.objects.get(username=username)
+
+        if nodes % 2 == 1:
+            tasks_nodes = set(range(0, math.ceil(nodes / 2)))
+            workers_nodes = set(range(0, len(tasks_nodes) - 1))
+        else:
+            tasks_nodes = set(range(0, math.ceil(nodes / 2)))
+            workers_nodes = set(range(0, len(tasks_nodes)))
+
+        num_of_edges = math.ceil((len(tasks_nodes) * len(workers_nodes)) * density)
+
+        Task.objects.filter(user=user).delete()
+        Worker.objects.filter(user=user).delete()
+        Category.objects.filter(user=user).delete()
+        Education.objects.filter(user=user).delete()
+
+        tasks_objects = []
+        for task_num in tasks_nodes:
+            title = f'title_{task_num}'
+            description = f'description_{task_num}'
+            obj = Task(title=title, description=description, status=Task.Status.OPEN.value, user=user)
+            tasks_objects.append(obj)
+        Task.objects.bulk_create(tasks_objects)
+
+        workers_objects = []
+        for worker_num in workers_nodes:
+            first_name = f'worker'
+            last_name = f'{worker_num}'
+            email = f'worker_email_{worker_num}@max-matching.com'
+
+            obj = Worker(user=user, first_name=first_name, last_name=last_name, email=email)
+            workers_objects.append(obj)
+        Worker.objects.bulk_create(workers_objects)
+
+        all_tasks = list(Task.objects.filter(user=user, status=Task.Status.OPEN))
+        all_workers = list(Worker.objects.filter(user=user, status=Worker.Status.FREE))
+
+        possible_edges = []
+
+        for task in all_tasks:
+            for worker in all_workers:
+                possible_edges.append((task, worker))
+
+        education = Education.objects.create(user=user, name=f'MWS')
+        for idx, task in enumerate(all_tasks):
+            category = Category.objects.create(user=user, name=f'Category_{idx}')
+            task.educations.add(education)
+            task.categories.add(category)
+
+        random.shuffle(possible_edges)
+        selected_edges = possible_edges[:num_of_edges]
+
+        for task, worker in selected_edges:
+            worker.education = task.educations.first()
+            for category in task.categories.all():
+                worker.categories.add(category)
+
+            worker.save()
 
     @staticmethod
     def get_last_matching_result(user):

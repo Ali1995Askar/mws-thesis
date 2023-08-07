@@ -11,7 +11,6 @@ urlpatterns = [
 
     # Basic
     path('', views.HomeView.as_view(), name='home'),
-    path('contact-us/', views.ContactUsView.as_view(), name='contact-us'),
     path('faq/', views.FAQView.as_view(), name='f-a-q'),
 
     # Apps

@@ -7,10 +7,10 @@ class Services:
 
     @staticmethod
     def execute_algorithm(request):
-        heuristic_algorithm = request.POST['heuristic_algorithm']
+        # heuristic_algorithm = request.POST['heuristic_algorithm']
         graph_builder = GraphBuilder(user=request.user)
         bipartite_graph = graph_builder.get_bipartite_graph()
-        solver = MaxMatching(user=request.user, graph=bipartite_graph, heuristic_algorithm=heuristic_algorithm)
+        solver = MaxMatching(user=request.user, graph=bipartite_graph, heuristic_algorithm="MODIFIED_GREEDY")
         solver.execute()
 
     @staticmethod
