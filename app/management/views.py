@@ -46,7 +46,7 @@ class AssignTasksView(View):
     def get_context(request):
         tasks_counts_dict = TaskSelectors.get_tasks_count_by_status(request.user)
         workers_counts_dict = WorkerSelectors.get_workers_count_by_status(request.user)
-        execution_history_dict = ManagementSelectors.get_latest_execution_history(request.user)
+        # execution_history_dict = ManagementSelectors.get_latest_execution_history(request.user)
 
         context = {
             'open_tasks': tasks_counts_dict['OPEN'],
@@ -56,10 +56,10 @@ class AssignTasksView(View):
             'free_workers': workers_counts_dict['FREE'],
             'occupied_workers': workers_counts_dict['OCCUPIED'],
 
-            'graph_density': execution_history_dict['graph_density'],
-
-            'matching': execution_history_dict['matching'],
-            'execution_time': execution_history_dict['execution_time'],
+            # 'graph_density': execution_history_dict['graph_density'],
+            #
+            # 'matching': execution_history_dict['matching'],
+            # 'execution_time': execution_history_dict['execution_time'],
 
         }
 

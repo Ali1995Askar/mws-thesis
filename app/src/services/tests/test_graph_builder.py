@@ -42,9 +42,24 @@ class TestGraphBuilder:
             })
         graph_builder.set_nodes_and_edges()
 
-        assert set(graph_builder.nodes) == {'task-1', 'worker-3', 'task-2', 'worker-1', 'task-3', 'worker-2'}
+        assert set(graph_builder.nodes) == {f'task-{task_fix_tests.id}',
+                                            f'worker-{worker_ali_askar.id}',
+                                            f'task-{task_pay_salaries.id}',
+                                            f'worker-{worker_omar.id}',
+                                            f'task-{task_send_emails.id}',
+                                            f'worker-{worker_ahmad.id}'}
         assert all(
-            edge in [('worker-3', 'task-1'), ('worker-1', 'task-2'), ('worker-2', 'task-3')]
+            edge in [
+                (f'worker-{worker_ali_askar.id}', f'task-{task_fix_tests.id}'),
+                (f'worker-{worker_omar.id}', f'task-{task_pay_salaries.id}'),
+                (f'worker-{worker_ahmad.id}', f'task-{task_send_emails.id}')
+            ]
             for edge in graph_builder.edges
         )
-        assert len(graph_builder.edges) == len([('worker-3', 'task-1'), ('worker-1', 'task-2'), ('worker-2', 'task-3')])
+        assert len(graph_builder.edges) == len(
+            [
+                (f'worker-{worker_ali_askar.id}', f'task-{task_fix_tests.id}'),
+                (f'worker-{worker_omar.id}', f'task-{task_pay_salaries.id}'),
+                (f'worker-{worker_ahmad.id}', f'task-{task_send_emails.id}')
+            ]
+        )

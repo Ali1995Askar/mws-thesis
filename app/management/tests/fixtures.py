@@ -11,7 +11,6 @@ def heuristic_matching_1(pytech_user, task_fix_tests, worker_ali_askar) -> model
         user=pytech_user,
         execution_time=1.5,
         heuristic_matching=0,
-        heuristic_algorithm=models.HeuristicMatching.HeuristicAlgorithm.STATIC_MIN_DEGREE.value
     )
     return heuristic_matching
 
@@ -23,7 +22,6 @@ def heuristic_matching_2(pytech_user, task_fix_tests, worker_ali_askar) -> model
         user=pytech_user,
         execution_time=1.5,
         heuristic_matching=5,
-        heuristic_algorithm=models.HeuristicMatching.HeuristicAlgorithm.DYNAMIC_MIN_DEGREE.value
     )
     return heuristic_matching
 
@@ -44,7 +42,7 @@ def max_matching_1(pytech_user, task_fix_tests, worker_ali_askar) -> models.MaxM
 def max_matching_2(pytech_user, task_fix_tests, worker_ali_askar) -> models.MaxMatching:
     max_matching = models.MaxMatching.objects.create(
         user=pytech_user,
-        execution_time=1.5,
+        execution_time=2.5,
         max_matching=6,
     )
     return max_matching

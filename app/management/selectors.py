@@ -15,26 +15,6 @@ from django.db.models import Count, F, Value
 class ManagementSelectors:
 
     @staticmethod
-    def get_latest_execution_history(user):
-        execution_history = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime').first()
-        if not execution_history:
-            return {
-                'execution_time': None,
-                'matching': None,
-                'used_heuristic_algorithm': None,
-                'graph_density': None
-            }
-        max_matching = execution_history.max_matching
-        execution_time = max_matching.execution_time
-        heuristic_matching = execution_history.heuristic_matching
-
-        return {
-            'execution_time': execution_time,
-            'matching': max_matching.max_matching,
-            'graph_density': execution_history.graph_density,
-        }
-
-    @staticmethod
     def get_last_10_execution_history_statistics(user):
         execution_histories = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime')[:10]
         if not execution_histories:
