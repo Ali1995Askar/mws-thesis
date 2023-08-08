@@ -91,7 +91,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DJANGO_LOG_FILE = env.str("DJANGO_LOG_FILE", os.path.join(BASE_DIR, 'mws-thesis/logs', 'server.log'))
 os.makedirs(os.path.dirname(DJANGO_LOG_FILE), exist_ok=True)
 
-STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(os.path.join(BASE_DIR, 'mws-thesis/app'), 'assets')
+STATIC_URL = "/static/"
 STATICFILES_DIRS = os.path.join(os.path.join(BASE_DIR, 'mws-thesis/app'), 'static'),
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mws-thesis/media')

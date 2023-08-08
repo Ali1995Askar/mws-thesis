@@ -1,0 +1,20 @@
+{% extends "dashboard-base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <main>
+        <div class="container">
+
+            <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+                <h1>500</h1>
+                <h2>Internal Server Error.</h2>
+                <a class="btn" href="{% url 'home' %}">Back to home</a>
+                <img src="{% static 'img/error.png' %}" class="img-fluid py-5" alt="Page Not Found">
+
+            </section>
+
+        </div>
+    </main><!-- End #main -->
+
+{% endblock content %}

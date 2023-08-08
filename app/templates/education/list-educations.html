@@ -9,7 +9,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href={% url 'home' %}>Home</a></li>
-                    <li class="breadcrumb-item active">Data Table</li>
+                    <li class="breadcrumb-item active">Educations</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -19,7 +19,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Datatables</h5>
+                            <h5 class="card-title">Educations</h5>
                             <a href="{% url 'educations:create' %}">
                                 <button type="submit" class="btn btn-primary">Add New Education</button>
                             </a>
@@ -35,7 +35,7 @@
                                     <th scope="col" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
-                            
+
                                 <tbody>
                                 {% for education in object_list %}
                                     <tr>

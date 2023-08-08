@@ -1,7 +1,9 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import generic, View
 
 from management.forms import ContactUsForm
@@ -13,6 +15,7 @@ from django.shortcuts import render, redirect
 from management.selectors import ManagementSelectors
 
 
+@method_decorator(login_required, name='dispatch')
 class DashboardView(View):
     template_name = "management/dashboard.html"
 
@@ -39,6 +42,7 @@ class DashboardView(View):
         return render(request, f"{self.template_name}", context=context)
 
 
+@method_decorator(login_required, name='dispatch')
 class AssignTasksView(View):
     template_name = "management/task-assigner.html"
 
@@ -81,6 +85,7 @@ class AssignTasksView(View):
             return render(request, f"{self.template_name}", context)
 
 
+@method_decorator(login_required, name='dispatch')
 class MatchingHistoryView(generic.ListView):
     template_name = "management/matching-history.html"
 
@@ -94,6 +99,7 @@ class MatchingHistoryView(generic.ListView):
         return render(request, f"{self.template_name}", context=context)
 
 
+@method_decorator(login_required, name='dispatch')
 class MatchingResultView(View):
     template_name = "management/matching-result.html"
 
