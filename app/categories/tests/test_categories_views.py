@@ -91,6 +91,7 @@ class TestCategoryUpdateView:
 
         aws_category.user = svu_user
         aws_category.save()
+
         response = authorized_client.post(url, form_data)
         assert response.status_code == 404
 

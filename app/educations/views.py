@@ -44,6 +44,7 @@ class EducationUpdateView(generic.UpdateView):
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(user=self.request.user)
+        print(qs)
         return qs
 
     def get_success_url(self):

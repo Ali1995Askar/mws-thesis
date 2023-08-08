@@ -92,6 +92,7 @@ class TestEducationUpdateView:
         it_education.user = svu_user
         it_education.save()
         response = authorized_client.post(url, form_data)
+        print(response.content.decode())
         assert response.status_code == 404
 
     @pytest.mark.django_db(transaction=True)
