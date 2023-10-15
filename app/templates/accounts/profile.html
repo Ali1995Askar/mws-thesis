@@ -32,8 +32,8 @@
                                 <img src="{% static 'img/default-company-logo.png' %}" alt="Profile">
                             {% endif %}
 
-                            <h2>Kevin Anderson</h2>
-                            <h3>Web Designer</h3>
+                            <h2>{{ user.username }}</h2>
+                            <h3>{{ user.email }}</h3>
                         </div>
                     </div>
 
@@ -57,7 +57,6 @@
                                         Profile
                                     </button>
                                 </li>
-
 
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab"
@@ -300,7 +299,7 @@
                 let data = new FormData();
 
                 data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
-            
+
                 data.append("name", $("#name").val());
                 data.append("about", $("#about").val());
                 data.append("address", $("#address").val());

@@ -4,11 +4,11 @@ from tasks.forms import TaskForm
 from django.views import generic
 from django.shortcuts import render
 from tasks.selectors import TaskSelectors
-from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
+@method_decorator(login_required, name='dispatch')
 class TaskListView(generic.ListView):
     model = Task
     template_name = "tasks/list_tasks.html"
@@ -19,6 +19,7 @@ class TaskListView(generic.ListView):
         return qs
 
 
+@method_decorator(login_required, name='dispatch')
 class TaskCreateView(generic.CreateView):
     model = Task
     form_class = TaskForm
@@ -39,6 +40,7 @@ class TaskCreateView(generic.CreateView):
         return reverse("tasks:list")
 
 
+@method_decorator(login_required, name='dispatch')
 class TaskUpdateView(generic.UpdateView):
     model = Task
     form_class = TaskForm
@@ -59,6 +61,7 @@ class TaskUpdateView(generic.UpdateView):
         return reverse('tasks:list')
 
 
+@method_decorator(login_required, name='dispatch')
 class TaskDeleteView(generic.DeleteView):
     model = Task
     template_name = "tasks/delete_task.html"
@@ -73,6 +76,7 @@ class TaskDeleteView(generic.DeleteView):
         return reverse("tasks:list")
 
 
+@method_decorator(login_required, name='dispatch')
 class TaskDetailsView(generic.DetailView):
     model = Task
     context_object_name = 'task'

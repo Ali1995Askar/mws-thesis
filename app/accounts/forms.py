@@ -1,17 +1,16 @@
 from django import forms
-from django.contrib.auth import password_validation
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
-from django.contrib.auth.forms import AuthenticationForm
-
 from accounts.models import Profile
+from django.contrib.auth import password_validation
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 
 
 class SignupForm(UserCreationForm):
-    email = forms.EmailField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        self.email = forms.EmailField()
         # Customize widget for an existing field
 
         self.fields['username'].widget = forms.TextInput(attrs={
@@ -41,6 +40,10 @@ class SignupForm(UserCreationForm):
             'name': 'Password2',
             'id': 'Password2',
         })
+
+    class Meta:
+        model = get_user_model()
+        fields = ("username", "email")
 
 
 class SigninForm(AuthenticationForm):

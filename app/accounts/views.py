@@ -39,7 +39,7 @@ class SignupView(View):
 
     def post(self, request, *args, **kwargs):
         form = SignupForm(request.POST)
-
+        print(form.email)
         if not form.is_valid():
             context = {'form': form}
             return render(request, f"{self.template_name}", context)
@@ -106,7 +106,7 @@ class EditProfileView(View):
 
         profile = request.user.profile
         inst = form.save(commit=False)
-     
+
         profile.name = inst.name
         profile.about = inst.about
         profile.address = inst.address

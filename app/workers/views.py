@@ -1,15 +1,14 @@
 from django.urls import reverse
 from django.views import generic
-
-from tasks.models import Task
 from workers.models import Worker
 from django.shortcuts import render
 from workers.forms import WorkerForm
-from django.http import HttpResponseRedirect
-
 from workers.selectors import WorkerSelectors
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 
+@method_decorator(login_required, name='dispatch')
 class WorkerListView(generic.ListView):
     model = Worker
     template_name = "workers/list-workers.html"
@@ -20,6 +19,7 @@ class WorkerListView(generic.ListView):
         return qs
 
 
+@method_decorator(login_required, name='dispatch')
 class WorkerCreateView(generic.CreateView):
     model = Worker
     form_class = WorkerForm
@@ -40,6 +40,7 @@ class WorkerCreateView(generic.CreateView):
         return reverse("workers:list")
 
 
+@method_decorator(login_required, name='dispatch')
 class WorkerUpdateView(generic.UpdateView):
     model = Worker
     form_class = WorkerForm
@@ -60,6 +61,7 @@ class WorkerUpdateView(generic.UpdateView):
         return reverse('workers:list')
 
 
+@method_decorator(login_required, name='dispatch')
 class WorkerDeleteView(generic.DeleteView):
     model = Worker
     template_name = "workers/delete-worker.html"
@@ -74,6 +76,7 @@ class WorkerDeleteView(generic.DeleteView):
         return reverse("workers:list")
 
 
+@method_decorator(login_required, name='dispatch')
 class WorkerDetailsView(generic.DetailView):
     model = Worker
     context_object_name = 'worker'

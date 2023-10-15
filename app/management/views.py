@@ -60,11 +60,6 @@ class AssignTasksView(View):
             'free_workers': workers_counts_dict['FREE'],
             'occupied_workers': workers_counts_dict['OCCUPIED'],
 
-            # 'graph_density': execution_history_dict['graph_density'],
-            #
-            # 'matching': execution_history_dict['matching'],
-            # 'execution_time': execution_history_dict['execution_time'],
-
         }
 
         return context
