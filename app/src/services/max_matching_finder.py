@@ -86,6 +86,7 @@ class MaxMatching:
             red_nodes_count = len(self.graph.red_nodes)
             blue_nodes_count = len(self.graph.blue_nodes)
             graph_density = edges_count / (red_nodes_count * blue_nodes_count)
+            graph_density = round(graph_density, 3)
 
         else:
             graph_density = 0

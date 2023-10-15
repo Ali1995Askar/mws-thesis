@@ -1,15 +1,14 @@
 import json
 import math
 import random
-
 from tasks.models import Task
 from workers.models import Worker
 from categories.models import Category
 from educations.models import Education
-from django.db.models.functions import Concat
-from management.models import ExecutionHistory
 from django.contrib.auth.models import User
 from django.db.models import Count, F, Value
+from django.db.models.functions import Concat
+from management.models import ExecutionHistory
 
 
 class ManagementSelectors:
@@ -201,11 +200,18 @@ class ManagementSelectors:
         edges = execution_history.max_matching.max_matching_edges
 
         edges_list = []
-
+        workers = []
+        tasks = []
         for edge in edges:
             e = (edge[0].split('-')[1], edge[1].split('-')[1])
+            workers.append(edge[1].split('-')[1])
+            tasks.append(edge[0].split('-')[1])
             edges_list.append(e)
 
+        workers_rows = Worker.objects.filter(pk__in=workers)
+        tasks_rows = Task.objects.filter(pk__in=tasks)
+        print(workers_rows)
+        print(tasks_rows)
         return {'rows': edges_list}
 
     @staticmethod
@@ -230,7 +236,7 @@ class ManagementSelectors:
         ).filter(
             num_tasks__gt=0
         ).order_by('-num_tasks').values('name', 'num_tasks')[:5]
-
+        print(top_tasks)
         return list(top_tasks)
 
     @staticmethod
