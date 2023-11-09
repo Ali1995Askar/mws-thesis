@@ -4,9 +4,9 @@
 {% block content %}
 <main id="main" class="main">
 
-    <section class="section">
+    <section class="section dashboard">
         <div class="row">
-            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-3">Heuristic Algorithms</h5>
@@ -23,58 +23,61 @@
                                 <label class="col-sm-6 col-form-label"><strong>Random Greedy</strong></label>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="random_greedy" id="red12"
+                                        <input class="form-check-input" type="checkbox" name="random_greedy" id="red12"
                                                value="red12" checked>
                                         <label class="form-check-label" for="red12">Red12</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="random_greedy"
+                                        <input class="form-check-input" type="checkbox" name="random_greedy"
                                                id="monteCarlo"
-                                               value="monte_carlo">
+                                               value="monte_carlo"
+                                               checked>
                                         <label class="form-check-label" for="monteCarlo">
                                             Monte Carlo
                                         </label>
                                     </div>
-
-
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="random_greedy" id="minGreedy"
-                                               value="min_greedy">
+                                        <input class="form-check-input" type="checkbox" name="random_greedy"
+                                               id="minGreedy"
+                                               value="min_greedy"
+                                               checked>
                                         <label class="form-check-label" for="minGreedy">
                                             Min Greedy
                                         </label>
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="random_greedy"
+                                        <input class="form-check-input" type="checkbox" name="random_greedy"
                                                id="simpleGreedy"
-                                               value="simple_greedy">
+                                               value="simple_greedy"
+                                               checked>
                                         <label class="form-check-label" for="simpleGreedy">
                                             Simple Greedy
                                         </label>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row mb-5">
                                 <label class="col-sm-6 col-form-label"><strong>Min Degree</strong></label>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="min_degree" id="dynamic"
-                                               value="dynamic" checked>
+                                        <input class="form-check-input" type="checkbox" name="min_degree" id="dynamic"
+                                               value="dynamic"
+                                               checked>
                                         <label class="form-check-label" for="dynamic">Dynamic</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="min_degree" id="static"
-                                               value="static">
+                                        <input class="form-check-input" type="checkbox" name="min_degree" id="static"
+                                               value="static"
+                                               checked>
                                         <label class="form-check-label" for="static">
                                             Static
                                         </label>
                                     </div>
-
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="min_degree" id="limit"
-                                               value="limit">
+                                        <input class="form-check-input" type="checkbox" name="min_degree" id="limit"
+                                               value="limit"
+                                               checked>
                                         <label class="form-check-label" for="limit">
                                             Limit
                                         </label>
@@ -92,77 +95,146 @@
                 </div>
 
             </div>
-            <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Execution Statistics</h5>
-
-                        <!-- Line Chart -->
-                        <div id="lineChart"></div>
-
-                        <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new ApexCharts(document.querySelector("#lineChart"), {
-                                    series: [
-                                        {
-                                            name: "Modified Greedy",
-                                            data: [100, 200, 300, 400, 500, 600, 700, 800, 90]
-                                        },
-                                        {
-                                            name: "Min Degree",
-                                            data: [10, 20, 300, 400, 50, 600, 700, 80, 90]
-                                        },
-                                        {
-                                            name: "Random Greedy",
-                                            data: [10, 20, 30, 40, 50, 60, 70, 80, 90]
-                                        },
-
-                                    ],
-                                    chart: {
-                                        height: 350,
-                                        type: 'line',
-                                        zoom: {
-                                            enabled: false
-                                        }
-                                    },
-                                    dataLabels: {
-                                        enabled: false
-                                    },
-                                    stroke: {
-                                        curve: 'straight'
-                                    },
-                                    grid: {
-                                        row: {
-                                            colors: ['#f3f3f3', 'transparent'],
-                                            opacity: 0.5
-                                        },
-                                    },
-                                    xaxis: {
-                                        title: {
-                                            text: 'Time (ms)'
-                                        },
-                                        categories: ['0.001', '0.002', ' 0.003', '0.004', '0.005', '0.006', '0.007', '0.008', '0.009'],
-                                    },
-                                    yaxis: {
-                                        title: {
-                                            text: 'Matching Value'
-                                        }
-                                    },
-                                }).render();
-                            });
-                        </script>
-                        <!-- End Line Chart -->
-
+                        <h5 class="card-title"> Matching <span> | number of edges</span></h5>
+                        <div class="activity">
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">1</div>
+                                <i class='bi bi-circle-fill activity-badge text-light align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Modified Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">2</div>
+                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Simple Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">3</div>
+                                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Dynamic Min Degree</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">4</div>
+                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Min Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">5</div>
+                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Monte Carlo</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">6</div>
+                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Red12</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">7</div>
+                                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Static Min Degree</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">8</div>
+                                <i class='bi bi-circle-fill activity-badge text-dark align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Limit Min Degree</strong>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> Run Time <span> | ms</span></h5>
+                        <div class="activity">
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0001</div>
+                                <i class='bi bi-circle-fill activity-badge text-light align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Modified Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0002</div>
+                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Simple Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0003</div>
+                                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Dynamic Min Degree</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0004</div>
+                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Min Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0005</div>
+                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Monte Carlo</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0006</div>
+                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Red12</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0007</div>
+                                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Static Min Degree</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0008</div>
+                                <i class='bi bi-circle-fill activity-badge text-dark align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Limit Min Degree</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- End Recent Activity -->
+            </div>
         </div>
+
     </section>
 </main>
 <script>
 
 </script>
 {% endblock content %}
+
 
 
 
