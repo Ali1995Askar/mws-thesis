@@ -1,6 +1,9 @@
+import datetime
+
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Task(models.Model):
@@ -15,7 +18,7 @@ class Task(models.Model):
 
     title = models.CharField(max_length=50, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
-    deadline = models.DateField(null=True, blank=True)
+    deadline = models.DateField(default=datetime.date.today, null=True, blank=True)
 
     status = models.CharField(max_length=50, db_index=True, choices=Status.choices)
 

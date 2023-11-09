@@ -29,6 +29,7 @@ class TaskCreateView(generic.CreateView):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
+        print(form['deadline'])
         return super().form_valid(form)
 
     def get_form_kwargs(self):
