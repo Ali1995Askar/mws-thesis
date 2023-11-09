@@ -1,0 +1,158 @@
+{% extends "dashboard-base.html" %}
+{% load static %}
+
+{% block content %}
+    <main id="main" class="main">
+
+        <section class="section">
+            <div class="row">
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Heuristic Algorithms</h5>
+                            <form>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                                           checked>
+                                    <label class="form-check-label mb-3" for="flexSwitchCheckChecked">
+                                        Modified Greedy
+                                    </label>
+                                </div>
+                                <div class="row mb-5">
+                                    <label class="col-sm-6 col-form-label"><strong>Random Greedy</strong></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+
+                                            <label class="form-check-label" for="flexSwitchCheckChecked">Red12</label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                                Monte Carlo
+                                            </label>
+
+                                        </div>
+
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                                Min Greedy
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                                Simple Greedy
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <label class="col-sm-6 col-form-label"><strong>Min Degree</strong></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                                Static
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                                Dynamic
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                                Limit
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2 mt-3">
+                                    <button class="btn btn-danger" type="button">Execute</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Execution Statistics</h5>
+
+                            <!-- Line Chart -->
+                            <div id="lineChart"></div>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#lineChart"), {
+                                        series: [
+                                            {
+                                                name: "Modified Greedy",
+                                                data: [100, 200, 300, 400, 500, 600, 700, 800, 90]
+                                            },
+                                            {
+                                                name: "Min Degree",
+                                                data: [10, 20, 300, 400, 50, 600, 700, 80, 90]
+                                            },
+                                            {
+                                                name: "Random Greedy",
+                                                data: [10, 20, 30, 40, 50, 60, 70, 80, 90]
+                                            },
+
+                                        ],
+                                        chart: {
+                                            height: 350,
+                                            type: 'line',
+                                            zoom: {
+                                                enabled: false
+                                            }
+                                        },
+                                        dataLabels: {
+                                            enabled: false
+                                        },
+                                        stroke: {
+                                            curve: 'straight'
+                                        },
+                                        grid: {
+                                            row: {
+                                                colors: ['#f3f3f3', 'transparent'],
+                                                opacity: 0.5
+                                            },
+                                        },
+                                        xaxis: {
+                                            title: {
+                                                text: 'Time (ms)'
+                                            },
+                                            categories: ['0.001', '0.002', ' 0.003', '0.004', '0.005', '0.006', '0.007', '0.008', '0.009'],
+                                        },
+                                        yaxis: {
+                                            title: {
+                                                text: 'Matching Value'
+                                            }
+                                        },
+                                    }).render();
+                                });
+                            </script>
+                            <!-- End Line Chart -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+
+    </script>
+{% endblock content %}
+
+
+

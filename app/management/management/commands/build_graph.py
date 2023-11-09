@@ -40,7 +40,7 @@ class Command(BaseCommand):
             '-n',
             '--nodes',
             type=validate_nodes_number,
-            default=100
+            default=250
         )
 
         parser.add_argument(

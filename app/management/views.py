@@ -119,3 +119,10 @@ def contact_us_view(request):
     else:
         form = ContactUsForm()
         return render(request, 'management/contact-us.html', {'form': form})
+
+
+class PresentationView(generic.ListView):
+    template_name = "management/presentation.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, f"{self.template_name}")
