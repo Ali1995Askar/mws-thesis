@@ -1,7 +1,8 @@
 import json
+from time import sleep
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import generic, View
@@ -130,4 +131,6 @@ class PresentationView(generic.ListView):
     def post(self, request, *args, **kwargs):
         data = request.POST
         print(data)
-        return render(request, f"{self.template_name}")
+        sleep(5)
+        return JsonResponse(data={}, status=200)
+        # return render(request, f"{self.template_name}")

@@ -9,9 +9,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Presentation Execution Form</h5>
-                    <form id="presentationExecution"
-                          action="{% url 'management:presentation' %}"
-                          method="post">
+                    <form action="{% url 'management:presentation' %}" method="post">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -128,12 +126,16 @@
                             </div>
                         </div>
                         <div class="row">
+
                             <div class="d-grid gap-2 mt-3">
-                                <button id="submitButton"
-                                        class="btn btn-danger"
-                                        type="submit">
-                                    Generate & Execute
+                                <button class="btn btn-danger" type="submit" disabled>
+                                    <span class="spinner-border spinner-border-sm"
+                                          role="status"
+                                          aria-hidden="true">
+                                    </span>
+                                    Running...
                                 </button>
+                                <button class="btn btn-danger" type="submit">Generate & Execute</button>
                             </div>
                         </div>
                     </form>
@@ -145,7 +147,63 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"> Matching <span> | number of edges</span></h5>
-                        <div class="activity" id="matchingResults">
+                        <div class="activity">
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">1</div>
+                                <i class='bi bi-circle-fill activity-badge text-light align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Modified Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">2</div>
+                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Simple Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">3</div>
+                                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Dynamic Min Degree</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">4</div>
+                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Min Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">5</div>
+                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Monte Carlo</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">6</div>
+                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Red12</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">7</div>
+                                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Static Min Degree</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">8</div>
+                                <i class='bi bi-circle-fill activity-badge text-dark align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Limit Min Degree</strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -154,8 +212,63 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"> Run Time <span> | milliseconds</span></h5>
-                        <div class="activity" id="runTimeResults">
-
+                        <div class="activity">
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0001</div>
+                                <i class='bi bi-circle-fill activity-badge text-light align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Modified Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0002</div>
+                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Simple Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0003</div>
+                                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Dynamic Min Degree</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0004</div>
+                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Min Greedy</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0005</div>
+                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Monte Carlo</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0006</div>
+                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Red12</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0007</div>
+                                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Static Min Degree</strong>
+                                </div>
+                            </div>
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">0.0008</div>
+                                <i class='bi bi-circle-fill activity-badge text-dark align-self-start'></i>
+                                <div class="activity-content">
+                                    <strong>Limit Min Degree</strong>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -164,93 +277,11 @@
         </div>
     </section>
 </main>
+<script>
+
+</script>
 {% endblock content %}
 
-{% block extra_js %}
-<script>
-    $(document).ready(function () {
-    $('#presentationExecution').submit(function (event)
-    {
-        let spinnerSpan = document.createElement('span');
-        spinnerSpan.classList.add('spinner-border', 'spinner-border-sm');
-        spinnerSpan.setAttribute('role', 'status');
-        spinnerSpan.setAttribute('aria-hidden', 'true');
-        spinnerSpan.setAttribute('id', 'spinnerId');
-
-        var buttonText = document.createTextNode(' Running...');
-
-        let submitButton = document.getElementById("submitButton");
-        submitButton.disabled = true;
-        submitButton.innerText = "";
-        submitButton.appendChild(spinnerSpan);
-        submitButton.appendChild(buttonText);
-
-        let data = new FormData();
-        data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
-        event.preventDefault();
-        var form = $(this);
-
-        $.ajax({
-                type: "POST",
-                url: "{% url 'management:presentation'%}",
-                data: form.serialize(), // serializes the form's elements.
-                success: function(data)
-                {
-                  submitButton.removeChild(spinnerSpan);
-                  submitButton.removeChild(buttonText);
-                  submitButton.innerText = "Generate & Execute";
-                  submitButton.disabled = false;
-                  fillResults();
-                },
-            });
-    });
-});
-
-  function createActivityItem(){
-
-    let activityItem = document.createElement('div');
-    let iElement = document.createElement('i');
-    let activiteLabel = document.createElement('div');
-    let strongElement = document.createElement('strong');
-    let activityContent = document.createElement('div');
-
-    activiteLabel.classList.add("activite-label");
-    activityContent.classList.add("activity-content");
-    activiteLabel.classList.add("activite-label");
-    activityItem.classList.add("activity-item", "d-flex");
-    iElement.classList.add("bi", "bi-circle-fill", "activity-badge", "text-muted", "align-self-start");
 
 
-    activityItem.appendChild(activiteLabel);
-    activityItem.appendChild(iElement);
-    activityItem.appendChild(activityContent);
-    activityContent.appendChild(strongElement);
 
-    let algoName = document.createTextNode('Static Min Degree');
-    let algoResult = document.createTextNode('0.0007');
-
-    activiteLabel.appendChild(algoResult);
-    strongElement.appendChild(algoName);
-
-    return activityItem;
-    }
-
-function fillResults() {
-    let matchingResults = document.getElementById("matchingResults");
-    let runTimeResults = document.getElementById("runTimeResults");
-    let elem = createActivityItem();
-    matchingResults.appendChild(elem);
-    let elem2 = createActivityItem();
-    matchingResults.appendChild(elem2);
-}
-</script>
-{% endblock %}
-
-
-<div class="activity-item d-flex">
-    <div class="activite-label">0.0007</div>
-    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-    <div class="activity-content">
-        <strong>Static Min Degree</strong>
-    </div>
-</div>
