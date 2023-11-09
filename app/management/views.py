@@ -126,3 +126,8 @@ class PresentationView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+        print(data)
+        return render(request, f"{self.template_name}")
