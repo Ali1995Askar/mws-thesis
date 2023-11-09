@@ -49,7 +49,7 @@ class TaskForm(forms.ModelForm):
             })
 
         self.fields['categories'].widget = forms.SelectMultiple(
-            choices=Category.objects.all().values_list('id', 'name'),
+            choices=Category.objects.filter(user=user).values_list('id', 'name'),
             attrs={
                 'class': 'form-control',
                 'name': 'categories',
