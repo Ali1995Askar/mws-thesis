@@ -2,248 +2,246 @@
 {% load static %}
 
 {% block content %}
-<main id="main" class="main">
+    <main id="main" class="main">
 
-    <section class="section dashboard">
-        <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">Presentation Execution Form</h5>
-                    <form id="presentationExecution"
-                          action="{% url 'management:presentation' %}"
-                          method="post">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <div class="row mb-5"></div>
-                                <div class="row mb-5">
-                                    <label class="col-sm-6 col-form-label"><strong>Graph Density</strong></label>
-                                    <div class="col-sm-10">
-                                        <input
-                                                class="form-control"
-                                                type="number"
-                                                name="graph_density"
-                                                id="graphDensity"
-                                                value="0.001"
-                                                min="0.001"
-                                                max="1"
-                                                step="0.001">
-                                    </div>
-                                </div>
-                                <div class="row mb-5"></div>
-                                <div class="row mb-5">
-                                    <label class="col-sm-6 col-form-label"><strong>Nodes Count</strong></label>
-                                    <div class="col-sm-10">
-                                        <input
-                                                class="form-control"
-                                                type="number"
-                                                name="nodes_count"
-                                                id="nodesCount"
-                                                value="100"
-                                                min="100"
-                                                max="500"
-                                                step="50">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="modified_greedy"
-                                           id="modifiedGreedy"
-                                           value="modifiedGreedy" checked disabled>
-                                    <label class="form-check-label mb-3" for="modifiedGreedy">
-                                        Modified Greedy
-                                    </label>
-                                </div>
-                                <div class="row mb-5">
-                                    <label class="col-sm-6 col-form-label"><strong>Random Greedy</strong></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="random_greedy"
-                                                   id="red12"
-                                                   value="red12" checked>
-                                            <label class="form-check-label" for="red12">Red12</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="random_greedy"
-                                                   id="monteCarlo"
-                                                   value="monte_carlo"
-                                                   checked>
-                                            <label class="form-check-label" for="monteCarlo">
-                                                Monte Carlo
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="random_greedy"
-                                                   id="minGreedy"
-                                                   value="min_greedy"
-                                                   checked>
-                                            <label class="form-check-label" for="minGreedy">
-                                                Min Greedy
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="random_greedy"
-                                                   id="simpleGreedy"
-                                                   value="simple_greedy"
-                                                   checked>
-                                            <label class="form-check-label" for="simpleGreedy">
-                                                Simple Greedy
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-5">
-                                    <label class="col-sm-6 col-form-label"><strong>Min Degree</strong></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="min_degree"
-                                                   id="dynamic"
-                                                   value="dynamic"
-                                                   checked>
-                                            <label class="form-check-label" for="dynamic">Dynamic</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="min_degree"
-                                                   id="static"
-                                                   value="static"
-                                                   checked>
-                                            <label class="form-check-label" for="static">
-                                                Static
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="min_degree"
-                                                   id="limit"
-                                                   value="limit"
-                                                   checked>
-                                            <label class="form-check-label" for="limit">
-                                                Limit
-                                            </label>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="d-grid gap-2 mt-3">
-                                <button id="submitButton"
-                                        class="btn btn-danger"
-                                        type="submit">
-                                    Generate & Execute
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <section class="section dashboard">
+            <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"> Matching <span> | number of edges</span></h5>
-                        <div class="activity" id="matchingResults">
+                        <h5 class="card-title mb-3">Presentation Execution Form</h5>
+                        <form id="presentationExecution"
+                              action="{% url 'management:presentation' %}"
+                              method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="row mb-5"></div>
+                                    <div class="row mb-5">
+                                        <label class="col-sm-6 col-form-label"><strong>Graph Density</strong></label>
+                                        <div class="col-sm-10">
+                                            <input
+                                                    class="form-control"
+                                                    type="number"
+                                                    name="graph_density"
+                                                    id="graphDensity"
+                                                    value="0.001"
+                                                    min="0.001"
+                                                    max="1"
+                                                    step="0.001">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5"></div>
+                                    <div class="row mb-5">
+                                        <label class="col-sm-6 col-form-label"><strong>Nodes Count</strong></label>
+                                        <div class="col-sm-10">
+                                            <input
+                                                    class="form-control"
+                                                    type="number"
+                                                    name="nodes_count"
+                                                    id="nodesCount"
+                                                    value="100"
+                                                    min="100"
+                                                    max="500"
+                                                    step="50">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="modified_greedy"
+                                               id="modifiedGreedy"
+                                               value="modifiedGreedy" checked disabled>
+                                        <label class="form-check-label mb-3" for="modifiedGreedy">
+                                            Modified Greedy
+                                        </label>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <label class="col-sm-6 col-form-label"><strong>Random Greedy</strong></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_greedy"
+                                                       id="red12"
+                                                       value="red12" checked>
+                                                <label class="form-check-label" for="red12">Red12</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_greedy"
+                                                       id="monteCarlo"
+                                                       value="monte_carlo"
+                                                       checked>
+                                                <label class="form-check-label" for="monteCarlo">
+                                                    Monte Carlo
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_greedy"
+                                                       id="minGreedy"
+                                                       value="min_greedy"
+                                                       checked>
+                                                <label class="form-check-label" for="minGreedy">
+                                                    Min Greedy
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_greedy"
+                                                       id="simpleGreedy"
+                                                       value="simple_greedy"
+                                                       checked>
+                                                <label class="form-check-label" for="simpleGreedy">
+                                                    Simple Greedy
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <label class="col-sm-6 col-form-label"><strong>Min Degree</strong></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="min_degree"
+                                                       id="dynamic"
+                                                       value="dynamic"
+                                                       checked>
+                                                <label class="form-check-label" for="dynamic">Dynamic</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="min_degree"
+                                                       id="static"
+                                                       value="static"
+                                                       checked>
+                                                <label class="form-check-label" for="static">
+                                                    Static
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="min_degree"
+                                                       id="limit"
+                                                       value="limit"
+                                                       checked>
+                                                <label class="form-check-label" for="limit">
+                                                    Limit
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="d-grid gap-2 mt-3">
+                                    <button id="submitButton"
+                                            class="btn btn-danger"
+                                            type="submit">
+                                        Generate & Execute
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> Matching <span> | number of edges</span></h5>
+                            <div class="activity" id="matchingResults">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> Run Time <span> | milliseconds</span></h5>
+                            <div class="activity" id="runTimeResults">
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"> Run Time <span> | milliseconds</span></h5>
-                        <div class="activity" id="runTimeResults">
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 {% endblock content %}
 
 {% block extra_js %}
-<script>
-    $(document).ready(function () {
-    $('#presentationExecution').submit(function (event)
-    {
-        let spinnerSpan = document.createElement('span');
-        spinnerSpan.classList.add('spinner-border', 'spinner-border-sm');
-        spinnerSpan.setAttribute('role', 'status');
-        spinnerSpan.setAttribute('aria-hidden', 'true');
-        spinnerSpan.setAttribute('id', 'spinnerId');
+    <script>
+        $(document).ready(function () {
+            $('#presentationExecution').submit(function (event) {
+                let spinnerSpan = document.createElement('span');
+                spinnerSpan.classList.add('spinner-border', 'spinner-border-sm');
+                spinnerSpan.setAttribute('role', 'status');
+                spinnerSpan.setAttribute('aria-hidden', 'true');
+                spinnerSpan.setAttribute('id', 'spinnerId');
 
-        var buttonText = document.createTextNode(' Running...');
+                var buttonText = document.createTextNode(' Running...');
 
-        let submitButton = document.getElementById("submitButton");
-        submitButton.disabled = true;
-        submitButton.innerText = "";
-        submitButton.appendChild(spinnerSpan);
-        submitButton.appendChild(buttonText);
+                let submitButton = document.getElementById("submitButton");
+                submitButton.disabled = true;
+                submitButton.innerText = "";
+                submitButton.appendChild(spinnerSpan);
+                submitButton.appendChild(buttonText);
 
-        let data = new FormData();
-        data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
-        event.preventDefault();
-        var form = $(this);
+                let data = new FormData();
+                data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+                event.preventDefault();
+                var form = $(this);
 
-        $.ajax({
-                type: "POST",
-                url: "{% url 'management:presentation'%}",
-                data: form.serialize(), // serializes the form's elements.
-                success: function(data)
-                {
-                  submitButton.removeChild(spinnerSpan);
-                  submitButton.removeChild(buttonText);
-                  submitButton.innerText = "Generate & Execute";
-                  submitButton.disabled = false;
-                  fillResults();
-                },
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'management:presentation'%}",
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        submitButton.removeChild(spinnerSpan);
+                        submitButton.removeChild(buttonText);
+                        submitButton.innerText = "Generate & Execute";
+                        submitButton.disabled = false;
+                        fillResults();
+                    },
+                });
             });
-    });
-});
+        });
 
-  function createActivityItem(){
+        function createActivityItem(algoName, result, textColor) {
 
-    let activityItem = document.createElement('div');
-    let iElement = document.createElement('i');
-    let activiteLabel = document.createElement('div');
-    let strongElement = document.createElement('strong');
-    let activityContent = document.createElement('div');
+            let activityItem = document.createElement('div');
+            let iElement = document.createElement('i');
+            let activiteLabel = document.createElement('div');
+            let strongElement = document.createElement('strong');
+            let activityContent = document.createElement('div');
 
-    activiteLabel.classList.add("activite-label");
-    activityContent.classList.add("activity-content");
-    activiteLabel.classList.add("activite-label");
-    activityItem.classList.add("activity-item", "d-flex");
-    iElement.classList.add("bi", "bi-circle-fill", "activity-badge", "text-muted", "align-self-start");
+            activiteLabel.classList.add("activite-label");
+            activityContent.classList.add("activity-content");
+            activiteLabel.classList.add("activite-label");
+            activityItem.classList.add("activity-item", "d-flex");
+            iElement.classList.add("bi", "bi-circle-fill", "activity-badge", textColor, "align-self-start");
 
 
-    activityItem.appendChild(activiteLabel);
-    activityItem.appendChild(iElement);
-    activityItem.appendChild(activityContent);
-    activityContent.appendChild(strongElement);
+            activityItem.appendChild(activiteLabel);
+            activityItem.appendChild(iElement);
+            activityItem.appendChild(activityContent);
+            activityContent.appendChild(strongElement);
 
-    let algoName = document.createTextNode('Static Min Degree');
-    let algoResult = document.createTextNode('0.0007');
+            let algoNameElem = document.createTextNode(algoName);
+            let algoResultElem = document.createTextNode(result);
 
-    activiteLabel.appendChild(algoResult);
-    strongElement.appendChild(algoName);
+            activiteLabel.appendChild(algoResultElem);
+            strongElement.appendChild(algoNameElem);
 
-    return activityItem;
-    }
+            return activityItem;
+        }
 
-function fillResults() {
-    let matchingResults = document.getElementById("matchingResults");
-    let runTimeResults = document.getElementById("runTimeResults");
-    let elem = createActivityItem();
-    matchingResults.appendChild(elem);
-    let elem2 = createActivityItem();
-    matchingResults.appendChild(elem2);
-}
-</script>
+        function fillResults() {
+            let matchingResults = document.getElementById("matchingResults");
+            let runTimeResults = document.getElementById("runTimeResults");
+            let elem = createActivityItem('Dynamic Min Degree', 1000, 'text-light');
+            matchingResults.appendChild(elem);
+            let elem2 = createActivityItem('Static Min Degree', 1000, 'text-primary');
+            matchingResults.appendChild(elem2);
+        }
+    </script>
 {% endblock %}
 
 
