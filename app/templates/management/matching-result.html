@@ -34,26 +34,26 @@
                                 {% for row in rows %}
                                     <tr>
                                         <td class="text-primary ">
-                                          
+
                                             <a href={% url 'workers:details' row.1 %}>
                                                 <img
                                                         src="{% static 'img/worker-icon.png' %}"
                                                         style="height: 35px; width: 45px"
                                                         alt="">
 
-                                                worker-{{ row.1 }}
+                                                {{ row.0 }}
                                             </a>
                                         </td>
                                         <td>
                                             <i style=" font-size: 30px" class="bi bi-arrow-left-right"></i>
                                         </td>
                                         <td class="text-primary ">
-                                            <a href={% url 'tasks:details' row.0 %}>
+                                            <a href={% url 'tasks:details' row.2 %}>
                                                 <img
                                                         src="{% static 'img/task-icon.png' %}"
                                                         style="height: 40px; width: 40px"
                                                         alt="">
-                                                task-{{ row.0 }}
+                                                {{ row.3 }}
                                             </a>
                                         </td>
                                     </tr>

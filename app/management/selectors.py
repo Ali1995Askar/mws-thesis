@@ -6,7 +6,7 @@ from workers.models import Worker
 from categories.models import Category
 from educations.models import Education
 from django.contrib.auth.models import User
-from django.db.models import Count, F, Value
+from django.db.models import Count, F, Value, CharField
 from django.db.models.functions import Concat
 from management.models import ExecutionHistory
 
@@ -193,24 +193,20 @@ class ManagementSelectors:
 
     @staticmethod
     def get_last_matching_result(user):
-        execution_history = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime').first()
-        if not execution_history:
-            return {'rows': []}
+        task_full_name = Concat(F("title"), Value(' ('), F("task_id"), Value(')'), output_field=CharField())
+        worker_full_name = Concat('assigned_to__first_name', Value(' '), 'assigned_to__last_name',
+                                  Value(' ('),
+                                  'worker_id',
+                                  Value(')'),
+                                  output_field=CharField())
 
-        edges = execution_history.max_matching.max_matching_edges
+        rows = Task.objects.filter(user=user).annotate(worker_id=F('assigned_to_id'),
+                                                       worker_full_name=worker_full_name,
+                                                       task_id=F('id'),
+                                                       task_full_name=task_full_name)
 
-        edges_list = []
-        workers = []
-        tasks = []
-        for edge in edges:
-            e = (edge[0].split('-')[1], edge[1].split('-')[1])
-            workers.append(edge[1].split('-')[1])
-            tasks.append(edge[0].split('-')[1])
-            edges_list.append(e)
-
-        workers_rows = Worker.objects.filter(pk__in=workers)
-        tasks_rows = Task.objects.filter(pk__in=tasks)
-        return {'rows': edges_list}
+        rows = list(rows.values_list('worker_full_name', 'worker_id', 'task_id', 'task_full_name'))
+        return {'rows': rows}
 
     @staticmethod
     def get_workers_count(user):
@@ -234,7 +230,7 @@ class ManagementSelectors:
         ).filter(
             num_tasks__gt=0
         ).order_by('-num_tasks').values('name', 'num_tasks')[:5]
-      
+
         return list(top_tasks)
 
     @staticmethod
@@ -270,3 +266,20 @@ class ManagementSelectors:
             '-tasks_count'
         ).values('name', 'tasks_count', 'workers_count')[:10]
         return list(top_10_categories)
+
+# execution_history = ExecutionHistory.objects.filter(user=user).order_by('-created_on_datetime').first()
+#        if not execution_history:
+#            return {'rows': []}
+#        # ('title_0 (301)', 'worker 13 (314)', 301, 314)
+#        edges = execution_history.max_matching.max_matching_edges
+#
+#        edges_list = []
+#        workers = []
+#        tasks = []
+#        for edge in edges:
+#            e = (edge[0].split('-')[1], edge[1].split('-')[1])
+#            workers.append(edge[1].split('-')[1])
+#            tasks.append(edge[0].split('-')[1])
+#            edges_list.append(e)
+#
+#        print(edges_list)
