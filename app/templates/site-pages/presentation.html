@@ -2,176 +2,176 @@
 {% load static %}
 
 {% block content %}
-    <main id="main" class="main">
+<main id="main" class="main">
 
-        <section class="section dashboard">
-            <div class="row">
+    <section class="section dashboard">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Presentation Execution Form</h5>
+                    <form id="presentationExecution"
+                          action="{% url 'presentation' %}"
+                          method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="row mb-5"></div>
+                                <div class="row mb-5">
+                                    <label class="col-sm-6 col-form-label"><strong>Graph Density</strong></label>
+                                    <div class="col-sm-10">
+                                        <input
+                                                class="form-control"
+                                                type="number"
+                                                name="graph_density"
+                                                id="graphDensity"
+                                                value="0.001"
+                                                min="0.001"
+                                                max="1"
+                                                step="0.001">
+                                    </div>
+                                </div>
+                                <div class="row mb-5"></div>
+                                <div class="row mb-5">
+                                    <label class="col-sm-6 col-form-label"><strong>Nodes Count</strong></label>
+                                    <div class="col-sm-10">
+                                        <input
+                                                class="form-control"
+                                                type="number"
+                                                name="nodes_count"
+                                                id="nodesCount"
+                                                value="500"
+                                                min="500"
+                                                max="2000"
+                                                step="100">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="modified_greedy"
+                                           id="modifiedGreedy"
+                                           value="modifiedGreedy" checked disabled>
+                                    <label class="form-check-label mb-3" for="modifiedGreedy">
+                                        Modified Greedy
+                                    </label>
+                                </div>
+                                <div class="row mb-5">
+                                    <label class="col-sm-6 col-form-label"><strong>Random Greedy</strong></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="algorithms"
+                                                   id="red12"
+                                                   value="red12" checked>
+                                            <label class="form-check-label" for="red12">Red12</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="algorithms"
+                                                   id="monteCarlo"
+                                                   value="monte_carlo"
+                                                   checked>
+                                            <label class="form-check-label" for="monteCarlo">
+                                                Monte Carlo
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="algorithms"
+                                                   id="minGreedy"
+                                                   value="min_greedy"
+                                                   checked>
+                                            <label class="form-check-label" for="minGreedy">
+                                                Min Greedy
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="algorithms"
+                                                   id="simpleGreedy"
+                                                   value="simple_greedy"
+                                                   checked>
+                                            <label class="form-check-label" for="simpleGreedy">
+                                                Simple Greedy
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <label class="col-sm-6 col-form-label"><strong>Min Degree</strong></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="algorithms"
+                                                   id="dynamic"
+                                                   value="dynamic"
+                                                   checked>
+                                            <label class="form-check-label" for="dynamic">Dynamic</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="algorithms"
+                                                   id="static"
+                                                   value="static"
+                                                   checked>
+                                            <label class="form-check-label" for="static">
+                                                Static
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="algorithms"
+                                                   id="limit"
+                                                   value="limit"
+                                                   checked>
+                                            <label class="form-check-label" for="limit">
+                                                Limit
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="d-grid gap-2 mt-3">
+                                <button id="submitButton"
+                                        class="btn btn-danger"
+                                        type="submit">
+                                    Generate & Execute
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mb-3">Presentation Execution Form</h5>
-                        <form id="presentationExecution"
-                              action="{% url 'presentation' %}"
-                              method="post">
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="row mb-5"></div>
-                                    <div class="row mb-5">
-                                        <label class="col-sm-6 col-form-label"><strong>Graph Density</strong></label>
-                                        <div class="col-sm-10">
-                                            <input
-                                                    class="form-control"
-                                                    type="number"
-                                                    name="graph_density"
-                                                    id="graphDensity"
-                                                    value="0.001"
-                                                    min="0.001"
-                                                    max="1"
-                                                    step="0.001">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-5"></div>
-                                    <div class="row mb-5">
-                                        <label class="col-sm-6 col-form-label"><strong>Nodes Count</strong></label>
-                                        <div class="col-sm-10">
-                                            <input
-                                                    class="form-control"
-                                                    type="number"
-                                                    name="nodes_count"
-                                                    id="nodesCount"
-                                                    value="500"
-                                                    min="500"
-                                                    max="2000"
-                                                    step="100">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="modified_greedy"
-                                               id="modifiedGreedy"
-                                               value="modifiedGreedy" checked disabled>
-                                        <label class="form-check-label mb-3" for="modifiedGreedy">
-                                            Modified Greedy
-                                        </label>
-                                    </div>
-                                    <div class="row mb-5">
-                                        <label class="col-sm-6 col-form-label"><strong>Random Greedy</strong></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="algorithms"
-                                                       id="red12"
-                                                       value="red12" checked>
-                                                <label class="form-check-label" for="red12">Red12</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="algorithms"
-                                                       id="monteCarlo"
-                                                       value="monte_carlo"
-                                                       checked>
-                                                <label class="form-check-label" for="monteCarlo">
-                                                    Monte Carlo
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="algorithms"
-                                                       id="minGreedy"
-                                                       value="min_greedy"
-                                                       checked>
-                                                <label class="form-check-label" for="minGreedy">
-                                                    Min Greedy
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="algorithms"
-                                                       id="simpleGreedy"
-                                                       value="simple_greedy"
-                                                       checked>
-                                                <label class="form-check-label" for="simpleGreedy">
-                                                    Simple Greedy
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-5">
-                                        <label class="col-sm-6 col-form-label"><strong>Min Degree</strong></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="algorithms"
-                                                       id="dynamic"
-                                                       value="dynamic"
-                                                       checked>
-                                                <label class="form-check-label" for="dynamic">Dynamic</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="algorithms"
-                                                       id="static"
-                                                       value="static"
-                                                       checked>
-                                                <label class="form-check-label" for="static">
-                                                    Static
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="algorithms"
-                                                       id="limit"
-                                                       value="limit"
-                                                       checked>
-                                                <label class="form-check-label" for="limit">
-                                                    Limit
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="d-grid gap-2 mt-3">
-                                    <button id="submitButton"
-                                            class="btn btn-danger"
-                                            type="submit">
-                                        Generate & Execute
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"> Matching <span> | number of edges</span></h5>
-                            <div class="activity" id="matchingResults">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"> Run Time <span> | milliseconds</span></h5>
-                            <div class="activity" id="runTimeResults">
-
-                            </div>
-
+                        <h5 class="card-title"> Matching <span> | number of edges</span></h5>
+                        <div class="activity" id="matchingResults">
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> Run Time <span> | Seconds</span></h5>
+                        <div class="activity" id="runTimeResults">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock content %}
 
 {% block extra_js %}
-    <script>
-        let url = "{% url 'presentation'%}";
-        let csrf_token = "{{ csrf_token }}";
-    </script>
-    <script src="{% static 'js/presentation.js' %}"></script>
+<script>
+    let url = "{% url 'presentation'%}";
+    let csrf_token = "{{ csrf_token }}";
+</script>
+<script src="{% static 'js/presentation.js' %}"></script>
 {% endblock %}
 
 
