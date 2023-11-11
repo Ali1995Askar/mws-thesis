@@ -39,7 +39,6 @@ class SignupView(View):
 
     def post(self, request, *args, **kwargs):
         form = SignupForm(request.POST)
-        print(form.email)
         if not form.is_valid():
             context = {'form': form}
             return render(request, f"{self.template_name}", context)

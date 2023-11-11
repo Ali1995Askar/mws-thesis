@@ -11,7 +11,6 @@ class TestMaxMatchingFinder:
         graph = graph_builder.get_bipartite_graph()
         solver = MaxMatching(user=pytech_user, heuristic_algorithm='limit_min_degree', graph=graph)
         solver.execute()
-        print(solver.max_matching_solver.get_max_matching_edges())
 
     def test_solve(self):
         pass

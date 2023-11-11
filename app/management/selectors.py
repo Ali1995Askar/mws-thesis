@@ -210,8 +210,6 @@ class ManagementSelectors:
 
         workers_rows = Worker.objects.filter(pk__in=workers)
         tasks_rows = Task.objects.filter(pk__in=tasks)
-        print(workers_rows)
-        print(tasks_rows)
         return {'rows': edges_list}
 
     @staticmethod
@@ -236,7 +234,7 @@ class ManagementSelectors:
         ).filter(
             num_tasks__gt=0
         ).order_by('-num_tasks').values('name', 'num_tasks')[:5]
-        print(top_tasks)
+      
         return list(top_tasks)
 
     @staticmethod

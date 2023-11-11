@@ -2,284 +2,284 @@
 {% load static %}
 
 {% block content %}
-<main id="main" class="main">
+    <main id="main" class="main">
 
-    <section class="section dashboard">
-        <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">Presentation Execution Form</h5>
-                    <form action="{% url 'management:presentation' %}" method="post">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <div class="row mb-5"></div>
-                                <div class="row mb-5">
-                                    <label class="col-sm-6 col-form-label"><strong>Graph Density</strong></label>
-                                    <div class="col-sm-10">
-                                        <input
-                                                class="form-control"
-                                                type="number"
-                                                name="graph_density"
-                                                id="graphDensity"
-                                                value="0.001"
-                                                min="0.001"
-                                                max="1"
-                                                step="0.001">
+        <section class="section dashboard">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Presentation Execution Form</h5>
+                        <form action="{% url 'presentation' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="row mb-5"></div>
+                                    <div class="row mb-5">
+                                        <label class="col-sm-6 col-form-label"><strong>Graph Density</strong></label>
+                                        <div class="col-sm-10">
+                                            <input
+                                                    class="form-control"
+                                                    type="number"
+                                                    name="graph_density"
+                                                    id="graphDensity"
+                                                    value="0.001"
+                                                    min="0.001"
+                                                    max="1"
+                                                    step="0.001">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5"></div>
+                                    <div class="row mb-5">
+                                        <label class="col-sm-6 col-form-label"><strong>Nodes Count</strong></label>
+                                        <div class="col-sm-10">
+                                            <input
+                                                    class="form-control"
+                                                    type="number"
+                                                    name="nodes_count"
+                                                    id="nodesCount"
+                                                    value="100"
+                                                    min="100"
+                                                    max="500"
+                                                    step="50">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row mb-5"></div>
-                                <div class="row mb-5">
-                                    <label class="col-sm-6 col-form-label"><strong>Nodes Count</strong></label>
-                                    <div class="col-sm-10">
-                                        <input
-                                                class="form-control"
-                                                type="number"
-                                                name="nodes_count"
-                                                id="nodesCount"
-                                                value="100"
-                                                min="100"
-                                                max="500"
-                                                step="50">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="modified_greedy"
+                                               id="modifiedGreedy"
+                                               value="modifiedGreedy" checked disabled>
+                                        <label class="form-check-label mb-3" for="modifiedGreedy">
+                                            Modified Greedy
+                                        </label>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <label class="col-sm-6 col-form-label"><strong>Random Greedy</strong></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_greedy"
+                                                       id="red12"
+                                                       value="red12" checked>
+                                                <label class="form-check-label" for="red12">Red12</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_greedy"
+                                                       id="monteCarlo"
+                                                       value="monte_carlo"
+                                                       checked>
+                                                <label class="form-check-label" for="monteCarlo">
+                                                    Monte Carlo
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_greedy"
+                                                       id="minGreedy"
+                                                       value="min_greedy"
+                                                       checked>
+                                                <label class="form-check-label" for="minGreedy">
+                                                    Min Greedy
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_greedy"
+                                                       id="simpleGreedy"
+                                                       value="simple_greedy"
+                                                       checked>
+                                                <label class="form-check-label" for="simpleGreedy">
+                                                    Simple Greedy
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <label class="col-sm-6 col-form-label"><strong>Min Degree</strong></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="min_degree"
+                                                       id="dynamic"
+                                                       value="dynamic"
+                                                       checked>
+                                                <label class="form-check-label" for="dynamic">Dynamic</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="min_degree"
+                                                       id="static"
+                                                       value="static"
+                                                       checked>
+                                                <label class="form-check-label" for="static">
+                                                    Static
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="min_degree"
+                                                       id="limit"
+                                                       value="limit"
+                                                       checked>
+                                                <label class="form-check-label" for="limit">
+                                                    Limit
+                                                </label>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="modified_greedy"
-                                           id="modifiedGreedy"
-                                           value="modifiedGreedy" checked disabled>
-                                    <label class="form-check-label mb-3" for="modifiedGreedy">
-                                        Modified Greedy
-                                    </label>
-                                </div>
-                                <div class="row mb-5">
-                                    <label class="col-sm-6 col-form-label"><strong>Random Greedy</strong></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="random_greedy"
-                                                   id="red12"
-                                                   value="red12" checked>
-                                            <label class="form-check-label" for="red12">Red12</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="random_greedy"
-                                                   id="monteCarlo"
-                                                   value="monte_carlo"
-                                                   checked>
-                                            <label class="form-check-label" for="monteCarlo">
-                                                Monte Carlo
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="random_greedy"
-                                                   id="minGreedy"
-                                                   value="min_greedy"
-                                                   checked>
-                                            <label class="form-check-label" for="minGreedy">
-                                                Min Greedy
-                                            </label>
-                                        </div>
+                            <div class="row">
 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="random_greedy"
-                                                   id="simpleGreedy"
-                                                   value="simple_greedy"
-                                                   checked>
-                                            <label class="form-check-label" for="simpleGreedy">
-                                                Simple Greedy
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-5">
-                                    <label class="col-sm-6 col-form-label"><strong>Min Degree</strong></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="min_degree"
-                                                   id="dynamic"
-                                                   value="dynamic"
-                                                   checked>
-                                            <label class="form-check-label" for="dynamic">Dynamic</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="min_degree"
-                                                   id="static"
-                                                   value="static"
-                                                   checked>
-                                            <label class="form-check-label" for="static">
-                                                Static
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="min_degree"
-                                                   id="limit"
-                                                   value="limit"
-                                                   checked>
-                                            <label class="form-check-label" for="limit">
-                                                Limit
-                                            </label>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="d-grid gap-2 mt-3">
-                                <button class="btn btn-danger" type="submit" disabled>
+                                <div class="d-grid gap-2 mt-3">
+                                    <button class="btn btn-danger" type="submit" disabled>
                                     <span class="spinner-border spinner-border-sm"
                                           role="status"
                                           aria-hidden="true">
                                     </span>
-                                    Running...
-                                </button>
-                                <button class="btn btn-danger" type="submit">Generate & Execute</button>
+                                        Running...
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">Generate & Execute</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"> Matching <span> | number of edges</span></h5>
-                        <div class="activity">
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">1</div>
-                                <i class='bi bi-circle-fill activity-badge text-light align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Modified Greedy</strong>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> Matching <span> | number of edges</span></h5>
+                            <div class="activity">
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">1</div>
+                                    <i class='bi bi-circle-fill activity-badge text-light align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Modified Greedy</strong>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">2</div>
-                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Simple Greedy</strong>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">2</div>
+                                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Simple Greedy</strong>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">3</div>
-                                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Dynamic Min Degree</strong>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">3</div>
+                                    <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Dynamic Min Degree</strong>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">4</div>
-                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Min Greedy</strong>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">4</div>
+                                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Min Greedy</strong>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">5</div>
-                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Monte Carlo</strong>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">5</div>
+                                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Monte Carlo</strong>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">6</div>
-                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Red12</strong>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">6</div>
+                                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Red12</strong>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">7</div>
-                                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Static Min Degree</strong>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">7</div>
+                                    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Static Min Degree</strong>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">8</div>
-                                <i class='bi bi-circle-fill activity-badge text-dark align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Limit Min Degree</strong>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">8</div>
+                                    <i class='bi bi-circle-fill activity-badge text-dark align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Limit Min Degree</strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"> Run Time <span> | milliseconds</span></h5>
-                        <div class="activity">
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">0.0001</div>
-                                <i class='bi bi-circle-fill activity-badge text-light align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Modified Greedy</strong>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> Run Time <span> | milliseconds</span></h5>
+                            <div class="activity">
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">0.0001</div>
+                                    <i class='bi bi-circle-fill activity-badge text-light align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Modified Greedy</strong>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">0.0002</div>
+                                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Simple Greedy</strong>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">0.0003</div>
+                                    <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Dynamic Min Degree</strong>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">0.0004</div>
+                                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Min Greedy</strong>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">0.0005</div>
+                                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Monte Carlo</strong>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">0.0006</div>
+                                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Red12</strong>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">0.0007</div>
+                                    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Static Min Degree</strong>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">0.0008</div>
+                                    <i class='bi bi-circle-fill activity-badge text-dark align-self-start'></i>
+                                    <div class="activity-content">
+                                        <strong>Limit Min Degree</strong>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">0.0002</div>
-                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Simple Greedy</strong>
-                                </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">0.0003</div>
-                                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Dynamic Min Degree</strong>
-                                </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">0.0004</div>
-                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Min Greedy</strong>
-                                </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">0.0005</div>
-                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Monte Carlo</strong>
-                                </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">0.0006</div>
-                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Red12</strong>
-                                </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">0.0007</div>
-                                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Static Min Degree</strong>
-                                </div>
-                            </div>
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">0.0008</div>
-                                <i class='bi bi-circle-fill activity-badge text-dark align-self-start'></i>
-                                <div class="activity-content">
-                                    <strong>Limit Min Degree</strong>
-                                </div>
-                            </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
-<script>
+        </section>
+    </main>
+    <script>
 
-</script>
+    </script>
 {% endblock content %}
 
 

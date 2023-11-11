@@ -1,7 +1,8 @@
 import json
 from time import sleep
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -122,27 +123,3 @@ def contact_us_view(request):
     else:
         form = ContactUsForm()
         return render(request, 'management/contact-us.html', {'form': form})
-
-
-class PresentationView(generic.ListView):
-    template_name = "management/presentation.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, f"{self.template_name}")
-
-    @staticmethod
-    def post(request, *args, **kwargs):
-        data = request.POST
-
-        algorithms = data.getlist('algorithms')
-        nodes_count = int(data['nodes_count'])
-        graph_density = float(data['graph_density'])
-        algorithms.insert(2, 'modified_greedy')
-
-        matching_results, time_results = Services.heuristics_executor(nodes_count, graph_density, algorithms)
-
-        matching_results = sorted(matching_results, key=lambda d: d['algoMatchingValue'], reverse=True)
-        time_results = sorted(time_results, key=lambda d: d['algoRunTime'])
-
-        res = {"matchingData": matching_results, "runTimeData": time_results}
-        return JsonResponse(data=res, status=200)

@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <h5 class="card-title mb-3">Presentation Execution Form</h5>
                         <form id="presentationExecution"
-                              action="{% url 'management:presentation' %}"
+                              action="{% url 'presentation' %}"
                               method="post">
                             {% csrf_token %}
                             <div class="row">
@@ -168,7 +168,7 @@
 
 {% block extra_js %}
     <script>
-        let url = "{% url 'management:presentation'%}";
+        let url = "{% url 'presentation'%}";
         let csrf_token = "{{ csrf_token }}";
     </script>
     <script src="{% static 'js/presentation.js' %}"></script>

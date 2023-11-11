@@ -20,7 +20,7 @@ urlpatterns = [
     path('management/', include('management.urls')),
     path('categories/', include('categories.urls')),
     path('educations/', include('educations.urls')),
-
+    path('presentation', views.PresentationView.as_view(), name='presentation'),
 ]
 
 if settings.DEBUG:

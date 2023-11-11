@@ -8,6 +8,6 @@ urlpatterns = [
     path('task-assigner', views.AssignTasksView.as_view(), name='task-assigner'),
     path('matching-result', views.MatchingResultView.as_view(), name='matching-result'),
     path('matching-history', views.MatchingHistoryView.as_view(), name='matching-history'),
-    path('presentation', views.PresentationView.as_view(), name='presentation'),
+    
     path('contact-us', views.contact_us_view, name='contact-us'),
 ]

@@ -99,21 +99,26 @@
                         <i class="bi bi-circle"></i><span>Matching Result</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="{% url 'management:matching-history' %}">
                         <i class="bi bi-circle"></i><span>Matching History</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{% url 'management:presentation' %}">
-                        <i class="bi bi-circle"></i><span>Presentation</span>
-                    </a>
-                </li>
+
 
             </ul>
         </li><!-- End Charts Nav -->
+        {% if request.user.is_superuser %}
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'presentation' %}">
+                    <i class="bi bi-easel2-fill"></i>
+                    <span>Presentation</span>
+                </a>
+            </li>
+        {% endif %}
+        <li class="nav-heading">WebSite</li>
 
-        <li class="nav-heading">Pages</li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'home' %}">
                 <i class="bi bi-house"></i>
