@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $('#presentationExecution').submit(function (event) {
         event.preventDefault();
+        clearResults();
         const submitButton = $("#submitButton");
         disableSubmitButton(submitButton);
         const data = new FormData();
@@ -11,7 +12,6 @@ $(document).ready(function () {
             data: $(this).serialize(),
             success: function (data) {
                 enableSubmitButton(submitButton);
-                clearResults();
                 fillResults(data.matchingData, data.runTimeData);
             },
         });
