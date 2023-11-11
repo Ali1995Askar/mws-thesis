@@ -137,7 +137,8 @@ class PresentationView(generic.ListView):
         algorithms = data.getlist('algorithms')
         nodes_count = int(data['nodes_count'])
         graph_density = float(data['graph_density'])
-        algorithms.append('modified_greedy')
+        algorithms.insert(2, 'modified_greedy')
+
         matching_results, time_results = Services.heuristics_executor(nodes_count, graph_density, algorithms)
 
         matching_results = sorted(matching_results, key=lambda d: d['algoMatchingValue'], reverse=True)

@@ -7,23 +7,10 @@ class Limit(AbstractHeuristic):
 
     def __init__(self, bipartite_graph: BipartiteGraph):
         super().__init__(bipartite_graph)
-        self.limit_val = None
-
-    def get_limit_value(self) -> int:
-        degrees = list(self.bipartite_graph.graph.out_degree)
-        if degrees:
-            max_tuple = max(degrees, key=lambda x: x[1])
-            min_tuple = min(degrees, key=lambda x: x[1])
-            limit_val = (max_tuple[1] - min_tuple[1]) // 2
-
-        else:
-            limit_val = 0
-
-        return limit_val
+        self.limit_val = 1
 
     def get_matching_edges(self) -> List[Tuple]:
         temp = self.bipartite_graph.get_graph_copy()
-        self.limit_val = self.get_limit_value()
 
         big_degree_nodes = set()
         matching_edges = set()
