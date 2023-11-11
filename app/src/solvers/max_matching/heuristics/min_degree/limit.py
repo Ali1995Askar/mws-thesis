@@ -3,7 +3,7 @@ from src.graph.bipartite_graph import BipartiteGraph
 from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
-class LimitMinDegreeHeuristic(AbstractHeuristic):
+class Limit(AbstractHeuristic):
 
     def __init__(self, bipartite_graph: BipartiteGraph):
         super().__init__(bipartite_graph)

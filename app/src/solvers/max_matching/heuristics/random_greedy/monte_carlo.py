@@ -6,7 +6,7 @@ from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuri
 NUM_OF_ITERATION = 3
 
 
-class MonteCarloHeuristic(AbstractHeuristic):
+class MonteCarlo(AbstractHeuristic):
     def get_matching_edges(self) -> List[Tuple]:
         max_matching_size = 0
         max_matching_edges = set()

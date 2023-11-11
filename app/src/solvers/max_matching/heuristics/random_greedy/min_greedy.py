@@ -3,7 +3,7 @@ from typing import List, Tuple
 from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
-class SimpleGreedy(AbstractHeuristic):
+class MinGreedy(AbstractHeuristic):
     def get_matching_edges(self) -> List[Tuple]:
         matched_nodes = set()
         matched_edges = set()

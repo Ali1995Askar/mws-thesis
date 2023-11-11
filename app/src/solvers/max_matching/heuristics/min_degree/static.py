@@ -2,7 +2,7 @@ from typing import List, Tuple
 from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
-class StaticMinDegreeHeuristic(AbstractHeuristic):
+class Static(AbstractHeuristic):
     def get_matching_edges(self) -> List[Tuple]:
         matching_edges = set()
         matched_nodes = set()

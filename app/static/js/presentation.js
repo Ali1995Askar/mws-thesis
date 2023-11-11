@@ -19,7 +19,7 @@ $(document).ready(function () {
         data.append("csrfmiddlewaretoken", csrf_token);
         event.preventDefault();
         var form = $(this);
-
+        console.log("==============")
         $.ajax({
             type: "POST",
             url: url,
@@ -29,11 +29,26 @@ $(document).ready(function () {
                 submitButton.removeChild(buttonText);
                 submitButton.innerText = "Generate & Execute";
                 submitButton.disabled = false;
-                fillResults();
+                let matchingResults2 = document.getElementById("matchingResults");
+                let runTimeResults2 = document.getElementById("runTimeResults");
+                console.log(data)
+                deleteChild(runTimeResults2);
+                deleteChild(matchingResults2);
+                fillResults(data.matchingData, data.runTimeData);
             },
         });
     });
 });
+
+function deleteChild(elem) {
+
+    let child = elem.lastElementChild;
+    while (child) {
+        elem.removeChild(child);
+        child = elem.lastElementChild;
+    }
+}
+
 
 function createActivityItem(algoName, result, textColor) {
 
@@ -64,53 +79,7 @@ function createActivityItem(algoName, result, textColor) {
     return activityItem;
 }
 
-function fillResults() {
-    let orderedAlgoByMatching = [
-        {
-            algoName: "Static Min Degree",
-            algoMatchingValue: 1,
-
-        },
-        {
-            algoName: "Dynamic Min Degree",
-            algoMatchingValue: 5,
-
-        },
-        {
-            algoName: "Min Greedy",
-            algoMatchingValue: 7,
-
-        },
-        {
-            algoName: "Monte Carlo",
-
-            algoMatchingValue: 9,
-        },
-
-    ];
-    let orderedAlgoByRunTime = [
-        {
-            algoName: "Dynamic Min Degree",
-
-            algoRunTime: 0.001,
-
-        },
-        {
-            algoName: "Static Min Degree",
-            algoRunTime: 0.002,
-
-        },
-        {
-            algoName: "Min Greedy",
-            algoRunTime: 0.003,
-
-        },
-        {
-            algoName: "Monte Carlo",
-            algoRunTime: 0.004,
-        },
-
-    ]
+function fillResults(orderedAlgoByMatching, orderedAlgoByRunTime) {
     let textColors = [
         'text-light',
         'text-info',

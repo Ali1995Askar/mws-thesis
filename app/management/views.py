@@ -10,6 +10,8 @@ from django.views import generic, View
 from management.forms import ContactUsForm
 from management.models import ContactUs
 from management.services import Services
+from src.graph.bipartite_graph import BipartiteGraph
+from src.solvers.max_matching.heuristics.random_greedy.monte_carlo import MonteCarlo
 from tasks.selectors import TaskSelectors
 from workers.selectors import WorkerSelectors
 from django.shortcuts import render, redirect
@@ -128,9 +130,18 @@ class PresentationView(generic.ListView):
     def get(self, request, *args, **kwargs):
         return render(request, f"{self.template_name}")
 
-    def post(self, request, *args, **kwargs):
+    @staticmethod
+    def post(request, *args, **kwargs):
         data = request.POST
-        print(data)
-        sleep(5)
-        return JsonResponse(data={}, status=200)
-        # return render(request, f"{self.template_name}")
+
+        algorithms = data.getlist('algorithms')
+        nodes_count = int(data['nodes_count'])
+        graph_density = float(data['graph_density'])
+        algorithms.append('modified_greedy')
+        matching_results, time_results = Services.heuristics_executor(nodes_count, graph_density, algorithms)
+
+        matching_results = sorted(matching_results, key=lambda d: d['algoMatchingValue'], reverse=True)
+        time_results = sorted(time_results, key=lambda d: d['algoRunTime'])
+
+        res = {"matchingData": matching_results, "runTimeData": time_results}
+        return JsonResponse(data=res, status=200)

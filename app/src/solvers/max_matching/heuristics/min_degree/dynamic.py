@@ -3,7 +3,7 @@ from typing import List, Tuple
 from src.solvers.max_matching.heuristics.abstract_heuristic import AbstractHeuristic
 
 
-class DynamicMinDegreeHeuristic(AbstractHeuristic):
+class Dynamic(AbstractHeuristic):
 
     def get_matching_edges(self) -> List[Tuple]:
         temp = self.bipartite_graph.get_graph_copy()
