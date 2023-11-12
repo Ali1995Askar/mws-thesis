@@ -7,7 +7,7 @@ class Limit(AbstractHeuristic):
 
     def __init__(self, bipartite_graph: BipartiteGraph):
         super().__init__(bipartite_graph)
-        self.limit_val = 1
+        self.limit_val = 2
 
     def get_matching_edges(self) -> List[Tuple]:
         temp = self.bipartite_graph.get_graph_copy()
