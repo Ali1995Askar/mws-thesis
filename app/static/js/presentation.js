@@ -10,9 +10,11 @@ $(document).ready(function () {
             type: "POST",
             url: url,
             data: $(this).serialize(),
-            success: function (data) {
-                enableSubmitButton(submitButton);
-                fillResults(data.matchingData, data.runTimeData);
+            success:  function (data) {
+                 const maxDelay = fillResults(data.matchingData, data.runTimeData);
+                 console.log(maxDelay)
+                 setTimeout(() => enableSubmitButton(submitButton), maxDelay);
+
             },
         });
     });
@@ -49,6 +51,8 @@ $(document).ready(function () {
     }
 
     function fillResults(orderedAlgoByMatching, orderedAlgoByRunTime) {
+        let maxDelay = 0;
+
         const textColors = [
             'text-light',
             'text-info',
@@ -83,6 +87,11 @@ $(document).ready(function () {
             const color = textColors[i];
             const delay = delayValue * i;
             appendItemWithDelay(runTimeContainer, algoName, algoRunTime, color, delay);
+            maxDelay = delay;
         }
+        maxDelay = maxDelay + delayValue + 200;
+        return maxDelay;
     }
+
+
 });
