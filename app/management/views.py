@@ -28,6 +28,7 @@ class DashboardView(View):
         workers_count = ManagementSelectors.get_workers_count(user)
         tasks_count = ManagementSelectors.get_tasks_count(user)
         categories_count = ManagementSelectors.get_categories_count(user)
+        educations_count = ManagementSelectors.get_educations_count(user)
 
         tasks_per_category = ManagementSelectors.get_tasks_per_category(user)
         workers_per_category = ManagementSelectors.get_workers_per_category(user)
@@ -38,6 +39,7 @@ class DashboardView(View):
             'workers_count': workers_count,
             'tasks_count': tasks_count,
             'categories_count': categories_count,
+            'educations_count': educations_count,
             'tasks_per_category': json.dumps(tasks_per_category),
             'workers_per_category': json.dumps(workers_per_category),
             'top_5_workers': top_10_workers,

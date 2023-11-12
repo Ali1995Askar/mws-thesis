@@ -19,7 +19,7 @@
         <section class="section dashboard">
             <div class="row">
                 <!-- Workers Card -->
-                <div class="col-xxl-4 col-md-6">
+                <div class="col-xxl-3 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <h5 class="card-title">Workers<span></span></h5>
@@ -36,7 +36,7 @@
                 </div><!-- End Workers Card -->
 
                 <!-- Tasks Tasks -->
-                <div class="col-xxl-4 col-md-6">
+                <div class="col-xxl-3 col-md-6">
                     <div class="card info-card revenue-card">
                         <div class="card-body">
                             <h5 class="card-title">Tasks <span></span></h5>
@@ -55,7 +55,7 @@
                 </div><!-- End Tasks Card -->
 
 
-                <div class="col-xxl-4 col-md-6">
+                <div class="col-xxl-3 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <h5 class="card-title">Categories<span></span></h5>
@@ -73,10 +73,28 @@
 
                     </div>
                 </div><!-- End Positions Card -->
+                 <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Educations<span></span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <a href={% url 'educations:list' %}> <i class="bi bi-mortarboard-fill"></i></a>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{ educations_count }}</h6>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div><!-- End Positions Card -->
 
             </div>
             <div class="row">
-                <div class="col-xxl-8 col-md-12">
+                <div class="col-xxl-8 col-md-7">
                     <div class="card top-selling overflow-auto">
                         <div class="card-body pb-0">
                             <h5 class="card-title">Top 5 Workers </h5>
@@ -122,7 +140,7 @@
 
                     </div>
                 </div>
-                <div class="col-xxl-4 col-md-12">
+                <div class="col-xxl-4 col-md-5">
                     <!-- Website Traffic -->
                     <div class="card">
 
@@ -198,7 +216,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xxl-8 col-md-12">
+                <div class="col-xxl-8 col-md-7">
                     <div class="card top-selling overflow-auto">
                         <div class="card-body pb-0">
                             <h5 class="card-title"> Most 10 Requested Categories </h5>
@@ -229,7 +247,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-md-12">
+                <div class="col-xxl-4 col-md-5">
                     <div class="card">
                         <div class="card-body">
                             {{ tasks_per_category.software }}

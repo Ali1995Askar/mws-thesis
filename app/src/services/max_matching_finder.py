@@ -2,7 +2,8 @@ import time
 from typing import Type
 from tasks.models import Task
 from workers.models import Worker
-from management.factories import Factory
+from core.factories import HeuristicFactory
+
 from django.contrib.auth.models import User
 from src.graph.bipartite_graph import BipartiteGraph
 from src.solvers.max_matching.max_matching_solver import MaxMatchingSolver
@@ -42,7 +43,7 @@ class MaxMatching:
         self.max_matching_execution_time = round(solve_end_time - solve_start_time, 4)
 
     def get_heuristic_solver(self):
-        heuristic_solver: Type[AbstractHeuristic] = Factory.get_algorithms(self.heuristic_algorithm)
+        heuristic_solver: Type[AbstractHeuristic] = HeuristicFactory.get_algo_inst_by_name(self.heuristic_algorithm)
         return heuristic_solver
 
     def update_nodes_status(self):

@@ -224,6 +224,11 @@ class ManagementSelectors:
         return categories_count
 
     @staticmethod
+    def get_educations_count(user):
+        educations_count = Education.objects.filter(user=user).count()
+        return educations_count
+
+    @staticmethod
     def get_tasks_per_category(user):
         top_tasks = Category.objects.filter(user=user).annotate(
             num_tasks=Count('task')

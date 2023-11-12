@@ -28,7 +28,7 @@ class TaskForm(forms.ModelForm):
             'id': 'title',
         })
 
-        self.fields['description'].widget = forms.TextInput(attrs={
+        self.fields['description'].widget = forms.Textarea(attrs={
             'class': 'form-control',
             'type': 'text',
             'name': 'description',
