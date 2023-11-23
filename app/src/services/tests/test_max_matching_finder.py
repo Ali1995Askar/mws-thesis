@@ -9,7 +9,7 @@ class TestMaxMatchingFinder:
     def test_execute(self, pytech_user, task_fix_tests, task_send_emails, worker_omar, aws_category, worker_ahmad):
         graph_builder = GraphBuilder(user=pytech_user)
         graph = graph_builder.get_bipartite_graph()
-        solver = MaxMatching(user=pytech_user, heuristic_algorithm='limit_min_degree', graph=graph)
+        solver = MaxMatching(user=pytech_user, heuristic_algorithm='limit', graph=graph)
         solver.execute()
 
     def test_solve(self):
