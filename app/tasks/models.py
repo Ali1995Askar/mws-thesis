@@ -20,7 +20,7 @@ class Task(models.Model):
     description = models.TextField(null=False, blank=False)
     deadline = models.DateField(default=datetime.date.today, null=True, blank=True)
 
-    status = models.CharField(max_length=50, db_index=True, choices=Status.choices)
+    status = models.CharField(max_length=50, db_index=True, choices=Status.choices, default=Status.OPEN.value)
 
     categories = models.ManyToManyField('categories.Category', blank=True)
     educations = models.ManyToManyField('educations.Education', blank=True)

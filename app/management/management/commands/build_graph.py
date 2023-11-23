@@ -49,11 +49,23 @@ class Command(BaseCommand):
 
     @classmethod
     def create_workers(cls, user):
-        return 10
+        Worker.objects.all().delete()
+        workers_objects = []
+        for worker in workers:
+            workers_objects.append(Worker(user=user, **worker))
+
+        Worker.objects.bulk_create(workers_objects)
+        return Worker.objects.count()
 
     @classmethod
     def create_tasks(cls, user):
-        return 10
+        Task.objects.all().delete()
+        tasks_objects = []
+        for task in tasks:
+            tasks_objects.append(Task(user=user, **task))
+
+        Task.objects.bulk_create(tasks_objects)
+        return Task.objects.count()
 
     def handle(self, *args, **options):
         user = self.create_user_and_profile()
@@ -62,5 +74,11 @@ class Command(BaseCommand):
         categories_count = self.create_categories(user)
         print(f'Successfully created {categories_count} categories records.\n')
 
-        education_count = self.create_educations(user)
-        print(f'Successfully created {education_count} education records.\n')
+        educations_count = self.create_educations(user)
+        print(f'Successfully created {educations_count} education records.\n')
+
+        workers_count = self.create_workers(user)
+        print(f'Successfully created {workers_count} workers records.\n')
+
+        tasks_count = self.create_tasks(user)
+        print(f'Successfully created {tasks_count} tasks records.\n')
