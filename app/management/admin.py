@@ -50,3 +50,14 @@ class ContactUsAdmin(admin.ModelAdmin):
         'email',
         'subject',
     ]
+    readonly_fields = [
+        'name',
+        'email',
+        'subject',
+        'message'
+    ]
+
+
+admin.site.site_header = 'MAX MATCHING ADMIN'
+admin.site.site_title = 'MAX MATCHING'
+admin.site.index_title = 'mws - thesis: ali_133380@svuonline.org'

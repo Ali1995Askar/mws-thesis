@@ -21,6 +21,14 @@ class Command(BaseCommand):
         )
 
     @classmethod
+    def create_super_user(cls):
+        get_user_model().objects.filter(is_superuser=True).delete()
+        superuser = get_user_model().objects.create_superuser(username='admin',
+                                                              password='admin',
+                                                              email='admin@admin.com')
+        return superuser
+
+    @classmethod
     def create_user_and_profile(cls):
         get_user_model().objects.filter(username=user_ali['username']).delete()
         user = get_user_model().objects.create_user(**user_ali)
@@ -68,6 +76,9 @@ class Command(BaseCommand):
         return Task.objects.count()
 
     def handle(self, *args, **options):
+        self.create_super_user()
+        print(f'Successfully created a super user "admin".\n')
+
         user = self.create_user_and_profile()
         print(f'Successfully created a user with the username "{user.username}" and completed the profile setup.\n')
 

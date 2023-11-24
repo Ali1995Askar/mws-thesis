@@ -8,11 +8,31 @@ class WorkerAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
     change_links = ['user', ]
 
     list_display = [
-        'first_name',
-        'last_name',
-        'email',
+        'full_name',
         'status',
-        'user_link',
-        'created_on_datetime',
-        'updated_on_datetime'
+
+        'education',
+        'categories_list',
+        'user_link'
+
     ]
+    list_filter = [
+        'status',
+        'categories',
+    ]
+
+    search_fields = [
+        'first_name',
+        'last_name'
+    ]
+
+    @staticmethod
+    def full_name(obj):
+        return obj.first_name + ' ' + obj.last_name
+
+    @staticmethod
+    def categories_list(obj):
+        to_show = ''
+        for category in obj.categories.all():
+            to_show += category.name + ', \n'
+        return to_show

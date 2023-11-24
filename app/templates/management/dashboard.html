@@ -73,7 +73,7 @@
 
                     </div>
                 </div><!-- End Positions Card -->
-                 <div class="col-xxl-3 col-md-6">
+                <div class="col-xxl-3 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <h5 class="card-title">Educations<span></span></h5>
@@ -97,7 +97,7 @@
                 <div class="col-xxl-8 col-md-7">
                     <div class="card top-selling overflow-auto">
                         <div class="card-body pb-0">
-                            <h5 class="card-title">Top 5 Workers </h5>
+                            <h5 class="card-title">Top Workers </h5>
                             <table class="table table-borderless">
                                 <thead>
                                 <tr>
@@ -170,11 +170,12 @@
                                     tasksCategories.push(tasksParsedData[item].name);
                                     tasksData.push(tasksParsedData[item].num_tasks);
                                 }
-                                console.log(tasksData)
+
 
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#TasksPerCategoriesChart"), {
                                         series: [{
+                                            name: 'Tasks count',
                                             data: tasksData,
                                         }],
                                         chart: {
@@ -198,7 +199,7 @@
                                             {
                                                 labels: {
                                                     formatter: function (val) {
-                                                        return val.toFixed(0);
+                                                        return val
                                                     }
                                                 }
                                             }
@@ -219,7 +220,7 @@
                 <div class="col-xxl-8 col-md-7">
                     <div class="card top-selling overflow-auto">
                         <div class="card-body pb-0">
-                            <h5 class="card-title"> Most 10 Requested Categories </h5>
+                            <h5 class="card-title"> Most Requested Categories </h5>
                             <table class="table table-borderless">
                                 <thead>
                                 <tr>
@@ -269,6 +270,7 @@
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#workersCountPerCategoriesChart"), {
                                         series: [{
+                                            name: 'Workers count',
                                             data: workersData,
                                         }],
                                         chart: {
