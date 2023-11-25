@@ -6,7 +6,7 @@ from workers.models import Worker
 from categories.models import Category
 from educations.models import Education
 from django.contrib.auth.models import User
-from django.db.models import Count, F, Value, CharField
+from django.db.models import Count, F, Value, CharField, Q
 from django.db.models.functions import Concat, Coalesce
 from management.models import ExecutionHistory
 
@@ -69,10 +69,10 @@ class ManagementSelectors:
                                   Value(')'),
                                   output_field=CharField())
 
-        rows = Task.objects.filter(user=user).annotate(worker_id=F('assigned_to_id'),
-                                                       worker_full_name=worker_full_name,
-                                                       task_id=F('id'),
-                                                       task_full_name=task_full_name)
+        rows = Task.objects.filter(user=user, assigned_to__isnull=False).annotate(worker_id=F('assigned_to_id'),
+                                                                                  worker_full_name=worker_full_name,
+                                                                                  task_id=F('id'),
+                                                                                  task_full_name=task_full_name)
 
         rows = list(rows.values_list('worker_full_name', 'worker_id', 'task_id', 'task_full_name'))
         return {'rows': rows}
@@ -112,31 +112,30 @@ class ManagementSelectors:
         top_workers = Category.objects.filter(user=user).annotate(
             num_workers=Count('worker')
         ).filter(
-
             num_workers__gt=0
         ).order_by('-num_workers').values('name', 'num_workers')[:5]
         return list(top_workers)
 
     @staticmethod
-    def get_top_10_workers(user):
-        top_10_workers = Worker.objects.filter(
+    def get_top_workers(user):
+        top_workers = Worker.objects.filter(
             user=user
         ).annotate(
             categories_count=Count('categories'),
             full_name=Concat(F('first_name'), Value(' '), F('last_name')),
             education_name=Coalesce(F('education__name'), Value('-'))
-        ).order_by('categories_count')[:5]
+        ).filter(categories_count__gt=0).order_by('categories_count')[:5]
 
-        return list(top_10_workers)
+        return list(top_workers)
 
     @staticmethod
-    def get_top_10_categories(user):
-        top_10_categories = Category.objects.filter(
+    def get_top_categories(user):
+        top_categories = Category.objects.filter(
             user=user,
         ).annotate(
             tasks_count=Count('task', distinct=True),
             workers_count=Count('worker', distinct=True),
-        ).filter(tasks_count__gt=0, workers_count__gt=0).order_by(
+        ).filter(Q(tasks_count__gt=0) | Q(workers_count__gt=0)).order_by(
             '-tasks_count'
         ).values('name', 'tasks_count', 'workers_count')[:10]
-        return list(top_10_categories)
+        return list(top_categories)

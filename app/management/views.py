@@ -32,8 +32,8 @@ class DashboardView(View):
 
         tasks_per_category = ManagementSelectors.get_tasks_per_category(user)
         workers_per_category = ManagementSelectors.get_workers_per_category(user)
-        top_10_workers = ManagementSelectors.get_top_10_workers(user)
-        top_10_categories = ManagementSelectors.get_top_10_categories(user)
+        top_workers = ManagementSelectors.get_top_workers(user)
+        top_categories = ManagementSelectors.get_top_categories(user)
 
         context = {
             'workers_count': workers_count,
@@ -42,8 +42,8 @@ class DashboardView(View):
             'educations_count': educations_count,
             'tasks_per_category': json.dumps(tasks_per_category),
             'workers_per_category': json.dumps(workers_per_category),
-            'top_5_workers': top_10_workers,
-            'top_10_categories': top_10_categories,
+            'top_5_workers': top_workers,
+            'top_10_categories': top_categories,
         }
         return render(request, f"{self.template_name}", context=context)
 
@@ -56,7 +56,6 @@ class AssignTasksView(View):
     def get_context(request):
         tasks_counts_dict = TaskSelectors.get_tasks_count_by_status(request.user)
         workers_counts_dict = WorkerSelectors.get_workers_count_by_status(request.user)
-        # execution_history_dict = ManagementSelectors.get_latest_execution_history(request.user)
 
         context = {
             'open_tasks': tasks_counts_dict['OPEN'],

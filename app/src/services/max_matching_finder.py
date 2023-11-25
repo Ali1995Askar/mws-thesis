@@ -81,6 +81,7 @@ class MaxMatching:
 
     def save_execution_history(self, max_matching_model: MaxMatchingModel, heuristic_matching_model: HeuristicMatching):
         edges_count = len(self.graph.graph.edges)
+        print(edges_count)
         edges_count = edges_count // 2
 
         if self.graph.red_nodes and self.graph.blue_nodes:

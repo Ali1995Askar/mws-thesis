@@ -103,9 +103,9 @@
                                 <tr>
                                     <th scope="col"></th>
                                     <th scope="col">Full Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Education</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Categories count</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,9 +116,6 @@
                                             <a href="#"><img src="{% static 'img/worker-icon.png' %}" alt=""></a>
                                         </th>
                                         <td class="text-primary fw-bold">{{ worker.full_name }}</td>
-                                        <td>{{ worker.email }}</td>
-                                        <td>{{ worker.education_name }}</td>
-
                                         <td>
                                             {% if worker.status == "OCCUPIED" %}
                                                 <span class="badge bg-success">
@@ -128,7 +125,7 @@
                                             {{ worker.status }}
                                             </span>
                                         </td>
-
+                                        <td>{{ worker.categories_count }}</td>
                                     </tr>
                                 {% endfor %}
 
