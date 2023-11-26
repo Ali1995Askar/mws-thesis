@@ -54,9 +54,10 @@ class WorkerForm(forms.ModelForm):
                 'id': 'categories',
                 'required': False
             })
-
+        choices = list(Education.objects.filter(user=user).values_list('id', 'name'))
+        choices.insert(0, (None, '----'))
         self.fields['education'].widget = forms.Select(
-            choices=Education.objects.filter(user=user).values_list('id', 'name'),
+            choices=choices,
             attrs={
                 'class': 'form-control',
                 'name': 'education',
